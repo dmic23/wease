@@ -1,0 +1,64 @@
+        <div class="back" ng-class="statiBg[order.$key];">
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-xs-6">
+              <a href=javascript:; ui-sref="app.orders.all({filterParam:order.$key})"><i class="fa fa-list fa-2x"></i> View All</a>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="dropdown notifications col-xs-6" dropdown on-toggle="toggled(open)">
+              <a href class="dropdown-toggle" dropdown-toggle><i class="fa fa-eye fa-2x"></i> Quick View</a>
+
+                <li class="dropdown-menu pull-right with-arrow panel panel-default animated littleFadeInLeft">
+
+                  <div class="panel-heading">
+                    <!-- <span>{{vm.verbiage[order.$key];}}</span> -->
+                  </div>
+
+                  <ul class="list-group notificaitons">
+                  <!-- <p>{{order}}</p> -->
+<!--                     <li class="list-group-item team col-md-12" ng-repeat="item in order | orderBy: '-order_status_change_date'| limitTo : 5 ">
+                      <div class="row">
+                        <div class="col-md-12 m-10">
+                          <p class="text-default">#: {{item.order_number}}/v{{item.order_version}}</p>
+                          <h5 class="text-default block">Reference: {{item.reference_number}}</h5>
+                          <h5 class="text-default block" >Updated: {{item.order_status_change_date | date:"d MMM y 'at' h:mm a"}}</h5>
+                          <h5 class="text-default block"><a ui-sref="app.pages.profile({username:item.order_status_change_by_username})" ng-if="item.order_status_change_by_username"> by {{item.order_status_change_by_first_name}} {{item.order_status_change_by_last_name}}</a></h5>
+                          <h5 class="text-default block"><a ui-sref="app.pages.profile({username:item.order_created_by_username})" ng-if="!item.order_status_change_by_username"> by {{item.order_created_by_first_name}} {{item.order_created_by_last_name}}</a></h5>
+                        </div>
+                      </div>
+                    </li> -->
+                  </ul>
+                <!-- </div> -->
+              </li>
+              </div>
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </div>
+
+        
+      @include transform(rotateX(0deg) rotateY(0deg));
+
+      @include transform-style(preserve-3d);
+
+      @include backface-visibility(hidden);
+
+      /* -- transition is the magic sauce for animation -- */
+      @include transition(all .4s ease-in-out);
+    }
+
+    &:hover {
+      .front {
+        z-index: 11;
+        @include transform(rotateY(180deg));
+      }
+
+      .back {
+        z-index: 12;
+        @include transform(rotateX(0deg) rotateY(0deg));
+      }

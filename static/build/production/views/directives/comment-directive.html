@@ -1,0 +1,37 @@
+<ul class="chats p-0">
+    <li ng-class-odd="'in'" ng-class-even="'out'" ng-repeat="item in comments | orderBy: '-created_date'">
+        <div class="media">
+            <div ng-class-odd="'pull-left'" ng-class-even="'pull-right'" class="thumb thumb-sm pt-10">
+                <a ui-sref="app.pages.profile({ username: item.created_by_username })"><img class="media-object img-circle size-30x30" ng-src="{{path.static_files}}{{ item.created_by_pic }}" alt="{{ item.created_by_first_name }} {{ item.created_by_last_name }}"></a>
+            </div>
+            <div class="media-body panel panel-default">
+                <div class="panel-heading bg-white">
+                    <p ng-class-odd="'pull-left'" ng-class-even="'pull-right'" class="text-md inline"><a ui-sref="app.pages.profile({ username: item.created_by_username })" ng-class-odd="'text-greensea'" ng-class-even="'text-lightred'" >{{ item.created_by_first_name }} {{ item.created_by_last_name }}</a></p>
+                    <span ng-class-odd="'pull-right'" ng-class-even="'pull-left'" class="text-muted inline"><i class="fa fa-clock-o mr-5"></i> {{ item.created_date | date: "d MMM 'at' h:mm a" }}</span>
+                </div>
+                <div class="panel-body bg-white text-md">
+                    {{ item.body }}
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="out">
+        <div class="media">
+            <div class="pull-right thumb thumb-sm pt-10">
+                <img class="media-object img-circle" ng-src="{{path.static_files}}{{ user.user_pic }}" alt="">
+            </div>
+            <div class="media-body">
+                <div class="mt-10 mb-10 mr-10" ng-hide="post">
+                    <a href="javascript:;" class="btn btn-primary" ng-click="post=!post">New comment</a>
+                </div>
+                <div ng-show="post">
+                    <div class="p-15 text-left bg-white text-md" contenteditable name="ordComment" strip-br="true" style="min-height:100px" ng-model="vm.ordComment.comment_body"></div> 
+                    <div class="panel-footer text-left">
+                        <button class="btn btn-link text-default pull-right" ng-click="post=!post; vm.clearComment();"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-greensea btn-ef btn-ef-7 btn-ef-7b b-0 br-2" activate-button="" ng-click="vm.addComment(); post=!post;"><i class="fa fa-envelope"></i> Post Comment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

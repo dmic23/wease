@@ -1,0 +1,88 @@
+<div class="modal-header">
+    <p class="pull-right text-lg"><a href ng-click="cancel()">X</a></p>
+    <h3 class="modal-title">Offer View</h3>
+    <h4 ng-class="stati[offer.offer_approval_status]">{{offer.offer_approval_display}}</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="text-strong text-uppercase custom-font">customer</h5>
+            <ul class="list-unstyled">
+                <li>{{ vm.order.order_company.name }}</li>
+                <li>{{ vm.order.order_company.street_addr1 }}</li>
+                <li ng-show="vm.order.order_company.street_addr2">{{ vm.order.order_company.street_addr2 }}</li>
+                <li>{{ vm.order.order_company.city }}, {{ vm.order.order_company.country }} {{ vm.order.order_company.post_code }}</li>
+                <li>{{ vm.order.order_company.phone_main }}</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h5 class="text-strong text-uppercase custom-font">delivery address</h5>
+            <ul class="list-unstyled">
+                <li>{{ vm.order.delivery_address.addr_location }}</li>
+                <li>{{ vm.order.delivery_address.street_addr1 }}</li>
+                <li ng-show="vm.order.delivery_address.street_addr2">{{ vm.order.delivery_address.street_addr2 }}</li>
+                <li>{{ vm.order.delivery_address.city }}, {{ vm.order.delivery_address.country }}  {{ vm.order.delivery_address.post_code }}</li>
+                <li>{{ vm.order.delivery_address.phone_main }}</li>
+            </ul>
+        </div>        
+    </div>
+    <div class="row b-t p-20">
+        <div class="col-md-12 b-a well" ng-repeat="item in offer.offer_item">
+            <div class="row mt-20">
+                <div class="form-group col-md-12" ng-show="item.item_name">
+                    <label for="item_name" class="control-label"><strong>Offer Item</strong></label>
+                    <p class="form-control-static">{{ item.item_name }}</p>
+                </div>
+                <div class="form-group col-md-4" ng-show="item.item_details">
+                    <label for="item_details"><strong>Description</strong></label>
+                    <p class="form-control-static">{{ item.item_details }}</p>
+                </div>
+                <div class="form-group col-md-4" ng-show="item.delivery_date">
+                    <label for="delivery-date"><strong>Delivery Date</strong></label>
+                    <p class="form-control-static">{{ item.delivery_date | date: 'mediumDate' }}</p>
+                </div>            
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4" ng-show="item.date_start">
+                    <label for="date_start"><strong>Start Date</strong></label>
+                    <p class="form-control-static">{{ item.date_start | date: 'mediumDate' }}</p>
+                </div>
+                <div class="form-group col-md-4" ng-show="item.date_end">
+                    <label for="date_end"><strong>End Date</strong></label>
+                    <p class="form-control-static">{{ item.date_end | date: 'mediumDate' }}</p>
+                </div>                                        
+            </div> 
+            <div class="row">
+                <div class="form-group col-md-4" ng-show="item.quantity">
+                    <label for="quantity"><strong>Quantity</strong></label>
+                    <p class="form-control-static">{{ item.quantity }}</p>
+                </div>
+                <div class="form-group col-md-4" ng-show="item.price">
+                    <label for="price"><strong>Rate</strong></label>
+                    <p class="form-control-static">{{ item.price | currency:"€ " }}</p>
+                </div>
+                <div class="form-group col-md-4" ng-show="item.item_sub_total">
+                    <label for="subtotal"><strong>SubTotal</strong></label>
+                    <p class="form-control-static">{{ item.item_sub_total | currency:"€ " }}</p>
+                </div>                                        
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+    <div class="row">
+        <div class="col-md-12 mt-20">
+            <div class="form-group col-md-6">
+                <label for="offer_terms"><strong>Offer Terms</strong></label>
+                <p class="form-control-static" >{{ offer.offer_terms }}</p>
+            </div>
+            <div class="form-group col-md-4 pull-right">
+                <label for="offer_total"><strong>Offer Total</strong></label>
+                <p class="form-control-static well text-lg" >{{ offer.offer_total | currency:"€ " }}</p>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="modal-footer">
+    <!-- <button ng-click="vm.offerApvl('APV'); cancel()" class="btn btn-success btn-ef btn-ef-4 btn-ef-4c"><i class="fa fa-check"></i> Approve</button> -->
+    <button ng-click="cancel()" class="btn btn-slategray btn-ef btn-ef-4 btn-ef-4c" ng-click="cancel()"><i class="fa fa-arrow-left"></i> Return</button>
+</div>

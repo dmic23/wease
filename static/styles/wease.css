@@ -1,0 +1,15 @@
+.panel-heading.bg-white{
+	text-decoration: none;
+	overflow: hidden;
+}
+
+#rightbar{
+	overflow: visible;
+}
+
+.dropdown-menu.pull-left.animated.littleFadeInLeft {
+    position: absolute;
+    top: 0;
+    left: -165%;
+    width: 25em;
+}

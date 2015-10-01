@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <p class="pull-right"><a href ng-click="cancel()">X</a></p>
+    <h3 class="modal-title custom-font">Request <strong>Item</strong></h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6 pl-20 pr-20">
+            <h4 class="text-uppercase">{{ req.item_fam }}</h4>
+            <h5 class="text-uppercase">{{ req.item_subfam }}</h5>
+        </div>
+    </div>
+    <div class="row b-t p-15">
+        <h5 class="block" custom-font>Request Item <strong>Details</strong></h5>
+        <div class="col-md-6" ng-repeat="item in req.req_product">
+            <div class="row m-5 well pb-0">
+                <div class="form-group col-md-12">
+                    <label for="item_name" class="control-label"><strong>{{ item.prod_title }}</strong></label>
+                    <p class="form-control-static">{{ item.prod_details }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label for="offer_terms" custom-font>Request Item <strong>Notes</strong></label>
+            <div class="col-md-12">
+                <p class="form-control-static pl-15">{{req.item_details}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="req.req_item_file[0]">
+        <div class="form-group col-md-12">
+            <label for="offer_terms" custom-font>Attached <strong>Files</strong></label>
+            <div ng-repeat="file in req.req_item_file" class="col-md-12">
+                <p class="form-control-static"><a href="{{path.media}}{{ file.req_file }}" target="_blank">{{ file.req_file }}</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-slategray btn-ef btn-ef-4 btn-ef-4c" ng-click="cancel()"><i class="fa fa-arrow-left"></i> Return</button>
+    <button ng-if="['WRQ','APN'].indexOf(vm.order.order_status)!=-1" ui-sref="app.orders.edit({reqId:req.id})" ng-click="cancel()" class="btn btn-primary btn-ef btn-ef-4 btn-ef-4c"><i class="fa fa-pencil"></i> Edit</button>
+    <button ng-if="['WRQ','APN'].indexOf(vm.order.order_status)!=-1" class="btn btn-lightred btn-ef btn-ef-4 btn-ef-4c" ng-click="vm.delReqItem(req.id); cancel()"><i class="fa fa-times"></i> Delete</button>
+</div>

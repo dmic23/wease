@@ -1,0 +1,124 @@
+<div class="modal-header">
+    <p class="pull-right text-lg"><a href ng-click="cancel()">X</a></p>
+    <h3 class="modal-title custom-font">Confirm and Submit <strong>Request</strong></h3>
+</div>
+<div class="modal-body">
+
+    <div class="row mb-20">
+        <div class="block ml-20" ng-show="vm.order.reference_number">
+            <h5 class="custom-font text-strong text-uppercase">reférence interne</h5>
+            <h5 class="">{{ vm.order.reference_number}}</h5>
+        </div>
+        <div class="col-md-4">
+            <h5 class="text-strong text-uppercase custom-font">customer</h5>
+            <ul class="list-unstyled">
+                <li>{{ vm.order.order_company.name }}</li>
+                <li>{{ vm.order.order_company.company_address.street_addr1 }}</li>
+                <li ng-show="vm.order.order_company.company_address.street_addr2">{{ vm.order.order_company.company_address.street_addr2 }}</li>
+                <li>{{ vm.order.order_company.company_address.city }}, {{ vm.order.order_company.company_address.country }} {{ vm.order.order_company.company_address.post_code }}</li>
+                <li>{{ vm.order.order_company.company_address.phone_main }}</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h5 class="text-strong text-uppercase custom-font">delivery address</h5>
+            <p class="text-lightred text-md" ng-show="!vm.order.delivery_address">Delivery Address Needed</p>
+            <ul class="list-unstyled" ng-show="vm.order.delivery_address">
+                <li>{{ vm.order.delivery_address.addr_location }}</li>
+                <li>{{ vm.order.delivery_address.street_addr1 }}</li>
+                <li ng-show="vm.order.delivery_address.street_addr2">{{ vm.order.delivery_address.street_addr2 }}</li>
+                <li>{{ vm.order.delivery_address.city }}, {{ vm.order.delivery_address.country }}  {{ vm.order.delivery_address.post_code }}</li>
+                <li>{{ vm.order.delivery_address.phone_main }}</li>
+            </ul>
+        </div>        
+    </div>
+
+    <div class="b-t mt-10 pt-5" ng-repeat="reqItem in vm.order.req_order">
+        <div class="row">
+            <div class="col-md-6 pl-20 pr-20">
+                <h5 class="block" custom-font>Request Item <strong>Details</strong></h5>
+                <h5 class="text-uppercase block">{{ reqItem.item_fam }}</h5>
+                <h5 class="block">{{ reqItem.item_subfam }}</h5>
+            </div>
+        </div>
+        <div class="row p-15">
+
+            <div class="col-md-6" ng-repeat="prod in reqItem.req_product">
+                <div class="row m-5 well pb-0">
+                    <div class="form-group col-md-12">
+                        <label for="item_name" class="control-label"><strong>{{ prod.prod_title }}</strong></label>
+                        <p class="form-control-static">{{ prod.prod_details }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="offer_terms" custom-font>Request Item <strong>Notes</strong></label>
+                <div class="col-md-12">
+                    <p class="form-control-static pl-15">{{reqItem.item_details}}</p>
+                </div>
+            </div>
+<!--         </div>
+        <div class="row" > -->
+            <div class="form-group col-md-6" ng-show="reqItem.req_item_file[0]">
+                <label for="offer_terms" custom-font>Attached <strong>Files</strong></label>
+                <div ng-repeat="file in reqItem.req_item_file" class="col-md-12">
+                    <p class="form-control-static"><a href="{{path.static_files}}{{ file.req_file }}" target="_blank">{{ file.req_file }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!--     <div class="row">
+        <div class="block ml-20" ng-show="vm.order.reference_number">
+            <h5 class="text-strong custom-font text-uppercase">reference number</h5>
+            <h4 class="">{{ vm.order.reference_number}}</h4>
+        </div>
+        <div class="col-md-4">
+            <h5 class="text-strong text-uppercase custom-font">customer</h5>
+            <ul class="list-unstyled">
+                <li>{{ vm.order.order_company.name }}</li>
+                <li>{{ vm.order.order_company.street_addr1 }}</li>
+                <li ng-show="vm.order.order_company.street_addr2">{{ vm.order.order_company.street_addr2 }}</li>
+                <li>{{ vm.order.order_company.city }}, {{ vm.order.order_company.country }} {{ vm.order.order_company.post_code }}</li>
+                <li>{{ vm.order.order_company.phone_main }}</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h5 class="text-strong text-uppercase custom-font">delivery address</h5>
+            <p class="text-lightred text-md" ng-show="!vm.order.delivery_address">Delivery Address Needed</p>
+            <ul class="list-unstyled" ng-show="vm.order.delivery_address">
+                <li>{{ vm.order.delivery_address.addr_location }}</li>
+                <li>{{ vm.order.delivery_address.street_addr1 }}</li>
+                <li ng-show="vm.order.delivery_address.street_addr2">{{ vm.order.delivery_address.street_addr2 }}</li>
+                <li>{{ vm.order.delivery_address.city }}, {{ vm.order.delivery_address.country }}  {{ vm.order.delivery_address.post_code }}</li>
+                <li>{{ vm.order.delivery_address.phone_main }}</li>
+            </ul>
+        </div>        
+    </div> -->
+<!--     <div class="row b-t p-20">
+        <div class="col-md-12 b-a well" ng-repeat="reqItem in vm.order.req_order">
+            <h4>{{ reqItem.item_fam }}</h4>
+            <h5>{{ reqItem.item_subfam }}</h5>
+            <div class="row mt-20" ng-repeat="prod in reqItem.req_product | orderBy:'id'">
+                <div class="form-group col-md-6">
+                    <label class="control-label"><strong>{{ prod.prod_title }}</strong></label>
+                    <p class="form-control-static">{{ prod.prod_details }}</p>
+                </div>          
+            </div>
+            <div class="row" ng-show="reqItem.req_item_file">
+                <h5>Request Files</h5>
+                <div class="form-group col-md-4" ng-repeat="file in reqItem.req_item_file">
+                 
+                    <p class="form-control-static"><a href="{{path.static_files}}{{ file.req_file }}" target="_blank">{{ file.req_file }}</a></p>
+                </div>                                       
+            </div> 
+        </div>
+    </div> -->
+</div>
+<div class="modal-footer">
+    <button ng-click="cancel()" class="btn btn-primary btn-ef btn-ef-4 btn-ef-4c"><i class="fa fa-times"></i> Close</button>
+    <button ng-click="vm.confirmReq(vm.order); cancel()" class="btn btn-success btn-ef btn-ef-4 btn-ef-4c"><i class="fa fa-check"></i> Confirm </button>
+</div>

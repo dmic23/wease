@@ -1,0 +1,124 @@
+<div class="page page-single-order">
+    <!-- page header -->
+    <div class="pageheader">
+        <h2>{{page.title}} <span> for </span> Optiz</h2>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.pages.profile">{{page.title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!-- page content -->
+    <div class="pagecontent">
+        <div class="add-nav">
+            <div class="nav-heading">
+                <!-- row -->
+                <div class="row">
+                    <!-- col -->
+                    <div class="col-md-12">
+                        <div class="wrap-reset">
+                            <form class="profile-settings form-validation" name="createCompForm" ng-submit="vm.createCompany();" novalidate>
+                                <div class="row">
+                                    <div class="form-group col-md-12 legend">
+                                        <h4>Create WeASe <strong>Company</strong></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="company-name">Company Name</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.name">
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="addr_location">Address Title</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.company_address.addr_location">
+                                        <span class="help-block">Main Office, HeadQuarters, Warehouse, etc.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="street_addr1">Address Line 1</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.company_address.street_addr1">
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="street_addr2">Address Line 2</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.company_address.street_addr2">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="city">City</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.company_address.city">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="post_code">Post Code</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.company_address.post_code">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="country">Country</label>
+                                        <select ng-if="vm.hideStatic === $index"
+                                            chosen 
+                                            class="form-control"
+                                            width="'100%'"
+                                            ng-model="vm.company.company_address.country"
+                                            ng-options="country for country in countries"
+                                            data-placeholder="Choose a country">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="email">E-mail</label>
+                                        <input type="email" class="form-control" ng-model="vm.company.company_address.email">
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="phone">Phone Main</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.company_address.phone_main">
+                                        <span class="help-block">+(34) 13 24 76 98</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="assign_optiz">Assign Optiz</label>
+                                        <select class="form-control" 
+                                                chosen 
+                                                multiple 
+                                                width="'100%'"
+                                                name="assignOptiz" 
+                                                ng-model="vm.company.assign_optiz"
+                                                ng-options="optiz.id as optiz.user_name_full for optiz in vm.optizUsers" 
+                                                data-placeholder="Assign Optiz"
+                                                required>
+                                                <option value=""></option>
+                                        </select>
+                                        <span class="text-red" ng-show="assignOptizForm.assignOptiz.$invalid">Required</span>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="company_website">Website</label>
+                                        <input type="text" class="form-control" ng-model="vm.company.company_website">
+                                        <span class="help-block">www.optiz.fr</span>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="addr_notes">Address Notes</label>
+                                        <textarea class="form-control" rows="4" ng-model="vm.company.company_address.addr_notes"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-rounded btn-primary">Create Company</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /col -->
+                </div>
+                <!-- /row -->
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+</div>

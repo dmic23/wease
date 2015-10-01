@@ -1,0 +1,44 @@
+.panel-heading.bg-white {
+	text-decoration: none;
+	overflow: hidden;
+
+	a:hover{
+		text-decoration: none;
+	}
+}
+
+.team {
+	cursor:pointer;
+}
+
+.login-alert {
+	border-left:0;
+}
+
+.dash {
+	height: 115px;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.panel-heading.bg-white{
+	text-decoration: none;
+	overflow: hidden;
+}
+
+#rightbar{
+	overflow: visible;
+}
+
+.dropdown-menu.pull-left.animated.littleFadeInLeft {
+    position: absolute;
+    top: 0;
+    left: -165%;
+    width: 25em;
+}
+
+.no-td{
+	text-decoration: none;
+}

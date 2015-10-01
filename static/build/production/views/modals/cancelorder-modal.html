@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <p class="pull-right"><a href ng-click="cancel()">X</a></p>
+    <h3 class="modal-title custom-font">Cancel <strong>Request</strong></h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6 pl-20 pr-20 form-group">
+            <h4>Confirm below to cancel this Request</h4>
+        </div>
+    </div>
+<div class="modal-footer">
+    <button class="btn btn-slategray btn-ef btn-ef-4 btn-ef-4c" ng-click="cancel()"><i class="fa fa-arrow-left"></i> Return</button>
+    <button ng-click="vm.delOrder(vm.order.id); cancel()" class="btn btn-lightred btn-ef btn-ef-4 btn-ef-4c" ng-show="!vm.order.order_offer"><i class="fa fa-pencil"></i> Cancel this Request</button>
+</div>

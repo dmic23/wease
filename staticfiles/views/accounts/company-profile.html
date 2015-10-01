@@ -1,0 +1,621 @@
+<div class="page page-profile">
+
+
+
+
+  <!-- page header -->
+  <div class="pageheader">
+
+    <h2>{{page.title}} <span>for</span> {{ vm.company.name }}</h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+        </li>
+        <li>
+          <a ui-sref="app.pages.company-profile">{{ vm.company.name }} Page</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+  <!-- /page header -->
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+
+    <!-- row -->
+    <div class="row">
+      <!-- col -->
+      <div class="col-md-4">
+
+        <!-- tile -->
+        <section class="tile tile-simple">
+
+          <!-- tile widget -->
+          <div class="tile-widget p-30 text-center">
+
+            <div class="thumb thumb-xl">
+              <img class="img-circle" ng-src="{{path.static_files}}{{ vm.company.company_logo }}" alt=""/>
+            </div>
+            <h4 class="mb-0"><strong>{{ vm.company.name }}</strong></h4>
+            <span class="text-muted">{{ vm.account.position }}</span>
+            <div class="mt-10">
+              <button class="btn btn-rounded-20 btn-sm btn-greensea">Chat</button>
+              <button class="btn btn-rounded-20 btn-sm btn-lightred">Message</button>
+            </div>
+
+          </div>
+          <!-- /tile widget -->
+
+          <!-- tile body -->
+<!--           <div class="tile-body text-center bg-blue p-0">
+
+            <ul class="list-inline tbox m-0">
+              <li class="tcol p-10">
+                <h2 class="m-0">695</h2>
+                <span class="text-transparent-white">Tweets</span>
+              </li>
+              <li class="tcol bg-blue dker p-10">
+                <h2 class="m-0">1 269</h2>
+                <span class="text-transparent-white">Followers</span>
+              </li>
+              <li class="tcol p-10">
+                <h2 class="m-0">369</h2>
+                <span class="text-transparent-white">Following</span>
+              </li>
+            </ul>
+
+          </div> -->
+          <!-- /tile body -->
+
+        </section>
+        <!-- /tile -->
+
+
+        <!-- tile -->
+<!--         <section class="tile tile-simple">
+
+          <div class="tile-header">
+            <h1 class="custom-font"><strong>About</strong> {{ vm.account.first_name }}</h1>
+          </div>
+         
+          <div class="tile-body">
+
+            <p>
+              <a href="#" class="icon icon-info icon-ef-3 icon-ef-3b icon-color"><i class="fa fa-twitter"></i></a>
+              <a href="{{ facebookLink }}" class="icon icon-primary icon-ef-3 icon-ef-3b icon-color"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="icon icon-lightred icon-ef-3 icon-ef-3b icon-color"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="icon icon-hotpink icon-ef-3 icon-ef-3b icon-color"><i class="fa fa-dribbble"></i></a>
+            </p>
+
+            <p class="text-default lt">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.</p>
+
+          </div>
+          
+
+        </section> -->
+        <!-- /tile -->
+
+        <!-- tile -->
+        <section class="tile tile-simple">
+
+          <!-- tile header -->
+          <div class="tile-header">
+            <h1 class="custom-font"><strong>Team</strong> {{ vm.company.name }}</h1>
+          </div>
+          <!-- /tile header -->
+
+          <!-- tile body -->
+          <div class="tile-body">
+
+            <div class="media team" ng-repeat="user in vm.company.wease_company" ui-sref="app.pages.profile({username:user.username})">
+              
+              <div class="pull-left thumb">
+                <img class="media-object img-circle" ng-src="{{path.static_files}}{{ user.user_pic }}" alt="">
+              </div>
+<!--               <div class="pull-right mt-10">
+                <button type="button" class="btn btn-rounded-20 btn-default btn-sm" style="width:30px;"><a ui-sref="app.pages.profile({username:user.username})"><i class="fa fa-eye" style="margin-left: -2px;"></i></a></button>
+                <button type="button" class="btn btn-rounded-20 btn-default btn-sm mr-5" style="width:30px;"><i class="fa fa-pencil"></i></button>
+              </div> -->
+              <div class="media-body">
+                <p class="media-heading mb-0 mt-10">{{ user.first_name }} <strong>{{ user.last_name }}</strong></p>
+                <small class="text-lightred">{{ user.position }}</small><br/>
+                <small class="">{{ user.city }}, {{ user.country }}</small>
+              </div>
+
+              <hr/>
+            </div>
+          </div>
+          <!-- /tile body -->
+
+        </section>
+        <!-- /tile -->
+
+        <!-- tile -->
+<!--         <section class="tile tile-simple">
+          
+          <div class="tile-header">
+            <h1 class="custom-font"><strong>My</strong> Projects</h1>
+          </div>
+ 
+          <div class="tile-body">
+
+            <ul class="list-unstyled">
+
+              <li>
+                <div class="row">
+                  <div class="col-md-3">
+                    Minimal
+                  </div>
+                  <div class="col-md-9">
+                    <progressbar class="progress-striped not-rounded" value="56" type="warning">56%</progressbar>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="row">
+                  <div class="col-md-3">
+                    Minoral
+                  </div>
+                  <div class="col-md-9">
+                    <progressbar class="progress-striped not-rounded" value="90" type="blue">90%</progressbar>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="row">
+                  <div class="col-md-3">
+                    The Kamarel
+                  </div>
+                  <div class="col-md-9">
+                    <progressbar class="progress-striped not-rounded" value="36" type="greensea">36%</progressbar>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="row">
+                  <div class="col-md-3">
+                    Themeforest
+                  </div>
+                  <div class="col-md-9">
+                    <progressbar class="progress-striped not-rounded" value="8" type="danger">8%</progressbar>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </section> -->
+        <!-- /tile -->
+
+
+      </div>
+      <!-- /col -->
+
+
+
+
+
+
+      <!-- col -->
+      <div class="col-md-8">
+
+        <!-- tile -->
+        <section class="tile tile-simple">
+          <!-- tile header -->
+
+          <!-- tile body -->
+          <div class="tile-body p-0">
+
+            <tabset class="tabs-dark">
+
+              <tab heading="Info">
+                <div class="wrap-reset">
+                  <div class="tile-header">
+                    <h1 class="custom-font"><strong>About</strong> {{ vm.company.name }}</h1>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 p-20">
+                      <!-- <span><a target="_blank" href="https://www.google.com/maps/place/?q={{vm.company.company_address.street_addr1}}+{{vm.company.company_address.city}}+{{vm.company.company_address.country}}+{{vm.company.company_address.post_code}}" class="icon icon-sm icon-lightred icon-ef-3 icon-ef-3b icon-color"><i class="fa fa-map-marker"></i></a></span> -->
+                      <h4>{{vm.company.company_address.street_addr1}}</h4>
+                      <h4>{{vm.company.company_address.street_addr2}}</h4>
+                      <h4>{{vm.company.company_address.city}}, {{vm.company.company_address.country}} {{vm.company.company_address.post_code}}</h5>
+                      <h5>{{vm.company.company_address.phone_main}}</h5>
+                      <h5><a href="mailto:{{vm.company.company_address.email}}">{{vm.company.company_address.email}}</a></h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 p-20 b-t">
+                      <div class="thumb" ng-show="vm.company.company_website">
+                        <a href="http://{{vm.company.company_website}}"><img class="media-object img-circle" ng-src="{{path.static_files}}{{vm.company.company_logo}}" alt="">
+                        {{vm.company.company_website}}</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="title-body">
+                    <p ng-show="vm.account.tagline"><em>"{{ vm.account.tagline }}"</em></p>
+                  </div>
+                </div>
+              </tab>
+
+              <tab heading="Profile" ng-if="vm.isAuth && admin">
+                <div class="wrap-reset">
+
+                  <form class="profile-settings form-validation" name="profForm" ng-submit="vm.update();" novalidate>
+
+                    <div class="row">
+                      <div class="form-group col-md-12 legend">
+                        <h4><strong>{{ vm.company.name }}</strong> Information</h4>
+                        <p>Update {{ vm.company.name }} information</p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="company_name">Company Name</label>
+                            <input type="text" class="form-control" name="company_name" ng-model="vm.company.name" required>
+                            <span class="text-red" ng-show="profForm.company_name.$invalid">Required</span>
+                        </div>
+                    <!-- </div>
+                    <div class="row"> -->
+                        <div class="form-group col-sm-6">
+                            <label for="addr_location">Address Title</label>
+                            <input type="text" class="form-control" name="addr_location" ng-model="vm.company.company_address.addr_location" required>
+                            <span class="text-red" ng-show="profForm.addr_location.$invalid">Required</span>
+                            <span class="help-block">Main Office, HeadQuarters, Warehouse, etc.</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="street_addr1">Address Line 1</label>
+                            <input type="text" class="form-control" name="street_addr1" ng-model="vm.company.company_address.street_addr1" required>
+                            <span class="text-red" ng-show="profForm.street_addr1.$invalid">Required</span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="street_addr2">Address Line 2</label>
+                            <input type="text" class="form-control" name="street_addr2" ng-model="vm.company.company_address.street_addr2">
+                            <!-- <span class="text-red" ng-show="profForm.street_addr2.$invalid">Required</span> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" name="city" ng-model="vm.company.company_address.city" required>
+                            <span class="text-red" ng-show="profForm.city.$invalid">Required</span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="post_code">Post Code</label>
+                            <input type="text" class="form-control" name="post_code" ng-model="vm.company.company_address.post_code" required>
+                            <span class="text-red" ng-show="profForm.post_code.$invalid">Required</span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="country">Country</label>
+                            <select class="form-control" 
+                                    chosen width="'100%'" 
+                                    name="country"
+                                    ng-model="vm.company.company_address.country"
+                                    ng-options="country for country in countries"
+                                    data-placeholder="Choose a country"
+                                    required>
+                                    <option value=""></option>
+                            </select>
+                            <span class="text-red" ng-show="profForm.country.$invalid">Required</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control" name="email" ng-model="vm.company.company_address.email">
+                            <span class="text-red" ng-show="profForm.email.$invalid">Required</span>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="phone">Phone Main</label>
+                            <input type="text" class="form-control" name="phone_main" ng-model="vm.company.company_address.phone_main">
+                            <span class="text-red" ng-show="profForm.phone_main.$invalid">Required</span>
+                            <span class="help-block">+(34) 13 24 76 98</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="company_logo">Company Logo</label>
+                            <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                            <!-- <input type="file" nv-file-select="" uploader="uploader" /> -->
+                            <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
+                            buttonText: 'Find file',
+                            iconName: 'glyphicon-file'
+                            }" nv-file-select="" uploader="uploader">
+                            <span class="help-block">Allowed files: gif, png, jpg</span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="company_website">Website</label>
+                            <input type="text" class="form-control" ng-model="vm.company.company_website">
+                            <span class="help-block">www.optiz.fr</span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label for="addr_notes">Address Notes</label>
+                            <textarea class="form-control" rows="4" ng-model="vm.company.company_address.addr_notes"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9 mb-20" ng-show="vm.isFile">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th width="50%">Name</th>
+                                    <th ng-show="uploader.isHTML5">Size</th>
+                                    <th ng-show="uploader.isHTML5">Progress</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in uploader.queue">
+                                    <td><strong>{{ item.file.name }}</strong></td>
+                                    <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                    <td ng-show="uploader.isHTML5">
+                                        <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                    </td>
+                                    <td nowrap>
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                        </button>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-rounded btn-primary" ng-disabled="profForm.$invalid">Update Company</button>
+                  </form>
+                </div>
+              </tab>
+                <tab heading="Addresses" ng-if="vm.isAuth && admin">
+                    <div class="wrap-reset">
+                        <div class="tile-header">
+                            <h1 class="custom-font"><strong>{{ vm.company.name }}</strong> Addresses</h1>
+                        </div>
+                        <div class="title-body">
+                          <div class="row">
+                              <div class="col-md-12 pl-20 pr-20 form-group">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <h4 class="p-20">Default Address: <span>{{vm.company.company_address.addr_location}}</span></h4>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <button ng-controller="NewAddrModalCtrl" ng-click="open('lg');"class="btn btn-rounded btn-sm btn-default pull-right">New Address</button>
+                                  </div>
+                                </div>
+                                  <div>
+                                  <div class="clearfix"></div>
+                                      <tabset class="pills" type="pills" justified="true">
+
+                                          <tab ng-repeat="addr in vm.company.address_company track by $index" heading="{{addr.addr_location}}" active="addr.active">
+                                            <form class="form-validation" name="addrEdit" role="form" novalidate>
+                                              <div class="row">
+                                                  <button class="btn btn-rounded btn-sm btn-slategray mb-10" ng-click="vm.setAddr(addr.id);">Set {{addr.addr_location}} as Default Address</button>
+                                                  <button class="btn btn-rounded btn-sm btn-blue mb-10" ng-click="vm.editAddr($index, addr);" ng-hide="vm.hideStatic === $index">Edit {{addr.addr_location}}</button>
+                                                  <button class="btn btn-rounded btn-sm btn-greensea mb-10" ng-click="vm.updateAddr(vm.updAddr);" ng-if="vm.hideStatic === $index" ng-disabled="addrEdit.$invalid">Update {{addr.addr_location}}</button>
+                                                  <button class="btn btn-rounded btn-sm btn-drank mb-10" ng-click="vm.cancelEdit(addr);" ng-if="vm.hideStatic === $index">Cancel Update {{addr.addr_location}}</button>
+                                                  <button class="btn btn-rounded btn-sm btn-lightred mb-10 pull-right" ng-click="vm.delAddr(addr.id);">Delete {{addr.addr_location}}</button>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="form-group col-md-8 mb-0">
+                                                      <label for="address1">Address 1: </label>
+                                                      <p ng-hide="vm.hideStatic === $index" class="well">{{ addr.street_addr1 }}</p>
+                                                      <input ng-if="vm.hideStatic === $index" name="street_addr1" class="well form-control" ng-model="vm.updAddr.street_addr1" required>
+                                                      <span class="text-red" ng-show="addrEdit.street_addr1.$invalid">Required</span>
+                                                  </div>
+                                                  <div class="form-group col-md-4 mb-0">
+                                                      <label for="address2">Address 2: </label>
+                                                      <p ng-hide="vm.hideStatic === $index" class="well">{{ addr.street_addr2 }}</p>
+                                                      <input ng-if="vm.hideStatic === $index" class="well form-control" ng-model="vm.updAddr.street_addr2">
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="form-group col-md-4">
+                                                      <label for="city">City: </label>
+                                                      <p ng-hide="vm.hideStatic === $index" class="well">{{ addr.city }}</p>
+                                                      <input ng-if="vm.hideStatic === $index" name="city" class="well form-control" ng-model="vm.updAddr.city" required>
+                                                      <span class="text-red" ng-show="addrEdit.city.$invalid">Required</span>
+                                                  </div>
+                                                  <div class="form-group col-md-4">
+                                                      <label for="country">Country: </label>
+                                                      <p ng-hide="vm.hideStatic === $index" class="well">{{ addr.country }}</p>
+                                                      <select ng-if="vm.hideStatic === $index"
+                                                            chosen 
+                                                            class="form-control"
+                                                            width="'100%'"
+                                                            name="country"
+                                                            ng-model="vm.updAddr.country"
+                                                            ng-options="country for country in countries"
+                                                            data-placeholder="Choose a country"
+                                                            required>
+                                                          <option value=""></option>
+                                                      </select>
+                                                      <span class="text-red" ng-show="addrEdit.country.$invalid">Required</span>
+                                                  </div>
+                                                  <div class="form-group col-md-4">
+                                                      <label for="post_code">Post Code: </label>
+                                                      <p ng-hide="vm.hideStatic === $index" class="well">{{ addr.post_code }}</p>
+                                                      <input ng-if="vm.hideStatic === $index" class="well form-control" name="post_code" ng-model="vm.updAddr.post_code" required>
+                                                      <span class="text-red" ng-show="addrEdit.post_code.$invalid">Required</span>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="form-group col-md-8">
+                                                      <label for="zip">Address Notes: </label>
+                                                      <p ng-hide="vm.hideStatic === $index" class="well">{{ addr.addr_notes }}</p>
+                                                      <textarea ng-if="vm.hideStatic === $index" class="well form-control" ng-model="vm.updAddr.addr_notes"></textarea>
+                                                  </div>
+                                                  <div class="form-group col-md-4">
+                                                      <label for="phone">Phone: </label>
+                                                      <p ng-hide="vm.hideStatic === $index" class="well">{{ addr.phone_main }}</p>
+                                                      <input ng-if="vm.hideStatic === $index" class="well form-control" ng-model="vm.updAddr.phone_main">
+                                                  </div>
+                                              </div>
+                                            </form>
+                                          </tab>
+                                      </tabset>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Add User" ng-if="vm.isAuth && admin">
+                    <div class="wrap-reset">
+                    <form class="profile-settings form-validation" name="newUserForm" ng-submit="vm.register(newUserForm.$valid)" role="form" novalidate>
+                        <div class="row">
+                            <div class="form-group col-md-12 legend">
+                                <h4><strong>Add</strong> user</h4>
+                                <p>Create a new WeAse user for your company</p>
+                                <div class="alert alert-danger login-alert" ng-show="vm.error" ng-bind="vm.error"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" placeholder="Username must be unique" ng-model="vm.newUser.username" required>
+                                <span class="text-red" ng-show="newUserForm.username.$invalid">Required</span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" placeholder="Email must be unique" ng-model="vm.newUser.email" required>
+                                <span class="text-red" ng-show="newUserForm.email.$invalid">Required</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="first-name">WeASe Access Level</label>
+                                <select class="form-control" 
+                                        chosen width="'100%'" 
+                                        name="access_level"
+                                        ng-model="vm.newUser.access_level" 
+                                        data-placeholder="Select Access Level"
+                                        required>
+                                        <option value=""></option>
+                                        <option value="8">Administrator</option>
+                                        <option value="7">Manager</option>
+                                        <option value="6">Approval</option>
+                                        <option value="5">Submit</option>
+                                        <option value="2">View</option>
+                                </select>
+                                <span class="text-red" ng-show="newUserForm.access_level.$invalid">Required</span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="job-title">User Job Title</label>
+                                <input type="text" class="form-control" name="position" placeholder="Enter a job title" ng-model="vm.newUser.position" required>
+                                <span class="text-red" ng-show="newUserForm.position.$invalid">Required</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="first-name">Authorization Amount</label>
+                                <span class="input-group-addon">€</span>
+                                <input type="number" class="form-control" name="auth_amount" placeholder="Enter an authorization amount" ng-model="vm.newUser.auth_amount" ng-minlength=1 ng-maxlength=7 required>
+                                <span class="text-red" ng-show="newUserForm.auth_amount.$invalid">Required</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="first-name">First Name</label>
+                                <input type="text" class="form-control" name="first_name" placeholder="Enter a first name" ng-model="vm.newUser.first_name" required>
+                                <span class="text-red" ng-show="newUserForm.first_name.$invalid">Required</span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" class="form-control" name="last_name" placeholder="Enter a last name" ng-model="vm.newUser.last_name" required>
+                                <span class="text-red" ng-show="newUserForm.last_name.$invalid">Required</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="" ng-model="vm.newUser.password" required>
+                                <span class="text-red" ng-show="newUserForm.password.$invalid">Required</span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="password_confirm">Password Confirm</label>
+                                <input type="password" class="form-control" name="confirm_password" placeholder="" ng-model="vm.newUser.confirm_password" ui-validate=" '$value==vm.newUser.password' " ui-validate-watch=" 'vm.newUser.password' " required>
+                                <span class="text-red" ng-show="newUserForm.confirm_password.$invalid">Required</span>
+                                <span ng-show='newUserForm.confirm_password.$error.validator'>Passwords don't match!</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-rounded btn-primary" ng-disabled="newUserForm.$invalid">Add New User</button>
+                    </form>
+                    </div>
+                </tab>
+
+
+
+                <tab heading="Optiz" ng-if="au.optiz && mgr">
+                    <div class="wrap-reset">
+                    <form class="profile-settings form-validation" name="assignOptizForm" ng-submit="vm.assignOptiz(vm.company.company_assigned_to);" novalidate>
+                        <div class="row">
+                            <div class="form-group col-md-12 legend">
+                                <h4>Assign <strong>Optiz</strong></h4>
+                                <p>Assign Optiz emplpoyee(s) to manage this account</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                              <h4>Company assigned to:</h4>
+                              <h5 ng-repeat="optizUser in vm.addOptiz"><a ui-sref="app.pages.profile({username:optizUser.username})">{{ optizUser.user_name_full }}</a></h5>
+                                <label for="first-name" class="mt-20">Select Optiz Employee</label>
+                                <select class="form-control" 
+                                        chosen 
+                                        multiple
+                                        width="'100%'"
+                                        name="assignOptiz"
+                                        ng-model="vm.company.company_assigned_to"
+                                        ng-options="optiz as optiz.user_name_full for optiz in vm.optizUsers track by optiz.id" 
+                                        data-placeholder="Assign Optiz"
+                                        required>
+                                        <option value=""></option>
+                                </select>
+                                <span class="text-red" ng-show="assignOptizForm.assignOptiz.$invalid">Required</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-rounded btn-primary" ng-disabled="assignOptizForm.$invalid">Update assigned</button>
+                    </form>
+                    </div>
+                </tab>
+
+            </tabset>
+
+          </div>
+          <!-- /tile body -->
+
+        </section>
+        <!-- /tile -->
+
+      </div>
+      <!-- /col -->
+    </div>
+    <!-- /row -->
+
+  </div>
+  <!-- /page content -->
+</div>

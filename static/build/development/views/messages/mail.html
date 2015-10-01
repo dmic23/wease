@@ -1,0 +1,56 @@
+<div class="page page-full page-mail">
+
+  <div class="tbox tbox-sm">
+
+    <!-- left side -->
+    <div class="tcol w-md bg-tr-white lt b-r">
+
+      <!-- left side header-->
+      <div class="p-15 bg-white" style="min-height: 61px">
+
+        <button class="btn btn-sm btn-default pull-right visible-sm visible-xs" active-toggle target="#mail-nav"><i class="fa fa-bars"></i></button>
+        <a ui-sref="app.mail.compose" class="btn btn-sm btn-lightred b-0 br-2 text-strong">Compose</a>
+
+      </div>
+      <!-- /left side header -->
+
+      <!-- left side body -->
+      <div class="p-15 hidden-sm hidden-xs" id="mail-nav">
+
+        <div class="clearfix"></div>
+        <tabset class="pills" vertical="true" type="pills">
+            <tab  heading="inbox" active="inbox.active" ui-sref="app.mail.inbox({filterParam:'inbox'})">    <tab-heading>Inbox
+                    <span class="pull-right badge bg-lightred">{{msgs.inbox.length}}</span>
+                </tab-heading>
+            </tab>
+            <tab  heading="draft" active="draft.active" ui-sref="app.mail.inbox({filterParam:'draft'})">    <tab-heading>Draft
+                    <span class="pull-right badge bg-lightred">{{msgs.draft.length}}</span>
+                </tab-heading>
+            </tab>
+            <tab  heading="sent" active="sent.active" ui-sref="app.mail.inbox({filterParam:'sent'})">    <tab-heading>Sent
+                    <span class="pull-right badge bg-lightred">{{msgs.sent.length}}</span>
+                </tab-heading>
+            </tab>
+            <tab  heading="trash" active="trash.active" ui-sref="app.mail.inbox({filterParam:'trash'})">    <tab-heading>Trash
+                    <span class="pull-right badge bg-lightred">{{msgs.trash.length}}</span>
+                </tab-heading>
+            </tab>
+        </tabset>
+
+      </div>
+      <!-- /left side body -->
+
+    </div>
+    <!-- /left side header-->
+
+    <!-- right side -->
+    <div class="tcol">
+      <div ui-view ></div>
+      <!-- <inbox msgs="vm.msgs" path="path"></inbox> -->
+    </div>
+    <!-- /right side -->
+
+  </div>
+
+</div>
+

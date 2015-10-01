@@ -1,0 +1,155 @@
+{% load static %}
+
+    <!--<script src="{% static "build/development/js/bower.min.js" %}"></script>
+    <script src="{% static "build/development/js/main.js" %}"></script>-->
+
+            <!-- build:js({.tmp,app}) scripts/app.js -->
+        <script src="{% static "scripts/app.js" %}"></script>
+        <script src="{% static "scripts/filters/filters.module.js" %}"></script>
+        <script src="{% static "scripts/filters/filters.js" %}"></script>
+        <!-- authentication -->
+        <script src="{% static "scripts/authentication/authentication.module.js" %}"></script>
+        <script src="{% static "scripts/authentication/services/authentication.services.js" %}"></script>
+        <script src="{% static "scripts/authentication/controllers/login.controller.js" %}"></script>
+        <script src="{% static "scripts/authentication/controllers/register.controller.js" %}"></script>
+        <!-- account -->
+        <script src="{% static "scripts/accounts/accounts.module.js" %}"></script>
+        <script src="{% static "scripts/accounts/services/account.service.js" %}"></script>
+        <script src="{% static "scripts/accounts/services/company.service.js" %}"></script>
+        <script src="{% static "scripts/accounts/controllers/company-settings.controller.js" %}"></script>
+        <script src="{% static "scripts/accounts/controllers/company-create.controller.js" %}"></script>
+        <script src="{% static "scripts/accounts/controllers/account.controller.js" %}"></script>
+        <script src="{% static "scripts/accounts/controllers/address.controller.js" %}"></script>
+        <script src="{% static "scripts/accounts/directives/addr.directive.js" %}"></script>
+        <!-- orders -->
+        <script src="{% static "scripts/orders/orders.module.js" %}"></script>
+        <script src="{% static "scripts/orders/services/request.service.js" %}"></script>
+        <script src="{% static "scripts/orders/services/order.service.js" %}"></script>
+        <script src="{% static "scripts/orders/controllers/request.controller.js" %}"></script>
+        <script src="{% static "scripts/orders/controllers/request-edit.controller.js" %}"></script>
+        <script src="{% static "scripts/orders/controllers/request-add.controller.js" %}"></script>
+        <script src="{% static "scripts/orders/controllers/offer.controller.js" %}"></script> 
+        <script src="{% static "scripts/orders/controllers/offer-blank.controller.js" %}"></script> 
+        <script src="{% static "scripts/orders/controllers/order.controller.js" %}"></script> 
+        <script src="{% static "scripts/orders/controllers/order-modal.controller.js" %}"></script> 
+        <script src="{% static "scripts/orders/controllers/orders-all.controller.js" %}"></script>
+        <script src="{% static "scripts/orders/controllers/orders-table.controller.js" %}"></script> <script src="{% static "scripts/orders/controllers/comment.controller.js" %}"></script>
+
+        <script src="{% static "scripts/orders/directives/newreq.directive.js" %}"></script> 
+        <script src="{% static "scripts/orders/directives/add-req.directive.js" %}"></script> 
+        <script src="{% static "scripts/orders/directives/edit-req.directive.js" %}"></script>
+        <script src="{% static "scripts/orders/directives/comment.directive.js" %}"></script>  
+        <script src="{% static "scripts/orders/directives/currency.directive.js" %}"></script>
+        <script src="{% static "scripts/orders/directives/orderactivity.directive.js" %}"></script>  
+        <script src="{% static "scripts/orders/directives/contenteditable.directive.js" %}"></script>
+        <script src="{% static "scripts/orders/directives/datepicker-popup.directive.js" %}"></script>
+        <!-- messages -->
+        <script src="{% static "scripts/messages/messages.module.js" %}"></script>
+        <script src="{% static "scripts/messages/services/messages.service.js" %}"></script> 
+        <script src="{% static "scripts/messages/controllers/mail.controller.js" %}"></script>
+        <script src="{% static "scripts/messages/controllers/inbox.controller.js" %}"></script>
+        <script src="{% static "scripts/messages/controllers/mail-single.controller.js" %}"></script>
+        <script src="{% static "scripts/messages/controllers/mail-compose.controller.js" %}"></script>
+        <script src="{% static "scripts/messages/controllers/chat.controller.js" %}"></script>
+        <script src="{% static "scripts/messages/directives/inbox.directive.js" %}"></script>   
+        <!-- layout -->
+        <script src="{% static "scripts/layout/layout.module.js" %}"></script> 
+        <script src="{% static "scripts/layout/services/layout.service.js" %}"></script>
+        <script src="{% static "scripts/layout/controllers/index.controller.js" %}"></script>
+        <script src="{% static "scripts/layout/controllers/app.controller.js" %}"></script>
+        <script src="{% static "scripts/layout/controllers/dashboard.controller.js" %}"></script>
+        <script src="{% static "scripts/layout/controllers/header.controller.js" %}"></script>
+        <script src="{% static "scripts/layout/controllers/nav.controller.js" %}"></script> 
+        <script src="{% static "scripts/layout/controllers/popover.controller.js" %}"></script> 
+        <script src="{% static "scripts/layout/directives/nav.directive.js" %}"></script>
+
+        <!-- end new ang files -->
+        <script src="{% static "scripts/controllers/main.js" %}"></script>
+        <script src="{% static "scripts/directives/slimscroll.js" %}"></script>
+        <script src="{% static "scripts/controllers/navbar-chart.js" %}"></script>
+        <script src="{% static "scripts/directives/sparkline.js" %}"></script>
+        <script src="{% static "scripts/controllers/dashboard.js" %}"></script>
+        <script src="{% static "scripts/directives/collapsesidebar.js" %}"></script>
+        <script src="{% static "scripts/directives/ripple.js" %}"></script>
+        <!--<script src="{% static "scripts/controllers/nav.js" %}"></script>-->
+        <script src="{% static "scripts/directives/pageloader.js" %}"></script>
+        <script src="{% static "scripts/controllers/daterangepicker.js" %}"></script>
+        <script src="{% static "scripts/directives/daterangepicker.js" %}"></script>
+        <script src="{% static "scripts/controllers/boxedlayout.js" %}"></script>
+        <script src="{% static "scripts/controllers/fullwidthlayout.js" %}"></script>
+        <script src="{% static "scripts/controllers/sidebarsmlayout.js" %}"></script>
+        <script src="{% static "scripts/controllers/sidebarxslayout.js" %}"></script>
+        <script src="{% static "scripts/controllers/hzmenu.js" %}"></script>
+        <script src="{% static "scripts/controllers/rtl.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-typography.js" %}"></script>
+        <script src="{% static "scripts/directives/tilecontrolclose.js" %}"></script>
+        <script src="{% static "scripts/directives/tilecontroltoggle.js" %}"></script>
+        <script src="{% static "scripts/directives/tilecontrolrefresh.js" %}"></script>
+        <script src="{% static "scripts/directives/tilecontrolfullscreen.js" %}"></script>
+        <script src="{% static "scripts/directives/prettyprint.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-lists.js" %}"></script>
+        <script src="{% static "scripts/directives/lazymodel.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-buttonsicons.js" %}"></script>
+        <script src="{% static "scripts/directives/activatebutton.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-navs.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-modals.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-tiles.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-portlets.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-grid.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-alerts.js" %}"></script>
+        <script src="{% static "scripts/directives/toastrinject.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-general.js" %}"></script>
+        <script src="{% static "scripts/directives/setnganimate.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-tree.js" %}"></script>
+        <script src="{% static "scripts/controllers/forms-common.js" %}"></script>
+        <script src="{% static "scripts/controllers/forms-validate.js" %}"></script>
+        <script src="{% static "scripts/directives/onblurvalidation.js" %}"></script>
+        <script src="{% static "scripts/directives/formsubmit.js" %}"></script>
+        <script src="{% static "scripts/controllers/forms-wizard.js" %}"></script>
+        <script src="{% static "scripts/controllers/form-upload.js" %}"></script>
+        <script src="{% static "scripts/controllers/form-img-crop.js" %}"></script>
+        <script src="{% static "scripts/controllers/tables-bootstrap.js" %}"></script>
+        <script src="{% static "scripts/directives/check-toggler.js" %}"></script>
+        <script src="{% static "scripts/controllers/tables-datatables.js" %}"></script>
+        <script src="{% static "scripts/controllers/tables-ui-grid.js" %}"></script>
+        <script src="{% static "scripts/controllers/tables-ng-table.js" %}"></script>
+        <script src="{% static "scripts/controllers/tables-smart-table.js" %}"></script>
+        <script src="{% static "scripts/controllers/tables-footable.js" %}"></script>
+        <script src="{% static "scripts/controllers/charts.js" %}"></script>
+        <script src="{% static "scripts/directives/chart-morris.js" %}"></script>
+        <script src="{% static "scripts/directives/gaugechart.js" %}"></script>
+        <script src="{% static "scripts/directives/wrap-owlcarousel.js" %}"></script>
+        <script src="{% static "scripts/directives/todofocus.js" %}"></script>
+        <script src="{% static "scripts/directives/todoescape.js" %}"></script>
+        <script src="{% static "scripts/directives/clock.js" %}"></script>
+        <script src="{% static "scripts/controllers/ui-widgets.js" %}"></script>
+        <script src="{% static "scripts/directives/active-toggle.js" %}"></script>
+        <script src="{% static "scripts/directives/vector-map.js" %}"></script>
+        <script src="{% static "scripts/controllers/maps-vector-map.js" %}"></script>
+        <script src="{% static "scripts/controllers/maps-google-map.js" %}"></script>
+        <script src="{% static "scripts/controllers/calendar.js" %}"></script>
+        <script src="{% static "scripts/controllers/mail-inbox.js" %}"></script>
+        <script src="{% static "scripts/controllers/mail-compose.js" %}"></script>
+        <script src="{% static "scripts/controllers/mail-single.js" %}"></script>
+        <script src="{% static "scripts/controllers/mail.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-login.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-signup.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-forgot-password.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-gallery.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-timeline.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-chat.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-search-results.js" %}"></script>
+        <script src="{% static "scripts/controllers/pages-profile.js" %}"></script>
+        <script src="{% static "scripts/controllers/help.js" %}"></script>
+        <script src="{% static "scripts/directives/anchor-scroll.js" %}"></script>
+        <script src="{% static "scripts/controllers/shop-orders.js" %}"></script>
+        <script src="{% static "scripts/controllers/shop-products.js" %}"></script>
+        <script src="{% static "scripts/controllers/shop-invoices.js" %}"></script>
+        <script src="{% static "scripts/controllers/shop-single-order.js" %}"></script>
+        <script src="{% static "scripts/controllers/shop-single-product.js" %}"></script>
+        <script src="{% static "scripts/controllers/shop-single-invoice.js" %}"></script>
+        <script src="{% static "scripts/controllers/offcanvaslayout.js" %}"></script>
+        <script src="{% static "scripts/directives/offcanvas-sidebar.js" %}"></script>
+        <script src="{% static "scripts/directives/navcollapse.js" %}"></script>
+
+

@@ -1,0 +1,16 @@
+<div ng-controller="PillsDemoCtrl">
+  <div class="clearfix"></div>
+
+  <h4 class="custom-font"><strong>Address </strong> for Delivery</h4>
+<!-- <p>{{comp.address_company}}</p> -->
+  <tabset class="pills" type="pills">
+
+    <!-- <tab heading="Static title">Static content</tab> -->
+
+    <tab ng-repeat="addr in comp.address_company" heading="{{addr.addr_location}}" active="addr.active" >
+    <p>{{ addr.street_addr1 }}</p>
+    <input ng-model="vm.newReq.delivery_address">
+    </tab>
+
+  </tabset>
+</div>

@@ -1,0 +1,59 @@
+<!-- right side header -->
+<div class="p-15 bg-white b-b">
+
+  <div class="btn-toolbar">
+    <div class="btn-group">
+      <button class="btn btn-default btn-sm br-2-l w-60"><i class="fa fa-file"></i></button>
+      <button class="btn btn-default btn-sm br-2-r w-60"><i class="fa fa-trash"></i></button>
+      <button class="btn btn-sm br-2-r w-60" btn-checkbox ng-model="vm.newMail.mail_draft" ng-class="{'btn-slategray': vm.newMail.mail_draft === true, 'btn-default': vm.newMail.mail_draft === false, 'btn-default': !vm.newMail.mail_draft}"><i class="fa fa-pencil"></i></button>
+    </div>
+  </div>
+
+</div>
+<!-- /right side header -->
+
+<!-- right side body -->
+<div class="p-15">
+  <form name="newMail" class="form-horizontal mt-20 form-validation" ng-submit="vm.sendMail(vm.newMail)" novalidate>
+
+    <div class="form-group">
+      <label class="col-lg-2 control-label">To:</label>
+      <div class="col-lg-8">
+        <select chosen multiple 
+                width="'100%'" 
+                name="toUser"
+                ng-model="vm.newMail.mail_to"
+                ng-options="toUser as toUser.user_name_full group by toUser.user_company_full for toUser in vm.toUsers track by toUser.id"
+                data-placeholder="Select recipients"
+                required>
+                <option value=""></option>
+        </select>
+        <span class="text-red" ng-show="newMail.toUser.$invalid">Required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-2 control-label">Subject:</label>
+      <div class="col-lg-8">
+        <input type="text" class="form-control" name="subject" ng-model="vm.newMail.subject" required>
+        <span class="text-red" ng-show="newMail.subject.$invalid">Required</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-lg-2 control-label">Content:</label>
+      <div class="col-lg-8">
+         <textarea class="form-control" rows="5" ng-model="vm.newMail.body"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-8 col-lg-offset-2">
+        <button class="btn btn-greensea btn-ef btn-ef-7 btn-ef-7b b-0 br-2" activate-button=""><i class="fa fa-envelope"></i> <span ng-show="vm.newMail.mail_draft === true">Save Draft</span><span ng-show="vm.newMail.mail_draft === false || !vm.newMail.mail_draft">Send Message</span></button>
+      </div>
+    </div>
+  </form>
+
+</div>
+<!-- /right side body -->
+
