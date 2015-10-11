@@ -63,7 +63,7 @@
             <div class="form-group col-md-6" ng-show="reqItem.req_item_file[0]">
                 <label for="offer_terms" custom-font>Attached <strong>Files</strong></label>
                 <div ng-repeat="file in reqItem.req_item_file" class="col-md-12">
-                    <p class="form-control-static"><a href="{{path.static_files}}{{ file.req_file }}" target="_blank">{{ file.req_file }}</a></p>
+                    <p class="form-control-static"><a href="{{path.media}}{{ file.req_file }}" target="_blank">{{ file.req_file }}</a></p>
                 </div>
             </div>
         </div>

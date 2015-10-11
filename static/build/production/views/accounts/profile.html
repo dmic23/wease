@@ -44,13 +44,13 @@
           <div class="tile-widget p-30 text-center">
 
             <div class="thumb thumb-xl">
-              <img class="img-circle" ng-src="{{ path.static_files }}{{ vm.account.user_pic }}" alt=""/>
+              <img class="img-circle" ng-src="{{ path.media }}{{ vm.account.user_pic }}" alt=""/>
             </div>
             <h4 class="mb-0"><strong>{{ vm.account.first_name }}</strong> {{ vm.account.last_name }}</h4>
             <span class="text-muted text-lightred">{{ vm.account.position }}</span>
             <div class="mt-10">
-              <button class="btn btn-rounded-20 btn-sm btn-greensea">Chat</button>
-              <button class="btn btn-rounded-20 btn-sm btn-lightred">Message</button>
+              <button class="btn btn-rounded-20 btn-sm btn-greensea" ng-click="main.settings.rightbarShow = !main.settings.rightbarShow">Chat</button>
+              <button class="btn btn-rounded-20 btn-sm btn-lightred" ui-sref="app.mail.compose">Message</button>
             </div>
 
           </div>
@@ -110,7 +110,7 @@
 
           <!-- tile header -->
           <div class="tile-header">
-            <h1 class="custom-font"><strong>Team</strong> {{ vm.account.user_company_full }}</h1>
+            <h1 class="custom-font team"><strong>Team</strong ui-sref="app.pages.company-profile({companyId:vm.company.id})"> {{ vm.account.user_company_full }}</h1>
           </div>
           <!-- /tile header -->
 
@@ -120,7 +120,7 @@
             <div class="media team" ng-repeat="user in vm.company.wease_company" ui-sref="app.pages.profile({username:user.username})">
               
               <div class="pull-left thumb">
-                <img class="media-object img-circle" ng-src="{{ path.static_files }}{{ user.user_pic }}" alt="">
+                <img class="media-object img-circle" ng-src="{{ path.media }}{{ user.user_pic }}" alt="">
               </div>
 <!--               <div class="pull-right mt-10">
                 <button type="button" class="btn btn-rounded-20 btn-default btn-sm" style="width:30px;"><a ui-sref="app.pages.profile({username:user.username})"><i class="fa fa-eye" style="margin-left: -2px;"></i></a></button>
@@ -279,6 +279,7 @@
                     <h1 class="custom-font"><strong>About</strong> {{ vm.account.first_name }}</h1>
                   </div>
                   <div class="title-body">
+                      <h4 ng-show="vm.account.position"><span class="text-lightred">{{vm.account.position}} </span> at <span class="team" ui-sref="app.pages.company-profile({companyId:vm.company.id})">{{vm.company.name}}</span></h4>
                       <p ng-show="vm.account.tagline"><em>"{{ vm.account.tagline }}"</em></p>
                     
                       <!-- <p> -->
@@ -290,246 +291,64 @@
                     <div class="row">
                       <div class="col-md-12 p-20">
                         <!-- <span><a target="_blank" href="https://www.google.com/maps/place/?q={{vm.account.street_addr1}}+{{vm.account.city}}+{{vm.account.country}}+{{vm.account.post_code}}" class="icon icon-sm icon-lightred icon-ef-3 icon-ef-3b icon-color"><i class="fa fa-map-marker"></i></a></span> -->
-                        <h4>{{vm.account.street_addr1}}</h4>
+<!--                         <h4>{{vm.account.street_addr1}}</h4>
                         <h4>{{vm.account.street_addr2}}</h4>
                         <h4>{{vm.account.city}}, {{vm.account.country}} {{vm.account.post_code}}</h5>
                         <h5>{{vm.account.phone_main}}</h4>
                         <h5><a href="mailto:{{vm.account.email}}">{{vm.account.email}}</a></h5>
-                        <h5 ng-show="au.id === vm.acount.id || mgr || admin">Authorized Amount: € {{vm.account.auth_amount}}</h5>
+                        <h5 ng-show="au.id === vm.acount.id || mgr || admin">Authorized Amount: € {{vm.account.auth_amount}}</h5> -->
+
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label class="" for="street_addr1">Address Line 1</label>
+                                <h4 class="form-control-static text-blue">{{vm.account.street_addr1}}</h4>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="" for="street_addr2">Address Line 2</label>
+                                <h4 class="form-control-static text-blue">{{vm.account.street_addr2}}</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label class="" for="city">City</label>
+                                <h4 class="form-control-static text-blue">{{vm.account.city}}</h4>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="" for="post_code">Post Code</label>
+                                <h4 class="form-control-static text-blue">{{vm.account.post_code}}</h4>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="" for="country">Country</label>
+                                <h4 class="form-control-static text-blue">{{vm.account.country}}</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label class="" for="email">E-mail</label>
+                                <h4 class="form-control-static"><a href="mailto:{{vm.account.email}}">{{vm.account.email}}</a></h4>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="" for="phone">Phone Main</label>
+                                <h4 class="form-control-static text-blue">{{vm.account.phone_main}}</h4>
+                            </div>
+                            <div class="form-group col-sm-4" ng-show="au.id === vm.acount.id || mgr || admin">
+                                <label class="" for="phone">Authorized Amount</label>
+                                <h4 class="form-control-static text-blue">€ {{vm.account.auth_amount}}</h4>
+                            </div>
+                        </div>
+
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12 p-20 b-t">
                         <div class="thumb" ng-show="vm.company.company_website">
-                          <a href="http://{{vm.company.company_website}}"><img class="media-object img-circle" ng-src="{{path.static_files}}{{vm.company.company_logo}}" alt="">
+                          <a href="http://{{vm.company.company_website}}"><img class="media-object img-circle" ng-src="{{path.media}}{{vm.company.company_logo}}" alt="">
                           {{vm.company.company_website}}</a>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="streamline-form">
-                    <textarea class="form-control br-0 br-2-t" placeholder="What's up dude?" rows="5"></textarea>
-                    <div class="post-toolbar">
-                      <a href="#" tooltip="Add File"><i class="fa fa-paperclip"></i></a>
-                      <a href="#" tooltip="Add Image"><i class="fa fa-camera"></i></a>
-                      <a href="#" class="pull-right" tooltip="Post it!"><i class="fa fa-share"></i></a>
-                    </div>
-                  </div> -->
-
-                  <!-- <div class="streamline mt-20">
-
-                    <article class="streamline-post">
-
-                      <aside>
-                        <div class="thumb thumb-sm">
-                          <img class="img-circle" src="images/profile-photo.jpg" alt="">
-                        </div>
-                      </aside>
-
-                      <div class="post-container">
-
-                        <div class="panel panel-default">
-                          <div class="panel-heading bg-white">
-                            John Douey <small class="text-muted">posted a new status</small>
-                            <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> Just now</span>
-                          </div>
-                          <div class="panel-body">
-                            On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.
-
-                            <p class="mt-10 mb-0">
-                              <a href="" active-toggle="" class="btn btn-default btn-xs active">
-                                <i class="fa fa-heart-o text-inactive"></i><i class="fa fa-heart text-danger text-active"></i> Like (14)
-                              </a>
-                              <a href="" class="btn btn-default btn-xs">
-                                <i class="fa fa-comments"></i> Comments (30)
-                              </a>
-                              <a href="" class="btn btn-default btn-xs">
-                                <i class="fa fa-mail-reply"></i> Reply
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-
-                        <ul class="list-unstyled post-replies">
-
-                          <li>
-
-                            <aside>
-                              <div class="thumb thumb-sm">
-                                <img class="img-circle" src="images/random-avatar4.jpg" alt="">
-                              </div>
-                            </aside>
-
-                            <div class="reply-container">
-                              <div class="panel panel-default">
-                                <div class="panel-body">
-                                  <p>
-                                    <strong>James Bend</strong>
-                                    <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> 6 minutes ago</span>
-                                  </p>
-
-                                  <p class="mb-0 text-small">These cases are perfectly simple and easy to distinguish.</p>
-
-                                  <p class="mt-10 mb-0">
-                                    <a href="" active-toggle="" class="btn btn-default btn-xs">
-                                      <i class="fa fa-heart-o text-inactive"></i><i class="fa fa-heart text-danger text-active"></i> Like (5)
-                                    </a>
-                                    <a href="" class="btn btn-default btn-xs">
-                                      <i class="fa fa-mail-reply"></i> Reply
-                                    </a>
-                                  </p>
-
-                                </div>
-                              </div>
-                            </div>
-
-                          </li>
-
-                          <li>
-
-                            <aside>
-                              <div class="thumb thumb-sm">
-                                <img class="img-circle" src="images/ici-avatar.jpg" alt="">
-                              </div>
-                            </aside>
-
-                            <div class="reply-container">
-                              <div class="panel panel-default">
-                                <div class="panel-body">
-                                  <p>
-                                    <strong>Ing. Imrich Kamarel</strong>
-                                    <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> 50 minutes ago</span>
-                                  </p>
-
-                                  <p class="mb-0 text-small">In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best.</p>
-
-                                  <p class="mt-10 mb-0">
-                                    <a href="" active-toggle="" class="btn btn-default btn-xs active">
-                                      <i class="fa fa-heart-o text-inactive"></i><i class="fa fa-heart text-danger text-active"></i> Like
-                                    </a>
-                                    <a href="" class="btn btn-default btn-xs">
-                                      <i class="fa fa-mail-reply"></i> Reply
-                                    </a>
-                                  </p>
-
-                                </div>
-                              </div>
-                            </div>
-
-                          </li>
-
-                          <li>
-
-                            <aside>
-                              <div class="thumb thumb-sm">
-                                <img class="img-circle" src="images/arnold-avatar.jpg" alt="">
-                              </div>
-                            </aside>
-
-                            <div class="reply-container">
-                              <div class="panel panel-default">
-                                <div class="panel-body">
-                                  <p>
-                                    <strong>Arnold Karlsberg</strong>
-                                    <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> 56 minutes ago</span>
-                                  </p>
-
-                                  <p class="mb-0 text-small">But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted.</p>
-
-                                  <p class="mt-10 mb-0">
-                                    <a href="" active-toggle="" class="btn btn-default btn-xs">
-                                      <i class="fa fa-heart-o text-inactive"></i><i class="fa fa-heart text-danger text-active"></i> Like (2)
-                                    </a>
-                                    <a href="" class="btn btn-default btn-xs">
-                                      <i class="fa fa-mail-reply"></i> Reply
-                                    </a>
-                                  </p>
-
-                                </div>
-                              </div>
-                            </div>
-
-                          </li>
-
-                        </ul>
-
-                      </div>
-
-                    </article>
-
-                    <article class="streamline-post">
-                      <aside>
-                        <div class="thumb thumb-sm">
-                          <img class="img-circle" src="images/random-avatar1.jpg" alt="">
-                        </div>
-                      </aside>
-                      <div class="post-container">
-                        <div class="panel panel-default">
-                          <div class="panel-heading bg-white">
-                            Mike Herrington <small class="text-muted">posted a new status</small>
-                            <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> 39 minutes ago</span>
-                          </div>
-                          <div class="panel-body">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-
-                            <p class="mt-10 mb-0">
-                              <a href="" active-toggle="" class="btn btn-default btn-xs">
-                                <i class="fa fa-heart-o text-inactive"></i><i class="fa fa-heart text-danger text-active"></i> Like
-                              </a>
-                              <a href="" class="btn btn-default btn-xs">
-                                <i class="fa fa-comments"></i> Comments (9)
-                              </a>
-                              <a href="" class="btn btn-default btn-xs">
-                                <i class="fa fa-mail-reply"></i> Reply
-                              </a>
-                            </p>
-
-                          </div>
-                        </div>
-                      </div>
-                    </article>
-
-                    <article class="streamline-post">
-                      <aside>
-                        <div class="thumb thumb-sm">
-                          <img class="img-circle" src="images/random-avatar3.jpg" alt="">
-                        </div>
-                      </aside>
-                      <div class="post-container">
-                        <div class="panel panel-default">
-                          <div class="panel-heading bg-white">
-                            Robin Wills <small class="text-muted">added a new photo</small>
-                            <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> 1 hour ago</span>
-                          </div>
-                          <div class="panel-body">
-
-                            <img src="http://placekitten.com/g/800/600" class="img-responsive mb-20" alt />
-
-                            <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
-
-                            <p class="mt-10 mb-0">
-                              <a href="" active-toggle="" class="btn btn-default btn-xs active">
-                                <i class="fa fa-heart-o text-inactive"></i><i class="fa fa-heart text-danger text-active"></i> Like (16)
-                              </a>
-                              <a href="" class="btn btn-default btn-xs">
-                                <i class="fa fa-comments"></i> Comments (16)
-                              </a>
-                              <a href="" class="btn btn-default btn-xs">
-                                <i class="fa fa-mail-reply"></i> Reply
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </article>
-
-                    <div class="text-center">
-                      <a href="#" class="btn btn-sm btn-default">
-                        Load More …
-                      </a>
-                    </div>
-
-                  </div> -->
                 </div>
               </tab>
 
@@ -573,26 +392,24 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="first-name">WeASe Access Level</label>
-                            <select class="form-control" 
+                            <select ng-if="vm.isAdmin"
+                                    class="form-control" 
                                     chosen width="'100%'" 
                                     name="access_level"
-                                    ng-model="vm.account.access_level" 
+                                    ng-model="vm.account.access_level"
+                                    ng-options="k for (k,v) in vm.access_level_val" 
                                     data-placeholder="Select Access Level"
                                     required>
                                     <option value=""></option>
-                                    <option value="8">Administrator</option>
-                                    <option value="7">Manager</option>
-                                    <option value="6">Approval</option>
-                                    <option value="5">Submit</option>
-                                    <option value="2">View</option>
                             </select>
+                            <p class="form-control-static" ng-hide="vm.isAdmin">{{vm.access_level_full[vm.account.access_level];}}</p>
                             <span class="text-red" ng-show="userProfForm.access_level.$invalid">Required</span>
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="position">Authorization Amount</label>
                             <div class="input-group">
                               <span class="input-group-addon">€</span>
-                              <input type="text" class="form-control" name="auth_amount" placeholder="Enter an authorization amount" ng-model="vm.account.auth_amount" ng-minlength=1 ng-maxlength=7 required>
+                              <input type="text" class="form-control" name="auth_amount" placeholder="Enter an authorization amount" ng-model="vm.account.auth_amount" ng-minlength=1 ng-maxlength=7 required ng-disabled="!{{vm.isAdmin}}">
                             </div>
                             <span class="text-red" ng-show="userProfForm.auth_amount.$invalid">Required</span>
                         </div>
@@ -632,8 +449,6 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="company_logo">Profile Picture</label>
-                            <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                            <!-- <input type="file" nv-file-select="" uploader="uploader" /> -->
                             <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
                             buttonText: 'Find file',
                             iconName: 'glyphicon-file'

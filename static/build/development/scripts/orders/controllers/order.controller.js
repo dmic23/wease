@@ -50,9 +50,10 @@
         var offer_total = parseInt(vm.order.order_total, 10);
         if(user_auth >= offer_total){
           vm.auth_amount = true;
-        }else if(vm.authenticatedAccount.access_level >= 6){
-          vm.auth_amount = true; 
         }
+        //else if(vm.authenticatedAccount.access_level >= 6){
+        //   vm.auth_amount = true; 
+        // }
       }else{
         vm.reqTab = true;
       }

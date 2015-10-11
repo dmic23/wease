@@ -169,7 +169,7 @@
           <li class="list-group-item" ng-repeat="mail in msgs.inbox | orderBy: '-mail_created' track by $index">
             <a ui-sref="app.mail.single({mailId:mail.id})" class="media">
               <span class="pull-left media-object thumb thumb-sm">
-                <img ng-src="{{path.static_files}}{{mail.mail_created_by.user_pic}}" alt="" class="img-circle">
+                <img ng-src="{{path.media}}{{mail.mail_created_by.user_pic}}" alt="" class="img-circle">
               </span>
               <div class="media-body">
                 <span class="block">{{mail.subject | limitTo:30}}</span>
@@ -235,7 +235,7 @@
     <li class="dropdown nav-profile" dropdown on-toggle="toggled(open)">
 
       <a href="javascript:void(0)" class="dropdown-toggle" dropdown-toggle>
-        <img ng-src="{{path.static_files}}{{au.user_pic}}" alt="" class="img-circle size-30x30">
+        <img ng-src="{{path.media}}{{au.user_pic}}" alt="" class="img-circle size-30x30">
         <span>{{ au.first_name }} {{ au.last_name }}<fa name="angle-down"></fa></span>
       </a>
 

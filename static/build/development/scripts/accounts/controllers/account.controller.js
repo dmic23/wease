@@ -42,6 +42,11 @@
                 }else{
                     vm.isUser = false;
                 }
+                if(vm.authAcct.access_level >=8){
+                    vm.isAdmin = true;
+                }else{
+                    vm.isAdmin = false;
+                }
             }
 
             function accountErrorFn(errorMsg) {
@@ -49,6 +54,23 @@
                 toastr.error('That user does not exist.');
             }
         }
+        vm.access_level_val = {
+            "Administrator": "8",
+            "Manager": "7",
+            "Approval": "6",
+            "Submit": "5",
+            "View": "2",
+        }
+
+        vm.access_level_full = {
+            "8": "Administrator",
+            "7": "Manager",
+            "6": "Approval",
+            "5": "Submit",
+            "2": "View",
+        }
+
+
 
         function getCompany(){
             console.log(vm.account.user_company);
@@ -116,7 +138,7 @@
         var uploader = $scope.uploader = new FileUploader({
             method: 'PUT',
             url: '/api/v1/accounts/'+vm.username+'/',
-            headers : {
+            headers: {
                 'X-CSRFToken': csrf_token 
             },
         });

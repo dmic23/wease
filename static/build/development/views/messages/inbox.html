@@ -41,9 +41,9 @@
             <a ng-if="!mail.mail_draft" ui-sref="app.mail.single({mailId:mail.id})" class="mr-5"><span ng-if="mail.reply_mail.length > 0" class="text-lightred">Re: </span> {{mail.subject}}</a><a ng-if="mail.mail_draft" ui-sref="app.mail.compose({filterParam:mail.id})" class="mr-5">{{mail.subject}}</a> from <small ng-if="mail.reply_mail.length === 0">{{mail.mail_created_by.user_name_full}} </small><small ng-if="mail.reply_mail.length > 0">{{mail.reply_mail[mail.reply_mail.length - 1].reply_created_by.user_name_full}} </small><span ng-show="mail.reply_mail.length > 0"> ( {{mail.reply_mail.length}} ) </span><span class="label bg-{{mail.label.color}}">{{mail.label.name}}</span>
             <span class="pull-right text-sm text-muted">
               <span class="hidden-xs">{{ mail.mail_created | parseDate | date:"d MMM y 'at' h:mm a" }}</span>
-              <i class="fa fa-paperclip ml-5" ng-show="mail.base_files > 0"></i>
             </span>
           </div>
+          <i class="fa fa-paperclip ml-5" ng-show="mail.base_files.length > 0"></i>
           <small ng-if="mail.reply_mail.length === 0">{{mail.body | limitTo:150}}</small>
           <small ng-if="mail.reply_mail.length > 0">{{mail.reply_mail[mail.reply_mail.length - 1].body}}</small>
         </div>

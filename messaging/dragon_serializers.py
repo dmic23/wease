@@ -11,9 +11,9 @@ class MailSerializer(ModelSerializer):
 
     class Meta:
         model = 'messaging.Mail'
-        publish_fields = ('subject', 'body', 'mail_draft', 'mail_read', 'mail_read_date', 'trash',
+        publish_fields = ('subject', 'body', 'mail_draft', 'mail_read', 'trash',
                         'mail_to', 'mail_created', 'mail_created_by', 'reply_mail',)
-        update_fields = ('subject', 'body', 'mail_draft', 'mail_read', 'mail_read_date', 'trash',
+        update_fields = ('subject', 'body', 'mail_draft', 'mail_read', 'trash',
                         'mail_to', 'mail_created', 'mail_created_by', 'reply_mail',)
 
 class MailReplySerializer(ModelSerializer):

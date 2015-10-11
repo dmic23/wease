@@ -12,11 +12,6 @@
     function BlankOfferController($scope, $filter, $state, $stateParams, $log, Goods, Authentication, Account, Company, Order, toastr) {
 
         var vm = this;
-        // vm.offer = {};
-        // vm.order = {};
-        // vm.da = {};
-        // vm.offer.offer_item = [];
-        // vm.offer.blank_item = [];
 
         activate();
 
@@ -50,24 +45,6 @@
                 console.log(goods);
                 vm.allGoods = goods;
                 console.log(vm.allGoods);
-                // vm.domains = [];
-                // angular.forEach(goods, function(val, key, obj) {
-                //     console.log(val.domain);
-                //     console.log(key);
-                //     console.log(obj);
-                //     var dom = val.domain.toString();
-                //     // if(!vm.domains.indexOf(val.domain)!=-1){
-                //     //     console.log(val.domain);
-                //     //     vm.domains.push(val.domain);
-                //     // };
-                //     if(_.contains(vm.domains, dom)!=-1){
-                //         console.log(vm.domains);
-                //         console.log(dom);
-                //         vm.domains.push(dom);
-                //     };
-                //     console.log(vm.domains);
-                // })
-                // console.log(vm.domains);
             };
 
             function getGoodsError(msg){

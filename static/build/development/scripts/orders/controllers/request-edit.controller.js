@@ -161,6 +161,11 @@
     };
 
     console.info('uploader', uploader);
+
+    vm.cancelReq = function(){
+      $state.go('app.orders.order', {orderId:vm.req.id})
+    }
+
   }
 
 })();

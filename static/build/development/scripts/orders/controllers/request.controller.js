@@ -19,42 +19,8 @@
 
     vm.newReq = {};
     vm.newReq.order_draft = true;
-    // vm.updateReq = {};
-    // $scope.oneAtATime = true;
 
     $scope.isCollapsed = true;
-
-    $scope.status = {
-      // isFirstOpen: true,
-      // isFirstDisabled: false
-    };
-    // console.log(vm.newReq);
-    // vm.destroy = destroy;
-    // vm.update = update;
-
-    // console.log($localStorage.aFile);
-    // console.log($localStorage);
-
-    // $scope.$watch(function () { return $localStorage.files; },function(newVal,oldVal){
-    //     if(oldVal!==newVal && newVal === undefined){
-    //         console.log($localStorage.files);
-    //         console.log(oldVal);
-    //         console.log(newVal); 
-    //     }
-    // });
-
-    // $scope.$watch("vm.newReq", function(newValue, oldValue) {
-    //     if($localStorage.aFile){
-    //         if ($localStorage.aFile.length > 0) {
-    //           // $scope.greeting = "Greetings " + $scope.name;
-    //             console.log($localStorage.aFile);
-    //             vm.store = []
-    //             vm.store = {'req_file':$localStorage.aFile};
-    //             console.log(vm.store);
-    //             vm.newReq = vm.store;
-    //         }
-    //     }
-    // });
     
     activate();
 
@@ -70,15 +36,6 @@
             $state.go('core.login');
             toastr.error('You are not authorized to view this page.');
         } 
-      // else {
-      //   // Redirect if logged in, but not the owner of this account.
-      //   if (authenticatedAccount) {
-      //       // debugger;
-      //       $location.url('/');
-      //     // toastr.error('You are not authorized to view this page.');
-      //     // console.log("2");
-      //   }
-      // }
 
         Requests.getDetails(goodId).then(detailsSuccess).catch(detailsError);
 
@@ -126,13 +83,6 @@
         console.log(vm.newReq);
         console.log("good Deet");
         console.log(vm.details);
-        // for(var item in vm.details){
-        //     console.log(vm.details[item].good);
-        // }
-        // console.log(vm.details[item].good);
-        // var par = vm.details[item].good.replace(/domain: | family: | subfamily: |' '/g,'');
-        // console.log(par);
-        // var news = par.split(',');
         console.log(vm.news);
         vm.newReq['good'] = vm.news;
         console.log(goodId);
@@ -161,8 +111,6 @@
         }else{
            $state.go('app.orders.order', {orderId:vm.orderId}) 
         }
-        // $location.path('#/app/orders/order/'+data+'');
-        // $state.go('app.orders.order', {orderId:data})
     }
 
         function addReqError (errorMsg){
@@ -232,6 +180,11 @@
         };
 
         console.info('uploader', uploader);
+
+      vm.cancelReq = function(){
+        vm.newReq = {};
+        $state.go('app.dashboard');
+      }
     }
 
 })();

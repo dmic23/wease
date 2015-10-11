@@ -5,7 +5,7 @@ from rest_framework_nested import routers
 from authentication.views import AccountViewSet, CompanyViewSet, AddressViewSet, LoginView, LogoutView, OptizViewSet
 from orders.views import OrderViewSet, OrderSimpleViewSet, OrderApvViewSet, GoodViewSet, DetailViewSet, RequestViewSet, ReqItemViewSet, ReqProductViewSet, ReqFileViewSet, OfferViewSet, OfferItemViewSet
 from wease.views import IndexView
-from messaging.views import OrderActivityViewSet, NotificationViewSet, MailViewSet, MailReplyViewSet, ChatViewSet, ChatMessageViewSet
+from messaging.views import OrderActivityViewSet, NotificationViewSet, MailViewSet, MailReplyViewSet, MailFileViewSet, ChatViewSet, ChatMessageViewSet
 import settings
 from django.contrib import admin
 
@@ -82,6 +82,7 @@ req_router.register(r'req-files', ReqFileViewSet)
 offer_router.register(r'item', OfferItemViewSet)
 goods_router.register(r'details', DetailViewSet)
 mail_router.register(r'mail-reply', MailReplyViewSet)
+mail_router.register(r'mail-file', MailFileViewSet)
 
 urlpatterns = patterns(
     '',
@@ -102,7 +103,11 @@ urlpatterns = patterns(
     url(r'^api/v1/', include(chat_message_router.urls)),  
     url(r'^api/v1/auth/login/$', LoginView.as_view(), name='login'),
     url(r'^api/v1/auth/logout/$', LogoutView.as_view(), name='logout'),
-
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        'django.contrib.auth.views.password_reset_confirm', name='password_reset_confirm'),
+    url(r'^reset/done/$', 'django.contrib.auth.views.password_reset_complete', name='password_reset_complete'),
+    url(r'^reset_password/$', 'django.contrib.auth.views.password_reset', name='password_reset'),
+    url(r'^reset_password_done/$', 'django.contrib.auth.views.password_reset_done', name='password_reset_done'),    
     url(r'^$',  IndexView.as_view(), name='index'),    
     url(r'^/$',  IndexView.as_view(), name='index'),
 

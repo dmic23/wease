@@ -5,9 +5,9 @@
         .module('messages.controllers')
         .controller('MailComposeController', MailComposeController);
 
-    MailComposeController.$inject = ['$scope', '$state', '$stateParams', 'Authentication', 'Account', 'Messages', 'Company', 'toastr',];
+    MailComposeController.$inject = ['$scope', '$state', '$stateParams', '$cookies','Authentication', 'Account', 'Messages', 'Company', 'FileUploader', 'toastr',];
 
-    function MailComposeController($scope, $state, $stateParams, Authentication, Account, Messages, Company, toastr) {
+    function MailComposeController($scope, $state, $stateParams, $cookies, Authentication, Account, Messages, Company, FileUploader, toastr) {
         var vm = this;
 
         vm.msgId = $stateParams.filterParam;
@@ -36,6 +36,8 @@
             if(vm.msgId){
                 getDraft(vm.msgId);
             }
+
+            $scope.isCollapsed = true;
         }
 
         function getAllSuccess(data){
@@ -109,17 +111,87 @@
 
         function newMessageSuccess(data){
             console.log(data);
+            vm.msgId = data.id
+            console.log(vm.msgId);
             if(data.mail_draft === true){
                 vm.newMail = data;
                 console.log(vm.newMail);
                 toastr.info('Message saved as Draft');
-            }else{
-                $state.go('app.mail.inbox');
             }
+
+            if (uploader.queue.length>0){
+                uploader.uploadAll()
+            }else{
+               $state.go('app.mail.inbox');
+            }
+            vm.newMail = {};
+
         }
 
         function newMessageError(errorMsg){
             console.log(errorMsg);
         }
+
+        vm.cancel = function(){
+            vm.newMail = {};
+            $state.go('app.mail.inbox');
+        }
+
+        var csrf_token = $cookies.csrftoken;
+        var uploader = $scope.uploader = new FileUploader({
+            method: 'POST',
+            url: '/api/v1/mail/'+vm.msgId+'/mail-files/',
+            headers : {
+                'X-CSRFToken': csrf_token 
+            },
+        });
+
+        // FILTERS
+        uploader.filters.push({
+            name: 'customFilter',
+            fn: function(item /*{File|FileLikeObject}*/, options) {
+                return this.queue.length < 10;
+            }
+        });
+
+        // CALLBACKS
+        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        uploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        uploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function(item) {
+            console.info('onBeforeUploadItem', item);
+            item.url = '/api/v1/mail/'+vm.msgId+'/mail-file/';
+        };
+        uploader.onProgressItem = function(fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function(progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+        };
+        uploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteAll = function() {
+            console.info('onCompleteAll');
+            $state.go('app.mail.inbox');
+        };
+
+        console.info('uploader', uploader);        
+
     }
 })();

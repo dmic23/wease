@@ -2,7 +2,7 @@
     <li ng-class-odd="'in'" ng-class-even="'out'" ng-repeat="item in comments | orderBy: '-created_date'">
         <div class="media">
             <div ng-class-odd="'pull-left'" ng-class-even="'pull-right'" class="thumb thumb-sm pt-10">
-                <a ui-sref="app.pages.profile({ username: item.created_by_username })"><img class="media-object img-circle size-30x30" ng-src="{{path.static_files}}{{ item.created_by_pic }}" alt="{{ item.created_by_first_name }} {{ item.created_by_last_name }}"></a>
+                <a ui-sref="app.pages.profile({ username: item.created_by_username })"><img class="media-object img-circle size-30x30" ng-src="{{path.media}}{{ item.created_by_pic }}" alt="{{ item.created_by_first_name }} {{ item.created_by_last_name }}"></a>
             </div>
             <div class="media-body panel panel-default">
                 <div class="panel-heading bg-white">
@@ -18,7 +18,7 @@
     <li class="out">
         <div class="media">
             <div class="pull-right thumb thumb-sm pt-10">
-                <img class="media-object img-circle" ng-src="{{path.static_files}}{{ user.user_pic }}" alt="">
+                <img class="media-object img-circle" ng-src="{{path.media}}{{ user.user_pic }}" alt="">
             </div>
             <div class="media-body">
                 <div class="mt-10 mb-10 mr-10" ng-hide="post">

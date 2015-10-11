@@ -1,0 +1,136 @@
+{% load i18n %}
+{% load static %}
+{% autoescape off %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ subject }}</title>
+
+<style>
+
+    body {
+        text-align: center;
+        font-family: Arial;
+/*        background-color: #93A5B7;*/
+        width:100%!important;
+        -webkit-text-size-adjust:100%;
+        -ms-text-size-adjust:100%;
+        margin:0;
+        padding:0;
+    }
+
+    table {
+        width: 100%;    
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    @media only screen and (max-width: 600px) {
+
+        table[class="content_wrap"] {
+            width: 94%!important;
+        }
+
+        table[class="full_width"] {
+            width: 100%!important;
+        }
+
+        table[class="hide"], img[class="hide"], td[class="hide"] {
+            display: none !important;
+        }
+
+        td[class="text-center"] {
+            text-align: center!important;
+        }
+
+        a[class="button"] {
+            border-radius:2px;
+            -moz-border-radius:2px;
+            -webkitborder-radius:2px;
+            background-color:#B8327E;
+            color:#fff!important;
+            padding: 5px;
+            display:block;
+            text-decoration: none;
+            margin: 0 0 10px 0;
+        }
+
+    }
+</style>
+
+</head>
+ 
+<body style="">
+
+    <!-- Logo -->
+    <table>
+        <tr>
+            <td></td>
+            <td>
+                
+                <div>
+                    <table style="text-align: center;">
+                        <tr>
+                            <td><a href="#"><img src="http://weaseprod.s3.amazonaws.com/images/weaselogo.png" width="300" alt="logo" border="0" /></a></td>
+                        </tr>
+                    </table>
+                </div>
+                
+            </td>
+            <td></td>
+        </tr>
+    </table><!-- /Logo -->
+    <hr/>
+    <!-- BODY -->
+    <table class="content_wrap text-center">
+        <tr>
+            <td></td>
+            <td class="container">
+
+                <div class="content">
+                    <table>
+                        <tr>
+                            <td>
+                                <h3>New Member Added</h3>
+
+                                <h4>{% trans "Bonjour" %} {{ user.first_name }} {{ user.last_name }},</h4>
+                                <p>A new member has been added to your team. <a href="#" style="color:#B8327E;text-decoration:none;">{{ obj.first_name }} {{ obj.last_name }}</a> Please contact the <a href="#" style="color:#B8327E;text-decoration:none;">WeASe Team</a> if you have any questions.</p>
+                            </td> 
+                        </tr>
+                    </table>
+                </div><!-- /content -->           
+            </td>
+            <td></td>
+        </tr>
+    </table><!-- /BODY -->
+    <span class="clear"></span> 
+    <!-- FOOTER -->
+    <table class="footer-wrap">
+        <tr>
+            <td></td>
+            <td class="container">
+            <!-- Footer content -->
+                <div class="content">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <p><em>You are receiving this email to confirm action taken within WeASe. If you wish to stop receiving emails, simply login to <a href="weasr.fr" style="color:#B8327E;text-decoration:none;">WeASe</a> and adjust your profile settings or email <a href="emailto:optiz@optiz.com" style="color:#B8327E;text-decoration:none;">Optiz</a>.</em>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div><!-- / Footer content -->
+            </td>
+            <td></td>
+        </tr>
+    </table><!-- /FOOTER -->
+
+</body>
+</html>
+
+{% endautoescape %}

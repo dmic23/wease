@@ -343,7 +343,7 @@
                     <li ng-repeat="convo in vm.convos.chat_group | orderBy:'id' track by $index" ng-class-odd="'in'" ng-class-even="'out'">
                       <div class="media">
                         <div class="thumb thumb-sm" ng-class-odd="'pull-left'" ng-class-even="'pull-right'">
-                          <img class="media-object img-circle" ng-src="{{ path.static_files }}{{convo.user.user_pic}}" alt="">
+                          <img class="media-object img-circle" ng-src="{{ path.media }}{{convo.user.user_pic}}" alt="">
                         </div>
                         <div class="media-body">
                           <p class="media-heading"><a ui-sref="app.pages.profile({username:convo.user.username})" class="name">{{convo.user.user_name_full}}</a><span class="datetime"> {{convo.chat_message_created | parseDate | date:"d MMM 'at' h:mm a"}}</span></p>

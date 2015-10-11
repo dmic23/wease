@@ -15,7 +15,7 @@
                 <tbody>
                     <tr ng-repeat="act in activity | orderBy:'-timestamp'">
                         <td>{{ act.timestamp | date:"d MMM y 'at' h:mm a" }}</td>
-                        <td>{{ act.action }}</td>
+                        <td>{{ act.not_action }}</td>
                         <td ng-class="stati[act.extra.order_status]">{{ act.extra.order_status_full }}</td>
                         <td><a ui-sref="app.pages.profile({ username: act.user.username })">{{ act.user.user_name_full }}</a></td>
                     </tr>

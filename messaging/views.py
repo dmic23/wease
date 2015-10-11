@@ -8,8 +8,8 @@ from rest_framework.decorators import list_route, api_view, detail_route
 from authentication.models import Account
 from orders.models import Order
 from eventlog.models import Log, log
-from messaging.models import Mail, MailReply, Chat, ChatMessage
-from messaging.serializers import LogSerializer, MailSerializer, MailReplySerializer, ChatSerializer, ChatMessageSerializer
+from messaging.models import Mail, MailReply, MailFile, Chat, ChatMessage
+from messaging.serializers import LogSerializer, MailSerializer, MailReplySerializer, MailFileSerializer, ChatSerializer, ChatMessageSerializer
 from django.utils import timezone
 from datetime import date
 
@@ -83,6 +83,7 @@ class MailViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         if serializer.is_valid():
+            print "MESS SRD --- %s" %self.request.data
             user = self.request.user
             mail_to_all = self.request.data.pop('mailTo')
             print "MTA --- %s" % mail_to_all
@@ -96,6 +97,7 @@ class MailViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         if serializer.is_valid():
+            print "MSG UPD SRD --- %s" %self.request.data
             user = self.request.user
 
             serializer.save(user=user, **self.request.data)
@@ -143,6 +145,26 @@ class MailReplyViewSet(viewsets.ModelViewSet):
             reply_mail.body = self.request.data['body']
             reply_mail.save()
             serializer.save(reply_mail=reply_mail, **self.request.data)
+
+class MailFileViewSet(viewsets.ModelViewSet):
+    lookup_field = 'id'
+    queryset = MailFile.objects.all()
+    serializer_class = MailFileSerializer
+
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return (permissions.AllowAny(),)
+        return (permissions.IsAuthenticated(),)
+
+    def perform_create(self, serializer):
+        print "SELF REQ MAILFILE --- %s" %self.request.data
+        print "MAIL FILE KWARGS == %s"%self.kwargs
+        mail_id = self.kwargs['mail_id']
+        print "MAIL ID -- %s" %mail_id
+        mail_file = self.request.data['file']
+        print "Mail file == %s" %mail_file
+        instance = serializer.save(base_mail=Mail.objects.get(id=mail_id), mail_file=mail_file)
+        return super(MailFileViewSet, self).perform_create(serializer)
 
 class ChatViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'

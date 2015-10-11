@@ -320,9 +320,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-4 form-group m-20 pull-right" ng-controller="OfferApvlModalCtrl" ng-if="vm.order.order_status === 'OFR' && vm.orderCompany &&  vm.auth_amount">
-                        <button ng-click="open('lg', 'Approval')" class="btn btn-rounded btn-success btn-block">Approve</button>
-                        <button ng-click="open('lg', 'Refusal')" class="btn btn-rounded btn-lightred btn-block">Refuse</button>
+                    <div class="col-md-4 form-group m-20 pull-right" ng-controller="OfferApvlModalCtrl" ng-if="vm.order.order_status === 'OFR' && vm.orderCompany">
+                        <button ng-click="open('lg', 'Approval')" class="btn btn-rounded btn-success btn-block" ng-disabled="!vm.auth_amount">Approve</button>
+                        <button ng-click="open('lg', 'Refusal')" class="btn btn-rounded btn-lightred btn-block" ng-disabled="!vm.auth_amount">Refuse</button>
                     </div>
                   </div>
                 </div>

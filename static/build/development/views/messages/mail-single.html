@@ -48,9 +48,9 @@
         <span class="text-muted">to</span>
         <a ng-repeat="mail_to in vm.mail.mail_to" ui-sref="app.pages.profile({username:mail_to.username})" class="text-default"><span ng-show="mail_to.username === au.username"> Me </span><span ng-hide="mail_to.username === au.username"> {{mail_to.user_name_full}} </span></a>
       </p>
-      <p class="mb-0 text-sm" ng-if="vm.mail.base_file > 0">
+      <p class="mb-0 text-sm" ng-if="vm.mail.base_files.length > 0">
         <span class="text-muted"><i class="fa fa-paperclip"></i></span>
-        ({{vm.mail.base_file.length}} files)
+        ({{vm.mail.base_files.length}} files)
       </p>
     </div>
   </div>
@@ -61,6 +61,10 @@
   <p>{{vm.mail.body}}</p>
 </div>
 
+<div class="p-15 row" ng-if="vm.mail.base_files.length > 0">
+    <h5 class="col-sm-1">Files:</h5>
+    <div class="thumb-header col-sm-4 pt-10" ng-repeat="file in vm.mail.base_files"><i class="fa fa-paperclip"></i><a href="{{path.media}}{{file.mail_file}}" target="_blank"> {{file.mail_file}} </a></div>
+</div>
 
 <div ng-if="vm.mail.reply_mail.length >= 1">
   <div class="p-15 b-b">

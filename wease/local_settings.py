@@ -41,7 +41,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/build/development'),
 )
 
-from wease.email_info import EMAIL_USE_TLS, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT
+from .email_info import EMAIL_BACKEND, EMAIL_USE_TLS, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT
 
 SWAMP_DRAGON_CONNECTION = ('swampdragon.connections.sockjs_connection.DjangoSubscriberConnection', '/data')
 DRAGON_URL = 'http://localhost:9999/'

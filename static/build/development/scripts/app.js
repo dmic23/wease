@@ -346,7 +346,7 @@ angular
       controllerAs: 'vm',
       templateUrl: static_path('views/messages/mail-single.html')
     })
-    //app core pages (errors, login,signup)
+    //app core pages (errors, login, password)
     .state('core', {
       abstract: true,
       url: '/core',

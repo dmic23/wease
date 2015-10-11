@@ -4,6 +4,11 @@ from django.forms import widgets
 from rest_framework import serializers
 from eventlog.models import log
 from authentication.models import Account, Company, Address
+#from authentication.views import user_email
+
+# from django.template.loader import render_to_string, get_template
+# from django.core.mail import send_mail
+# from django.core.mail import EmailMessage
 
 
 class UserCompanySerializer(serializers.ModelSerializer):
@@ -28,11 +33,9 @@ class AddressSerializer(serializers.ModelSerializer):
             'post_code', 'country', 'phone_main', 'email', 'addr_notes',)
 
     def create(self, validated_data):
-        print "VAL-DATA ADDR === %s" % validated_data
         user = validated_data.pop('user')
         if 'addr_company' in validated_data:
             addr_comp = validated_data.pop('addr_company')
-            print "ADDR COMP -- %s" % addr_comp
             comp = Company.objects.get(id=addr_comp)
         else:
             addr_user = Account.objects.get(id=validated_data['addr_user'])
@@ -70,11 +73,9 @@ class CompanySerializer(serializers.ModelSerializer):
         read_only_fields = ('company_updated', 'company_created',)
 
     def create(self, validated_data):
-        print "VAL-DATA COMP === %s" % validated_data
         user = validated_data.pop('user')
         addr = validated_data.pop('company_address')
         comp_assign = validated_data.pop('assign_optiz')
-        print "assign_optiz === %s" % comp_assign
         comp = Company.objects.create(company_created_by=user, **validated_data)
         for optiz in comp_assign:
             optiz_user = Account.objects.get(id=optiz)
@@ -125,7 +126,6 @@ class CompanySerializer(serializers.ModelSerializer):
             for optiz in opt_users:
                 if not instance.company_assigned_to.all().filter(id=optiz).exists():
                     optiz_user = Account.objects.get(id=optiz)
-                    print "OPTIZ ASS === %s" % optiz_user
                     instance.company_assigned_to.add(optiz_user)
                     log(
                         user=user,
@@ -187,9 +187,6 @@ class AccountSerializer(serializers.ModelSerializer):
         return Account.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        print "SELF === %s" % self
-        print "INST === %s" % instance
-        print "VAL-DATA === %s" % validated_data
         user = validated_data.pop('user')
         instance.username = validated_data.get('username', instance.username)
         instance.email = validated_data.get('email', instance.email)
@@ -240,4 +237,7 @@ class AccountSerializer(serializers.ModelSerializer):
                 'account_last_name':instance.last_name,
             }
         )
+        if instance.info_change_email:
+            from authentication.views import user_email
+            user_email(instance, obj=None, subj='WeASe profile updated', tmp='registration/user_update.html')
         return instance

@@ -10,12 +10,12 @@
 
     <div class="media p-15">
       <div class="pull-left thumb thumb-lg mr-20">
-        <img class="media-object img-circle" src="{{path.static_files}}images/ici-avatar.jpg" alt="">
+        <img class="media-object img-circle" src="{{path.media}}{{au.user_pic}}" alt="">
       </div>
       <div class="media-body">
 
         <form name="form" class="form-validation" novalidate>
-          <h4 class="media-heading mb-0">Ing. Imrich <strong>Kamarel</strong></h4>
+          <h4 class="media-heading mb-0">{{au.first_name}} <strong>{{au.last_name}}</strong></h4>
           <div class="form-group mt-10">
             <input type="password" placeholder="Password" class="form-control underline-input" ng-model="user.password" required>
           </div>

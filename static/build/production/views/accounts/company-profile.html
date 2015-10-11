@@ -40,13 +40,13 @@
           <div class="tile-widget p-30 text-center">
 
             <div class="thumb thumb-xl">
-              <img class="img-circle" ng-src="{{path.static_files}}{{ vm.company.company_logo }}" alt=""/>
+              <img class="img-circle" ng-src="{{path.media}}{{ vm.company.company_logo }}" alt=""/>
             </div>
-            <h4 class="mb-0"><strong>{{ vm.company.name }}</strong></h4>
-            <span class="text-muted">{{ vm.account.position }}</span>
+            <h4 class="mb-0"><strong class="text-lightred">{{ vm.company.name }}</strong></h4>
+            <span class="text-muted">{{ vm.company.company_address.city }}, {{vm.company.company_address.country}}</span>
             <div class="mt-10">
-              <button class="btn btn-rounded-20 btn-sm btn-greensea">Chat</button>
-              <button class="btn btn-rounded-20 btn-sm btn-lightred">Message</button>
+<!--               <button class="btn btn-rounded-20 btn-sm btn-greensea">Chat</button>
+              <button class="btn btn-rounded-20 btn-sm btn-lightred">Message</button> -->
             </div>
 
           </div>
@@ -106,7 +106,7 @@
 
           <!-- tile header -->
           <div class="tile-header">
-            <h1 class="custom-font"><strong>Team</strong> {{ vm.company.name }}</h1>
+            <h1 class="custom-font"><strong>Team</strong> <span class="text-lightred"> {{vm.company.name}}</span></h1>
           </div>
           <!-- /tile header -->
 
@@ -116,7 +116,7 @@
             <div class="media team" ng-repeat="user in vm.company.wease_company" ui-sref="app.pages.profile({username:user.username})">
               
               <div class="pull-left thumb">
-                <img class="media-object img-circle" ng-src="{{path.static_files}}{{ user.user_pic }}" alt="">
+                <img class="media-object img-circle" ng-src="{{path.media}}{{ user.user_pic }}" alt="">
               </div>
 <!--               <div class="pull-right mt-10">
                 <button type="button" class="btn btn-rounded-20 btn-default btn-sm" style="width:30px;"><a ui-sref="app.pages.profile({username:user.username})"><i class="fa fa-eye" style="margin-left: -2px;"></i></a></button>
@@ -227,17 +227,63 @@
                   <div class="row">
                     <div class="col-md-12 p-20">
                       <!-- <span><a target="_blank" href="https://www.google.com/maps/place/?q={{vm.company.company_address.street_addr1}}+{{vm.company.company_address.city}}+{{vm.company.company_address.country}}+{{vm.company.company_address.post_code}}" class="icon icon-sm icon-lightred icon-ef-3 icon-ef-3b icon-color"><i class="fa fa-map-marker"></i></a></span> -->
-                      <h4>{{vm.company.company_address.street_addr1}}</h4>
+<!--                       <h4>{{vm.company.company_address.street_addr1}}</h4>
                       <h4>{{vm.company.company_address.street_addr2}}</h4>
                       <h4>{{vm.company.company_address.city}}, {{vm.company.company_address.country}} {{vm.company.company_address.post_code}}</h5>
                       <h5>{{vm.company.company_address.phone_main}}</h5>
-                      <h5><a href="mailto:{{vm.company.company_address.email}}">{{vm.company.company_address.email}}</a></h4>
+                      <h5><a href="mailto:{{vm.company.company_address.email}}">{{vm.company.company_address.email}}</a></h4> -->
+
+<!--                       <div class="row">
+                          <div class="form-group col-sm-6">
+                              <label class="" for="company_name">Company Name</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.name}}</h4>
+                          </div>
+                          <div class="form-group col-sm-6">
+                              <label class="" for="addr_location">Address Title</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.company_address.addr_location}}</h4>
+                          </div>
+                      </div> -->
+                      <div class="row">
+                          <div class="form-group col-sm-6">
+                              <label class="" for="street_addr1">Address Line 1</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.company_address.street_addr1}}</h4>
+                          </div>
+                          <div class="form-group col-sm-6">
+                              <label class="" for="street_addr2">Address Line 2</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.company_address.street_addr2}}</h4>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="form-group col-sm-4">
+                              <label class="" for="city">City</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.company_address.city}}</h4>
+                          </div>
+                          <div class="form-group col-sm-4">
+                              <label class="" for="post_code">Post Code</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.company_address.post_code}}</h4>
+                          </div>
+                          <div class="form-group col-sm-4">
+                              <label class="" for="country">Country</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.company_address.country}}</h4>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-sm-6">
+                              <label class="" for="email">E-mail</label>
+                              <h4 class="form-control-static"><a href="mailto:{{vm.company.company_address.email}}">{{vm.company.company_address.email}}</a></h4>
+                          </div>
+                          <div class="form-group col-sm-6">
+                              <label class="" for="phone">Phone Main</label>
+                              <h4 class="form-control-static text-blue">{{vm.company.company_address.phone_main}}</h4>
+                          </div>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12 p-20 b-t">
                       <div class="thumb" ng-show="vm.company.company_website">
-                        <a href="http://{{vm.company.company_website}}"><img class="media-object img-circle" ng-src="{{path.static_files}}{{vm.company.company_logo}}" alt="">
+                        <a href="http://{{vm.company.company_website}}"><img class="media-object img-circle" ng-src="{{path.media}}{{vm.company.company_logo}}" alt="">
                         {{vm.company.company_website}}</a>
                       </div>
                     </div>
@@ -340,7 +386,7 @@
                         <div class="form-group col-sm-4">
                             <label for="company_website">Website</label>
                             <input type="text" class="form-control" ng-model="vm.company.company_website">
-                            <span class="help-block">www.optiz.fr</span>
+                            <span class="help-block">ex: www.optiz.fr</span>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="addr_notes">Address Notes</label>
@@ -531,8 +577,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="first-name">Authorization Amount</label>
-                                <span class="input-group-addon">€</span>
+                                <label for="auth-amount">Authorization Amount € :</label>
                                 <input type="number" class="form-control" name="auth_amount" placeholder="Enter an authorization amount" ng-model="vm.newUser.auth_amount" ng-minlength=1 ng-maxlength=7 required>
                                 <span class="text-red" ng-show="newUserForm.auth_amount.$invalid">Required</span>
                             </div>

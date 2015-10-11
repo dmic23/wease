@@ -39,14 +39,14 @@ class MailFileSerializer(serializers.ModelSerializer):
 class MailReplySerializer(serializers.ModelSerializer):
     orig_mail = serializers.StringRelatedField(required=False)
     reply_files = MailFileSerializer(required=False, many=True)
-    reply_read_by = UserCompanySerializer(required=False, many=True)
+    reply_read_by = UserCompanySerializer(required=False, many=True, allow_null=True)
     trash = UserCompanySerializer(required=False, many=True)
     mail_to = UserCompanySerializer(required=False, many=True)
     reply_created_by = UserCompanySerializer(required=False)
 
     class Meta:
         model = MailReply
-        fields = ('id', 'orig_mail', 'subject', 'body', 'reply_draft', 'reply_read_date', 'reply_read_by',
+        fields = ('id', 'orig_mail', 'subject', 'body', 'reply_draft', 'reply_read_by',
                 'trash', 'mail_to', 'reply_created_by', 'reply_created', 'reply_files',)
 
     def create(self, validated_data):
@@ -64,7 +64,7 @@ class MailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mail
-        fields = ('id', 'subject', 'body', 'mail_draft', 'mail_read', 'mail_read_date', 'mail_read_by', 'trash', 'mail_to',
+        fields = ('id', 'subject', 'body', 'mail_draft', 'mail_read', 'mail_read_by', 'trash', 'mail_to',
                 'mail_created_by', 'mail_created', 'reply_mail', 'base_files',)
 
     def create(self, validated_data):

@@ -7,8 +7,9 @@ from rest_framework.parsers import JSONParser
 import json
 from collections import *
 from authentication.models import Account, Company, Address
-from orders.models import Order, ReqItem, ReqProduct, ReqFile, Offer, OfferItem, Comment, Good, Detail
 from authentication.serializers import AccountSerializer, UserCompanySerializer, CompanySerializer, AddressSerializer
+from authentication.views import user_email
+from orders.models import Order, ReqItem, ReqProduct, ReqFile, Offer, OfferItem, Comment, Good, Detail
 from eventlog.models import log
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -186,6 +187,8 @@ class ReqItemSerializer(serializers.ModelSerializer):
                 'order_status_full':order.get_order_status_display(),
             }
         )
+        if not order.order_draft and user.request_email:
+            user_email(user, order, subj='request', tmp='registration/order_confirm_email.html')
         return instance
 
 
@@ -232,7 +235,6 @@ class OrderSerializer(serializers.ModelSerializer):
         read_only_fields = ('order_created', 'modified_date', 'company_approval_by', 'optiz_status_change_by', 'order_status_change_by', 'modified_by',)
     
     def update(self, instance, validated_data):
-        print 'VAL DATA == %s' % validated_data
         user = validated_data.pop('user')
         if 'order_draft' in validated_data:
             if 'False' in validated_data['order_draft']:
@@ -288,7 +290,6 @@ class OrderSerializer(serializers.ModelSerializer):
                 instance.order_status_change_date = timezone.now()
                 if not instance.order_draft:
                     order_status_full = instance.get_order_status_display()
-                    print "Ord Stat F --- %s" % order_status_full
                     log(
                         user=user,
                         company=instance.order_company,

@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'storages',
     'boto',
     'rest_framework',
+    'widget_tweaks', 
     'swampdragon',
     'eventlog',
     'authentication',
@@ -118,6 +119,8 @@ USE_TZ = True
 
 SITE_ID=1
 
+LOGIN_URL = 'wease.fr'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
@@ -178,10 +181,10 @@ if not DEBUG:
     SWAMP_DRAGON_HOST = '127.0.0.1'
     SWAMP_DRAGON_PORT = 9000
 
-# from .email_info import EMAIL_USE_TLS, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT
+from .email_info import EMAIL_BACKEND, EMAIL_USE_TLS, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT
 # For gmail and google apps
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
+# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = os.environ.get('EMAIL_PORT')
