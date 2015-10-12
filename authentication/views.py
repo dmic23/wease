@@ -55,11 +55,9 @@ class AccountViewSet(viewsets.ModelViewSet):
             registration_email(acct.email, 'weasereg@gmail.com')
             for uc in user_company.wease_company.all():
                 if uc.id != acct.id and uc.new_user_email:
-                    print "UC ____ %s" % uc
                     user_email(uc, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
             for optiz in user_company.company_assigned_to.all():
                 if optiz.new_user_email:
-                    print "OP ____ %s" % optiz
                     user_email(optiz, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
