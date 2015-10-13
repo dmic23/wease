@@ -2,10 +2,11 @@
 from django.contrib.auth import update_session_auth_hash
 from django.forms import widgets
 from rest_framework import serializers
-from eventlog.models import log
 from authentication.models import Account, Company, Address
+from eventlog.models import log
+from messaging.tasks import user_email
 #from authentication.views import user_email
-
+# from messaging.tasks import user_email
 # from django.template.loader import render_to_string, get_template
 # from django.core.mail import send_mail
 # from django.core.mail import EmailMessage
@@ -238,6 +239,6 @@ class AccountSerializer(serializers.ModelSerializer):
             }
         )
         if instance.info_change_email:
-            from authentication.views import user_email
-            user_email(instance, obj=None, subj='WeASe profile updated', tmp='registration/user_update.html')
+        #     from authentication.views import user_email
+            user_email.delay(instance, obj=None, subj='WeASe profile updated', tmp='registration/user_update.html')
         return instance

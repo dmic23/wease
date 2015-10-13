@@ -1,0 +1,9 @@
+#!/Users/danielmicaletti/Documents/VirtualEnvs/wease/wease_prod/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'celery==3.1.18','console_scripts','celeryd-multi'
+__requires__ = 'celery==3.1.18'
+import sys
+from pkg_resources import load_entry_point
+
+sys.exit(
+   load_entry_point('celery==3.1.18', 'console_scripts', 'celeryd-multi')()
+)

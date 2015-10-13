@@ -2,18 +2,16 @@
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordResetForm
-from django.conf import settings
-from django.core.mail import EmailMessage
-from django.template import RequestContext, Context
-from django.template.loader import render_to_string, get_template
 from django.utils import timezone
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.response import Response
 # from authentication.permissions import IsAccountOwner
-from ipware.ip import get_ip
-from eventlog.models import log
 from authentication.models import Account, Company, Address
 from authentication.serializers import AccountSerializer, CompanySerializer, AddressSerializer, UserCompanySerializer
+from eventlog.models import log
+from messaging.tasks import user_email, registration_email
+from ipware.ip import get_ip
+
 
 class AccountViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
@@ -52,13 +50,13 @@ class AccountViewSet(viewsets.ModelViewSet):
                     'account_last_name':acct.last_name,
                 }
             )
-            registration_email(acct.email, 'weasereg@gmail.com')
+            registration_email.delay(acct.email, 'weasereg@gmail.com')
             for uc in user_company.wease_company.all():
                 if uc.id != acct.id and uc.new_user_email:
-                    user_email(uc, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
+                    user_email.delay(uc, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
             for optiz in user_company.company_assigned_to.all():
                 if optiz.new_user_email:
-                    user_email(optiz, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
+                    user_email.delay(optiz, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
         return Response({
@@ -74,13 +72,6 @@ class AccountViewSet(viewsets.ModelViewSet):
             else:
                 serializer.save(user=self.request.user, **self.request.data)
 
-
-def registration_email(email, from_email, template='registration/password_reset_email_reg.html'):
-
-    form = PasswordResetForm({'email': email})
-    if form.is_valid():
-        subject='registration/password_reset_email_reg.txt'
-        return form.save(subject_template_name=subject, from_email=from_email, html_email_template_name=template)
 
 class CompanyViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
@@ -131,7 +122,6 @@ class LoginView(views.APIView):
         password = data.get('password', None)
 
         account = authenticate(email=email, password=password)
-        print "ACCT -- %s" %account
         if account is not None:
             if account.is_active:
                 login(request, account)
@@ -184,16 +174,3 @@ class LogoutView(views.APIView):
         )
         logout(request)
         return Response({}, status=status.HTTP_204_NO_CONTENT)
-
-def user_email(user, obj, subj, tmp):
-    ctx = {
-        'user': user,
-        'obj':obj,
-    }
-    from_email = 'weasereg@gmail.com'
-    to = [user.email]
-    subject = subj
-    message = get_template(tmp).render(Context(ctx))
-    msg = EmailMessage(subject, message, from_email, to)
-    msg.content_subtype = 'html'
-    msg.send()

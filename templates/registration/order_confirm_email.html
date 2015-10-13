@@ -122,30 +122,31 @@
                                 <table cellpadding="0" cellspacing="0" border="1" style="text-align:center;">
                                 {% if obj.order_status == 'PEN' %}
                                     {% for req_item in obj.req_item.all %}
+                                        
+                                        <thead style="background:#CCCCCC">
+                                            <tr>
+                                                <th width="5%">#</th>
+                                                <th width="25%" colspan="2">{% trans "Produit" %}</th>
+                                                <th width="20%">{% trans "Details" %}</th>
+                                                <th width="50%" colspan="2">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                         {% for req_prod in req_item %}
-                                            <thead style="background:#CCCCCC">
-                                                <tr>
-                                                    <th width="5%">#</th>
-                                                    <th width="25%" colspan="2">{% trans "Produit" %}</th>
-                                                    <th width="20%">{% trans "Details" %}</th>
-                                                    <th width="50%" colspan="2">Description</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center mid-header" rowspan="3">{{forloop.counter}}</td>
-                                                    <td colspan="2">{{ req_prod.prod_title }}</td>
-                                                    <td>{{ op.prod_details }}</td>
-                                                    <td colspan="2">{{ req_prod.prod_description }}</td>
-                                                </tr>
-                                            </tbody>
-                                        {% endfor %}
+                                            <tr>
+                                                <td class="text-center mid-header" rowspan="3">{{forloop.counter}}</td>
+                                                <td colspan="2">{{ req_prod.prod_title }}</td>
+                                                <td>{{ op.prod_details }}</td>
+                                                <td colspan="2">{{ req_prod.prod_description }}</td>
+                                            </tr>
+                                        {% endfor %}    
+                                        </tbody>
                                     {% endfor %}
                                 {% else %}
                                 {% endif %}
                                 </table>
                                 <br/>
-                                <p><a href="/#/" class="button" style="color:#B8327E;text-decoration:none;">{% trans 'Visualisez l'offre sur WeASe' %}</a></p>
+                                <p><a href="/#/a" class="button" style="color:#B8327E;text-decoration:none;">{% trans 'Visualisez l'offre sur WeASe' %}</a></p>
                             </td>
                         </tr>
                     </table>

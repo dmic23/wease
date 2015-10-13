@@ -8,9 +8,10 @@ import json
 from collections import *
 from authentication.models import Account, Company, Address
 from authentication.serializers import AccountSerializer, UserCompanySerializer, CompanySerializer, AddressSerializer
-from authentication.views import user_email
+# from authentication.views import user_email
 from orders.models import Order, ReqItem, ReqProduct, ReqFile, Offer, OfferItem, Comment, Good, Detail
 from eventlog.models import log
+# from tasks import user_email
 
 class CommentSerializer(serializers.ModelSerializer):
     created_by_username = serializers.CharField(source='created_by.username')
@@ -187,8 +188,8 @@ class ReqItemSerializer(serializers.ModelSerializer):
                 'order_status_full':order.get_order_status_display(),
             }
         )
-        if not order.order_draft and user.request_email:
-            user_email(user, order, subj='request', tmp='registration/order_confirm_email.html')
+        # if not order.order_draft and user.request_email:
+        #     user_email(user, order, subj='request', tmp='registration/order_confirm_email.html')
         return instance
 
 

@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'storages',
     'boto',
     'rest_framework',
+    'djcelery',
     'widget_tweaks', 
     'swampdragon',
     'eventlog',
@@ -117,7 +118,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-SITE_ID=1
+SITE_ID = 1
 
 LOGIN_URL = 'wease.fr'
 

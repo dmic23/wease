@@ -25,7 +25,6 @@ class Log(SelfPublishModel, models.Model):
     content_type = models.ForeignKey(ContentType, null=True)
     object_id = models.PositiveIntegerField(null=True)
     notification = models.BooleanField(default=False)
-    # dashboard = models.BooleanField(default=False)
     viewed_by = models.ManyToManyField(Account, related_name='user_viewed', blank=True)
     extra = jsonfield.JSONField()
     serializer_class = EventLogSerializer
