@@ -191,6 +191,9 @@ class Offer(models.Model):
     offer_approval_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='offer_updated_by')
     offer_approval = models.DateTimeField(auto_now_add=False, auto_now=False, null=True, blank=True)
 
+    class Meta:
+        ordering = ['-offer_created']
+
     def __unicode__(self):
         return smart_unicode(self.order.order_number)
 

@@ -1,0 +1,35 @@
+<div class="page page-core page-login">
+
+  <div class="text-center"><img ng-src="{{path.media}}images/weaselogo2.1.png" alt="wease logo" class="w-240"></div>
+
+  <div class="container w-420 p-15 bg-white mt-40 text-center">
+
+
+    <h2 class="text-light text-greensea">Log In</h2>
+
+    <form name="form" class="form-validation mt-20" ng-submit="vm.login()" novalidate>
+      <div class="alert alert-danger login-alert" ng-show="error" ng-bind="error"></div>
+
+      <div class="form-group">
+        <input type="email" class="form-control underline-input" placeholder="Email" ng-model="vm.email" required>
+      </div>
+
+      <div class="form-group">
+        <input type="password" placeholder="Password" class="form-control underline-input" ng-model="vm.password" required>
+      </div>
+
+      <div class="form-group text-left mt-20">
+        <button type="submit" class="btn btn-greensea b-0 br-2 mr-5" ng-disabled='form.$invalid'>Login</button>
+        <label class="checkbox checkbox-custom checkbox-custom-sm inline-block">
+          <input type="checkbox"><i></i> Remember me
+        </label>
+        <a href="/reset_password/" class="pull-right mt-10">Forgot Password?</a>
+      </div>
+
+    </form>
+
+    <hr class="b-3x"/>
+
+  </div>
+
+</div>

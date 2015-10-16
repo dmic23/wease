@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-12 pl-20 pr-20 form-group">
+        <div ng-controller="PillsDemoCtrl">
+        <div class="clearfix"></div>
+            <tabset class="pills" type="pills" justified="true">
+
+                <tab ng-repeat="addr in addresses" heading="{{addr.addr_location}}" active="addr.active">
+                    <div class="row">
+                        <p>{{vm.da}}</p>
+                        <h4 ng-show="vm.companyPage">Select Adddress for Default Location</h4>
+                        <label ng-model="vm.da" btn-radio="{{addr}}" class="btn btn-ef btn-ef-1 btn-ef-1-slategray btn-ef-1a mb-10" activate-button uncheckable><i class="fa fa-truck"></i><span ng-show="vm.da.id==={{addr.id}}"> Selected </span><span ng-hide="vm.da.id==={{addr.id}}">  Select {{addr.addr_location}} </span></label>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-8 mb-0">
+                            <label for="address1">Address 1: </label>
+                            <p class="well">{{ addr.street_addr1 }}</p>
+                        </div>
+                        <div class="form-group col-md-4 mb-0">
+                            <label for="address2">Address 2: </label>
+                            <p class="well">{{ addr.street_addr2 }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="city">City: </label>
+                            <p class="well">{{ addr.city }}</p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="country">Country: </label>
+                            <p class="well">{{ addr.country}}</p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="post_code">Post Code: </label>
+                            <p class="well">{{ addr.post_code }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="zip">Address Notes: </label>
+                            <p class="well">{{ addr.addr_notes }}</p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="phone">Phone: </label>
+                            <p class="well">{{ addr.phone_main }}</p>                        
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+        <div class="col-md-12">
+            <p>{{vm.da}}</p>
+            <button class="btn btn-lg btn-primary" ng-click="vm.setAddr(vm.da, page);">Set Address</button>
+        </div>
+    </div>
+</div>

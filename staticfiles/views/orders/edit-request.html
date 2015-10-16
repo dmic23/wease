@@ -1,0 +1,35 @@
+<div class="page page-single-order">
+
+  <!-- page header -->
+  <div class="pageheader">
+
+    <h2>{{page.title}} <span> for </span> {{ vm.company.name }}</h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+        </li>
+        <li>
+          <a ui-sref="app.orders.order({orderId:vm.req.order})">Order</a>
+        </li>
+        <li>
+          <a ui-sref="app.orders.new-request">{{page.title}}</a>
+        </li>        
+      </ul>
+
+    </div>
+
+  </div>
+  <!-- /page header -->
+
+  <!-- page content -->
+  <div class="pagecontent">
+    <h3 class="mb-20">{{vm.req.req_domain}} > {{vm.req.item_fam}} > {{vm.req.item_subfam}}</h3>
+    <edit-req req="vm.req" path="path.media" comp="vm.company"></edit-req>
+
+  </div>
+  <!-- /page content -->
+
+</div>

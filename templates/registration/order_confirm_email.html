@@ -1,4 +1,4 @@
-{% load i18 %}
+{% load i18n %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -97,10 +97,10 @@
                             <td>
                                 <h3>{{ subject }}</h3>
 
-                                <h4>{% trans 'Bonjour'%} {{ user.first_name }},</h4>
-                                <p>A {{ subject }} n°{{ obj.order_number }}/v{{ obj.order_version }} has been place by {{ obj.order_created_by.first_name }} {{ obj.order_created_by.last_name }} on {{ obj.order_created }} and approved by {{ obj.company_approval_by.first_name }} {{ obj.company_approval_by.last_name }} on {{ obj.order_company approval_date }}. 
+                                <h4>{% trans 'Bonjour' %} {{ user.first_name }},</h4>
+                                <p>A {{ subject }} n°{{ obj.order_number }}/v{{ obj.order_version }} has been place by {{ obj.order_created_by.first_name }} {{ obj.order_created_by.last_name }} on {{ obj.order_created }} and approved by {{ obj.company_approval_by.first_name }} {{ obj.company_approval_by.last_name }} on {{ obj.company_approval_date }}. 
                                 <br/>
-                                <a href="#" style="color:#B8327E;text-decoration:none;">{% trans 'L’équipe WEASE' %}</a></p>    
+                                <a href="#" style="color:#B8327E;text-decoration:none;">{% trans 'WeASe Team' %}</a></p>    
                                 <hr/>           
                                 <table width="100%">
                                     <tr>
@@ -119,34 +119,9 @@
                         <br/>
                         <tr>
                             <td>
-                                <table cellpadding="0" cellspacing="0" border="1" style="text-align:center;">
-                                {% if obj.order_status == 'PEN' %}
-                                    {% for req_item in obj.req_item.all %}
-                                        
-                                        <thead style="background:#CCCCCC">
-                                            <tr>
-                                                <th width="5%">#</th>
-                                                <th width="25%" colspan="2">{% trans "Produit" %}</th>
-                                                <th width="20%">{% trans "Details" %}</th>
-                                                <th width="50%" colspan="2">Description</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for req_prod in req_item %}
-                                            <tr>
-                                                <td class="text-center mid-header" rowspan="3">{{forloop.counter}}</td>
-                                                <td colspan="2">{{ req_prod.prod_title }}</td>
-                                                <td>{{ op.prod_details }}</td>
-                                                <td colspan="2">{{ req_prod.prod_description }}</td>
-                                            </tr>
-                                        {% endfor %}    
-                                        </tbody>
-                                    {% endfor %}
-                                {% else %}
-                                {% endif %}
-                                </table>
+
                                 <br/>
-                                <p><a href="/#/a" class="button" style="color:#B8327E;text-decoration:none;">{% trans 'Visualisez l'offre sur WeASe' %}</a></p>
+                                <p><a href="/#/a" class="button" style="color:#B8327E;text-decoration:none;">{% trans 'View in WeASe' %}</a></p>
                             </td>
                         </tr>
                     </table>
@@ -166,7 +141,7 @@
                     <table>
                         <tr>
                             <td align="center">
-                                <p><em>{% blocktrans %}Vous recevez cet email parce qu'une action est requise. Si vous ne desirez plus recevoir ces notifications, connectez-vous sur {% endblocktrans %}<a href="wease.herokuapp.com" style="color:#B8327E;text-decoration:none;">WeASe</a> {% trans 'et changez les informations de votre profile ou contactez' %} <a href="emailto:wease@wease.eu" style="color:#B8327E;text-decoration:none;">{% trans 'L’équipe WEASE' %}</a>.</em>
+                                <p><em>{% blocktrans %}Vous recevez cet email parce qu'une action est requise. Si vous ne desirez plus recevoir ces notifications, connectez-vous sur {% endblocktrans %}<a href="wease.herokuapp.com" style="color:#B8327E;text-decoration:none;">WeASe</a> {% trans 'et changez les informations de votre profile ou contactez' %} <a href="emailto:wease@wease.eu" style="color:#B8327E;text-decoration:none;">{% trans 'WeASe Team' %}</a>.</em>
                                 </p>
                             </td>
                         </tr>

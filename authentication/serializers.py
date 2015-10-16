@@ -189,6 +189,10 @@ class AccountSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         user = validated_data.pop('user')
+        print"self req -- %s" % self
+        print"VALDATA -- %s" % validated_data
+        req = self.context.get('request')
+        print "REQ??? ---- %s" %req
         instance.username = validated_data.get('username', instance.username)
         instance.email = validated_data.get('email', instance.email)
         instance.first_name = validated_data.get('first_name', instance.first_name)
@@ -240,5 +244,6 @@ class AccountSerializer(serializers.ModelSerializer):
         )
         if instance.info_change_email:
         #     from authentication.views import user_email
+
             user_email.delay(instance, obj=None, subj='WeASe profile updated', tmp='registration/user_update.html')
         return instance

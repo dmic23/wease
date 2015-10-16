@@ -1,0 +1,459 @@
+<div class="page page-single-order">
+  <!-- page header -->
+  <div class="pageheader">
+
+    <h2>{{page.title}} Details <span> for</span> {{ vm.order.order_company.name }}</h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+        </li>
+        <li>
+          <a ui-sref="app.orders.all">Historique</a>
+        </li>
+        <li>
+          <a ui-sref="app.orders.order">{{page.title}}</a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+  <!-- /page header -->
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+
+    <div class="add-nav">
+      <div class="nav-heading">
+        <div class="row">
+          <div class="col-md-8">
+            <h3>{{page.title}} # : <strong class="text-greensea"> {{ vm.order.order_number }}/v{{ vm.order.order_version }}</strong></h3>
+            <br/>
+            <br/>
+            <div ng-controller="AddRefNumModalCtrl">
+              <h4>Référence interne : <strong > {{ vm.order.reference_number }}</strong></h4><h4 class="text-lightred text-md ml-10" ng-show="!vm.order.reference_number">Add a référence interne</h4>
+              <button type="button" class="btn btn-rounded-20 btn-default b-0 btn-sm ml-10" style="width:30px;" tooltip="add or edit référence interne" ng-click="open('md')" ng-show="['WRQ','APN'].indexOf(vm.order.order_status)!=-1"><i class="fa fa-pencil"></i></button>
+            </div>
+          </div> 
+          <div class="col-md-4" ng-if="['WRQ','APN'].indexOf(vm.order.order_status)!=-1 && vm.orderCompany && sub">
+            <span class="controls">
+              <p class="text-uppercase text-strong mb-10 custom-font">Add Item or Cancel Request</p>
+              <a ng-click="open('lg')" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" tooltip="Add Request Item" ng-controller="AddReqModalCtrl"><i class="fa fa-plus"></i></a>
+              <a class="btn btn-ef btn-ef-1 btn-ef-1-lightred btn-ef-1a btn-rounded-20 mr-5" tooltip="Cancel this request" ng-click="open('md')" ng-controller="CancelOrdModalCtrl"><i class="fa fa-times"></i></a>
+              <!-- <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" tooltip="Send"><i class="fa fa-envelope"></i></a> -->
+              <a href="javascript:window.print()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20" tooltip="Print"><i class="fa fa-print"></i></a>
+            </span>
+          </div>
+          <div class="col-md-4" ng-if="vm.order.order_status === 'OFR' && vm.orderCompany && vm.auth_amount">
+            <span class="controls" ng-controller="OfferApvlModalCtrl">
+              <p class="text-uppercase text-strong mb-10 custom-font">Approve Current Offer</p>
+              <a ng-click="open('lg', 'Approval')" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" tooltip="View and Approve Offer"><i class="fa fa-check"></i></a>
+              <a ng-click="open('lg', 'Refusal')" class="btn btn-ef btn-ef-1 btn-ef-1-lightred btn-ef-1a btn-rounded-20 mr-5" tooltip="Refuse Offer"><i class="fa fa-times"></i></a>
+              <!-- <a href="javascript:;" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" tooltip="Send"><i class="fa fa-envelope"></i></a> -->
+              <a href="javascript:window.print()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20" tooltip="Print"><i class="fa fa-print"></i></a>
+            </span>
+          </div>
+          <div class="col-md-4" ng-if="['PEN','REF'].indexOf(vm.order.order_status)!=-1 && au.optiz">
+              <p class="text-uppercase text-strong mb-10 custom-font">Add Offer</p>
+              <button class="btn btn-primary ml-10" ui-sref="app.orders.offer({ orderId: vm.order.id})">Create Offer</button>
+          </div>
+        </div>
+        <hr/>
+        <!-- row -->
+        <div class="row">
+          <!-- col -->
+          <div class="col-md-7">
+            <p class="text-uppercase text-strong mb-10 custom-font">Customer</p>
+            <ul class="list-unstyled text-default lt mb-20">
+              <li><strong class="inline-block w-xs">Name:</strong> {{ vm.order.order_company.name }}</li>
+              <li><strong class="inline-block w-xs">Address 1:</strong> {{ vm.order.order_company.company_address.street_addr1 }}</li>
+              <li ng-show="vm.order.order_company.company_address.street_addr2"><strong class="inline-block w-xs">Address 2:</strong> {{ vm.order.order_company.company_address.street_addr2 }}</li>
+              <li><strong class="inline-block w-xs">City:</strong> {{ vm.order.order_company.company_address.city }}</li>
+              <li><strong class="inline-block w-xs">Country:</strong> {{ vm.order.order_company.company_address.country }}</li>
+              <li><strong class="inline-block w-xs">Phone:</strong> {{ vm.order.order_company.company_address.phone_main }}</li>
+            </ul>
+          </div>
+          <!-- /col -->
+          <!-- col -->
+          <div class="col-md-5">
+            <p class="text-uppercase text-strong mt-0 mb-0 custom-font">Status</p>
+            <h3 class="text-uppercase mt-10 mb-10" ng-class="stati[vm.order.order_status]">{{ vm.order.order_status_display }}</h3>
+            <p>Updated: {{ vm.order.order_status_change_date | date:"d MMM y 'at' h:mm a"}}</p>
+          </div>
+          <!-- /col -->
+
+        </div>
+        <!-- /row -->
+
+        <!-- row -->
+        <div class="row b-t pt-20">
+
+          <!-- col -->
+          <div class="col-md-3 b-r">
+            <p class="text-uppercase text-strong mb-10 custom-font">{{page.title}} Details</p>
+            <ul class="list-unstyled text-default lt mb-20">
+              <li><strong>Created: </strong> {{ vm.order.order_created | date: "d MMM y 'at' h:mm a" }}</li>
+              <li><strong>By:</strong> <a ui-sref="app.pages.profile({ username: vm.order.order_created_by.username })">{{ vm.order.order_created_by.first_name }} {{ vm.order.order_created_by.last_name }}</a></li>
+              <li><strong>Assigned to: </strong> <a ui-sref="app.pages.profile({ username: optiz.username })" ng-repeat="optiz in vm.order.order_company.company_assigned_to"> {{ optiz.first_name }} {{ optiz.last_name }} </a></li>
+              <li ng-show="vm.order.company_approval_by"><strong>Approved by: </strong> <a ui-sref="app.pages.profile({ username: vm.order.company_approval_by.username })"> {{ vm.order.company_approval_by.first_name }} {{ vm.order.company_approval_by.last_name }}</a></li>
+              <li ng-show="!vm.order.company_approval_by"><strong>Approved by: </strong> Not approved</li>
+            </ul>
+          </div>
+          <!-- /col -->
+
+          <!-- col -->
+          <div class="col-md-3 b-r" ng-controller="OrdAddressModalCtrl">
+            <p class="text-uppercase text-strong mb-10 custom-font" >
+              Delivery Address <a class="btn btn-rounded-20 btn-default b-0 btn-sm ml-10" style="width:30px;" tooltip="add or change Delivery Address" ng-click="open('lg')" ng-show="['WRQ','APN'].indexOf(vm.order.order_status)!=-1"><i class="fa fa-pencil"></i></a>
+            </p>
+          <!--   <button type="button" class="btn btn-rounded-20 btn-default b-0 btn-sm ml-10" style="width:30px;" tooltip="add or change Delivery Address" ng-click="open('lg')"><i class="fa fa-pencil"></i></button>
+ -->            <!-- col -->
+            <div class="col-md-12">
+              <p class="text-lightred text-md" ng-show="!vm.order.delivery_address">Add a Delivery Address</p>
+              <ul class="list-unstyled text-default lt mb-20" ng-show="vm.order.delivery_address">
+                <li>{{ vm.order.delivery_address.addr_location }}</li>
+                <li>{{ vm.order.delivery_address.street_addr1 }}</li>
+                <li ng-hide="!vm.order.delivery_address.street_addr2">{{ vm.order.delivery_address.street_addr2 }}</li>
+                <li>{{ vm.order.delivery_address.city }}, {{ vm.order.delivery_address.country }}  {{ vm.order.delivery_address.post_code }}</li>
+                <li>{{ vm.order.delivery_address.phone_main }}</li>
+              </ul>
+            </div>
+            <!-- /col -->
+          </div>
+          <div class="col-md-3 b-r">
+            <p class="text-uppercase text-strong mb-10 custom-font" >
+             Notes & Contact
+            </p>
+            <!-- col -->
+            <div class="col-md-12">
+
+              <ul class="list-unstyled text-default lt mb-20">
+                <li ng-hide="!vm.order.delivery_address.email">{{ vm.order.delivery_address.email }}</li>
+                <li>{{ vm.order.delivery_address.addr_notes }}</li>
+              </ul>
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /col -->
+
+          <!-- col -->
+          <div class="col-md-3 b-r">
+            <div ng-if="!['WRQ','APN'].indexOf(vm.order.order_status)!=-1 && au.optiz">
+                <div class="form-group mb-10 col-md-12">
+                    <p class="text-uppercase text-strong mb-10 custom-font">Update Status</p>
+                    <div class="col-sm-10">
+
+                        <select class="form-control mb-10" ng-model="ordStat">
+                            <option value=""></option>
+                            <option ng-hide="['WRQ','APN','PEN','OFR','REF'].indexOf(vm.order.order_status)!=-1" value="INP">In Progress</option>
+                            <option ng-hide="['WRQ','APN','PEN','OFR','REF'].indexOf(vm.order.order_status)!=-1" value="COM">Complete</option>
+                            <option ng-hide="['WRQ','APN','PEN','OFR','REF'].indexOf(vm.order.order_status)!=-1" value="INV">Invoice</option>
+                            <option value="CAN">Cancel</option>
+                            <option value="BOR">Back Order</option>
+                            <option value="ARC">Archive</option>
+                        </select>
+
+                        <button class="btn btn-slategray" ng-click="vm.orderStat(ordStat);">Update Status</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="['WRQ','APN'].indexOf(vm.order.order_status)!=-1 && vm.orderCompany && au.access_level === '5'">
+              <p class="text-uppercase text-strong mb-10 custom-font">Add Request Item</p>
+                <span class="controls block mb-10">
+                  <a ng-controller="AddReqModalCtrl" ng-click="open('lg')" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" tooltip="Add Request Item"><i class="fa fa-plus"></i></a>
+                  <a ng-controller="CancelOrdModalCtrl" ng-click="open('md')" class="btn btn-ef btn-ef-1 btn-ef-1-lightred btn-ef-1a btn-rounded-20 mr-5" tooltip="Cancel this request"><i class="fa fa-times"></i></a>
+                </span>
+              <p class="text-uppercase text-strong mb-10 custom-font">Submit Request</p>
+              <p class="text-lightred">This Request must be approved by {{ vm.order.order_company.name }} management</p>
+              <button ng-controller="ConfOrdModalCtrl" ng-click="open('lg')" class="btn btn-primary">Submit for Approval</button>
+            </div>
+            <div ng-if="['WRQ','APN'].indexOf(vm.order.order_status)!=-1 && vm.orderCompany && apv">
+              <p class="text-uppercase text-strong mb-10 custom-font">Add Request Item</p>
+                <span class="controls block mb-10">
+                  <a ng-controller="AddReqModalCtrl" ng-click="open('lg')" class="btn btn-ef btn-ef-1 btn-ef-1-success btn-ef-1a btn-rounded-20 mr-5" tooltip="Add Request Item"><i class="fa fa-plus"></i></a>
+                  <a ng-controller="CancelOrdModalCtrl" ng-click="open('md')" class="btn btn-ef btn-ef-1 btn-ef-1-lightred btn-ef-1a btn-rounded-20 mr-5" tooltip="Cancel this request"><i class="fa fa-times"></i></a>
+                </span>
+              <p class="text-uppercase text-strong mb-10 custom-font">Submit Request</p>
+              <button ng-controller="ConfOrdModalCtrl" ng-click="open('lg')" class="btn btn-success">Submit Request</button>
+              <button class="btn btn-primary" ng-if="vm.order.order_status === 'APN'">Refuse</button>
+            </div>
+          </div>
+          <!-- /col -->
+          
+        </div>
+        <!-- /row -->
+      </div>
+
+      <tabset>
+
+        <tab heading="Request Items" active="vm.reqTab" ng-show="vm.order.req_order.length > 0">
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+              <!-- tile -->
+              <section class="tile tile-simple">
+
+                <!-- tile body -->
+                <div class="tile-body p-0">
+
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th>Family</th>
+                          <th>SubFamily</th>
+                          <th>Items</th>
+                          <th>Files</th>
+                          <th style="width: 260px">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="req in vm.order.req_order">
+                          <td>{{ req.item_fam }}</td>
+                          <td>{{ req.item_subfam }}</td>
+                          <td>{{ req.req_product.length }}</td>
+                          <td ng-show="req.req_item_file.length">{{ req.req_item_file.length }}</td>
+                          <td ng-show="!req.req_item_file.length">No files</td>
+                          <td ng-controller="ReqItemModalCtrl">
+                            <a ng-click="open('lg')" class="btn btn-xs btn-default"><i class="fa fa-search"></i> View</a>
+                            <a ui-sref="app.orders.edit({reqId:req.id})" class="btn btn-xs btn-primary" ng-show="['WRQ','APN'].indexOf(vm.order.order_status)!=-1"><i class="fa fa-pencil"></i> Edit</a>
+                            <a href="javascript:;" class="btn btn-xs btn-lightred" ng-show="['WRQ','APN'].indexOf(vm.order.order_status)!=-1" ng-click="vm.delReqItem(req.id)"><i class="fa fa-times"></i> Remove</a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+                <!-- /tile body -->
+
+              </section>
+              <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </tab>
+
+
+
+        <tab heading="Current {{page.title}}" ng-show="vm.order.order_offer" active="vm.curOfferTab">
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+
+              <!-- tile -->
+              <section class="tile tile-simple">
+
+                <!-- tile body -->
+                <div class="tile-body p-0">
+                
+                  <div class="row">
+                    <div class="col-md-10">
+                      <h3 class="ml-20">Current {{page.title}} Items</h3>
+                    </div>
+                  </div>
+                  
+                  <div class="row b-t p-20">
+                      <div class="col-md-10 b-a well" ng-repeat="item in vm.order.offer_order[vm.order.offer_order.length - 1].offer_item">
+                          <div class="row mt-20">
+                              <div class="form-group col-md-12" ng-show="item.item_name">
+                                  <label for="item_name" class="control-label"><strong>{{page.title}} Item</strong></label>
+                                  <p class="form-control-static">{{ item.item_name }}</p>
+                              </div>
+                              <div class="form-group col-md-4" ng-show="item.item_details">
+                                  <label for="item_details"><strong>Description</strong></label>
+                                  <p class="form-control-static">{{ item.item_details }}</p>
+                              </div>
+                              <div class="form-group col-md-4" ng-show="item.delivery_date">
+                                  <label for="delivery-date"><strong>Delivery Date</strong></label>
+                                  <p class="form-control-static">{{ item.delivery_date | date: 'mediumDate' }}</p>
+                              </div>            
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-md-4" ng-show="item.date_start">
+                                  <label for="date_start"><strong>Start Date</strong></label>
+                                  <p class="form-control-static">{{ item.date_start | date: 'mediumDate' }}</p>
+                              </div>
+                              <div class="form-group col-md-4" ng-show="item.date_end">
+                                  <label for="date_end"><strong>End Date</strong></label>
+                                  <p class="form-control-static">{{ item.date_end | date: 'mediumDate' }}</p>
+                              </div>                                        
+                          </div> 
+                          <div class="row">
+                              <div class="form-group col-md-4" ng-show="item.quantity">
+                                  <label for="quantity"><strong>Quantity</strong></label>
+                                  <p class="form-control-static">{{ item.quantity }}</p>
+                              </div>
+                              <div class="form-group col-md-4" ng-show="item.price">
+                                  <label for="price"><strong>Rate</strong></label>
+                                  <p class="form-control-static">{{ item.price | currency:"€ " }}</p>
+                              </div>
+                              <div class="form-group col-md-4" ng-show="item.item_sub_total">
+                                  <label for="subtotal"><strong>SubTotal</strong></label>
+                                  <p class="form-control-static">{{ item.item_sub_total | currency:"€ " }}</p>
+                              </div>                                        
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mt-20">
+                        <div class="form-group col-md-6">
+                            <label for="offer_terms"><strong>{{page.title}} Terms</strong></label>
+                            <p class="form-control-static" >{{ vm.order.offer_order[vm.order.offer_order.length - 1].offer_terms }}</p>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="offer_total"><strong>{{page.title}} Total</strong></label>
+                            <ul class="list-unstyled well">
+                                <li><strong class="inline-block w-sm mb-5">Subtotal:</strong> {{ vm.order.offer_order[vm.order.offer_order.length - 1].offer_total | currency:"€ "}}</li>
+                                <li><strong class="inline-block w-sm">Grand Total:</strong> <h3 class="inline-block text-success">{{vm.order.offer_order[vm.order.offer_order.length - 1].offer_total  | currency:"€ " }}</h3></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 form-group m-20 pull-right" ng-controller="OfferApvlModalCtrl" ng-if="vm.order.order_status === 'OFR' && vm.orderCompany">
+                        <button ng-click="open('lg', 'Approval')" class="btn btn-rounded btn-success btn-block" ng-disabled="!vm.auth_amount">Approve</button>
+                        <button ng-click="open('lg', 'Refusal')" class="btn btn-rounded btn-lightred btn-block" ng-disabled="!vm.auth_amount">Refuse</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /tile body -->
+
+              </section>
+              <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </tab>
+
+
+
+        <tab heading="Offers" ng-show="vm.order.order_offer">
+
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+              <!-- tile -->
+              <section class="tile tile-simple">
+
+                <!-- tile body -->
+                <div class="tile-body p-0">
+
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th>Offer Date</th>
+                          <th>Offer Items</th>
+                          <th>Status</th>
+                          <th>Status By</th>
+                          <th>Status Date</th>
+                          <th>Total</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr ng-repeat="offer in vm.order.offer_order | orderBy:'-offer_created'">
+                          <td>{{ offer.offer_created | date:"mediumDate" }}</td>
+                          <td>{{ offer.offer_item.length }}</td>
+                          <td ng-class="stati[offer.offer_approval_status]">{{ offer.offer_approval_display }}</td>
+                          <!-- <td class="text-lightred" ng-show="offer.offer_version !== vm.order.offer_version">Refusé</td>  ng-show="offer.offer_version === vm.order.offer_version" -->
+                          <td ng-show="offer.offer_approval_by"><a ui-sref="app.pages.profile({ username: offer.offer_approval_by })">{{ offer.offer_approval_by_name }}</a></td>
+                          <td ng-show="offer.offer_approval_by">{{ offer.offer_approval | date:"mediumDate" }}</td>
+                          <td colspan="2" ng-show="!offer.offer_approval_by"></td>
+                          <td>{{ offer.offer_total | currency:"€ " }}</td>
+                          <td><a class="btn btn-xs btn-default" ng-controller="OfferViewModalCtrl" ng-click="open('lg')"><i class="fa fa-search"></i> View</a></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+                <!-- /tile body -->
+
+              </section>
+              <!-- /tile -->
+
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </tab>
+        <tab heading="Comments">
+
+          <!-- row -->
+          <div class="row">
+            <div class="tcol">
+              <div class="col-md-1"></div>
+              <div class="pb-15 pl-15 pr-15 col-md-9">
+
+                <!-- comments -->
+                <comment path="path" user="au" comments="vm.order.order_comment"></comment>
+                <!-- /comments -->
+
+              </div>
+            </div>
+              <div class="col-md-2"></div>
+          </div>
+          <!-- /row -->
+        </tab>
+
+        <tab heading="History">
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+              <!-- tile -->
+              <order-activity stati='stati' activity='vm.orderActivity'></order-activity>
+              <!-- /tile -->
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+        </tab>
+
+      </tabset>
+
+    </div>
+        <!-- row -->
+<!--     <div class="row" ng-show="vm.order.order_offer">
+      <div class="col-md-3 col-md-offset-9 price-total">
+
+        <section class="tile tile-simple bg-tr-black lter">
+
+          <div class="tile-body">
+
+            <ul class="list-unstyled">
+                <li><strong class="inline-block w-sm mb-5">Subtotal:</strong> {{vm.order.order_total | currency:"€ "}}</li>
+                <li><strong class="inline-block w-sm">Grand Total:</strong> <h3 class="inline-block text-success">{{vm.order.order_total  | currency:"€ "}}</h3></li>
+            </ul>
+
+          </div>
+
+        </section>
+
+      </div>
+    </div> -->
+    <!-- /row -->
+
+  </div>
+  <!-- /page content -->
+
+
+
+
+</div>

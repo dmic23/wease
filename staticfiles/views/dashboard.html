@@ -1,0 +1,111 @@
+<div class="page page-dashboard">
+
+  <div class="pageheader">
+
+    <h2>{{page.title}} <span>for </span>{{ au.first_name }}</h2>
+
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> {{main.title}}</a>
+        </li>
+        <li>
+          <a ui-sref="app.dashboard">{{page.title}}</a>
+        </li>
+      </ul>
+
+      <div ng-controller="DaterangepickerCtrl" class="page-toolbar">
+        <a href="javascript:;" class="btn btn-lightred no-border" daterangepicker="rangeOptions" date-begin="startDate" date-end="endDate">
+          <i class="fa fa-calendar"></i>&nbsp;&nbsp;<span>{{startDate}} - {{endDate}}</span>&nbsp;&nbsp;<i class="fa fa-angle-down"></i>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- cards row -->
+  <div class="row">
+
+    <!-- col -->
+    <div class="card-container col-lg-3 col-sm-6 col-sm-12" ng-repeat="order in vm.orders | toArray:true | orderBy:vm.dashOrder">
+      <div class="card dash" ui-sref="app.orders.all({filterParam:order.$key})">
+        <div class="front" ng-class="statiBg[order.$key];">
+          <!-- row -->
+          <div class="row">
+            <!-- col -->
+            <div class="col-xs-4">
+              <i class="fa fa-4x" ng-class="vm.icon[order.$key];"></i>
+            </div>
+            <!-- /col -->
+            <!-- col -->
+            <div class="col-xs-8">
+              <p class="text-elg text-strong mb-0">{{order.length}}</p>
+              <span>{{vm.verbiage[order.$key];}}</span>
+            </div>
+            <!-- /col -->
+          </div>
+          <!-- /row -->
+
+        </div>
+      </div>
+    </div>
+    <!-- /col -->
+  </div>
+  <!-- /row -->
+
+
+
+  <!-- row -->
+  <div class="row">
+    <!-- col -->
+    <div class="col-md-12">
+      <!-- tile -->
+      <section class="tile tile-simple no-bg">
+
+        <!-- tile body -->
+        <div class="tile-body streamline timeline p-0">
+
+          <ul>
+            <li class="heading"><a href="javascript:;" class="btn btn-blue b-0">Today</a></li>
+
+            <li class="timeline-post" ng-repeat="dash in vm.dashData | orderBy: '-timestamp'">
+              <aside>
+                <div class="thumb wh30" ng-class="notColor[dash.not_action];">
+                  <i class="fa" ng-class="notIcon[dash.not_action];"></i>
+                </div>
+              </aside>
+              <div class="post-container team">
+                <div class="panel panel-default b-0" ng-click="vm.goToItem(dash);">
+                  <h3 class="custom-font" ng-class="notTextColor[dash.not_action];">{{ dash.not_action | ucfirst }}</h3> 
+                  <span class="text-muted time"><i class="fa fa-clock-o"></i>{{ dash.timestamp | date:"d MMM y 'at' h:mm a" }}</span>
+                  <span class="text-muted">by <a ui-sref="app.pages.profile({username:dash.user.username})" >{{ dash.user.user_name_full }}</a></span>
+                  <p class="mt-10" ng-hide="['comment added'].indexOf(dash.not_action)!=-1 || ['account', 'company'].indexOf(dash.content_type)!=-1">Status: <span ng-class="stati[dash.extra.order_status]">{{ dash.extra.order_status_full }}</span></p>
+                  <p class="mt-10"><a ng-hide="['comment added','offer created'].indexOf(dash.not_action)!=-1" ui-sref="app.pages.company-profile({companyId:dash.company})">{{ dash.company_name }} </a><a ng-show="['offer created'].indexOf(dash.not_action)!=-1" ui-sref="app.pages.company-profile({companyId:1})">Optiz </a> {{ vm.getDashInfo(dash); }} <a ui-sref="app.orders.order({orderId:dash.extra.order_id})" ng-show="dash.content_type === 'order'">{{dash.extra.order_number}}v/{{dash.extra.order_version}}</a><a ng-show="['optiz assigned'].indexOf(dash.not_action)!=-1" ui-sref="app.pages.profile({username:dash.extra.optiz_assigned})">{{ dash.extra.optiz_assigned_name }}</a><a ng-show="['user created'].indexOf(dash.not_action)!=-1" ui-sref="app.pages.profile({username:dash.extra.account_username})">{{ dash.extra.account_first_name }} {{ dash.extra.account_last_name}}</a></p>
+                  <p class="mt-10 text-red" ng-show="apvNeeded.indexOf(dash.extra.order_id)!=-1">{{ dash.company.name }} Managment Approval Needed</p>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+        <!-- /tile body -->
+
+      </section>
+      <!-- /tile -->
+
+    </div>
+    <!-- /col -->
+  </div>
+  <!-- /row -->
+
+
+
+
+
+
+
+
+</div>

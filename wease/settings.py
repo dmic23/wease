@@ -182,6 +182,8 @@ if not DEBUG:
     SWAMP_DRAGON_HOST = '127.0.0.1'
     SWAMP_DRAGON_PORT = 9000
 
+    BROKER_URL = 'redis://188.166.28.225:6379/0'
+
 from .email_info import EMAIL_BACKEND, EMAIL_USE_TLS, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT
 # For gmail and google apps
 # EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')

@@ -1,0 +1,9 @@
+#!/Users/danielmicaletti/Documents/VirtualEnvs/wease/wease_prod/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'xhtml2pdf==0.0.6','console_scripts','pisa'
+__requires__ = 'xhtml2pdf==0.0.6'
+import sys
+from pkg_resources import load_entry_point
+
+sys.exit(
+   load_entry_point('xhtml2pdf==0.0.6', 'console_scripts', 'pisa')()
+)

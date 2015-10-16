@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-from django.forms import widgets
-from django.utils import timezone
-from datetime import date
-from rest_framework import serializers
-from rest_framework.parsers import JSONParser
 import json
 from collections import *
+from datetime import date
+from django.forms import widgets
+from django.utils import timezone
+from rest_framework import serializers
+from rest_framework.parsers import JSONParser
 from authentication.models import Account, Company, Address
-from authentication.serializers import AccountSerializer, UserCompanySerializer, CompanySerializer, AddressSerializer
-# from authentication.views import user_email
-from orders.models import Order, ReqItem, ReqProduct, ReqFile, Offer, OfferItem, Comment, Good, Detail
 from eventlog.models import log
-# from tasks import user_email
+from messaging.tasks import user_email, mail_item
+from authentication.serializers import AccountSerializer, UserCompanySerializer, CompanySerializer, AddressSerializer
+from orders.models import Order, ReqItem, ReqProduct, ReqFile, Offer, OfferItem, Comment, Good, Detail
 
 class CommentSerializer(serializers.ModelSerializer):
     created_by_username = serializers.CharField(source='created_by.username')
@@ -94,6 +93,9 @@ class OfferSerializer(serializers.ModelSerializer):
                 'order_status_full':order.get_order_status_display(),
             }
         )
+        mail_item.delay(user, order, subj='offer', tmp='registration/order_confirm_email.html')
+        # user_email.delay(user, order, subj='offer', tmp='registration/order_confirm_email.html')
+
         return offer
 
 
@@ -188,8 +190,6 @@ class ReqItemSerializer(serializers.ModelSerializer):
                 'order_status_full':order.get_order_status_display(),
             }
         )
-        # if not order.order_draft and user.request_email:
-        #     user_email(user, order, subj='request', tmp='registration/order_confirm_email.html')
         return instance
 
 
@@ -263,6 +263,8 @@ class OrderSerializer(serializers.ModelSerializer):
                             'order_status_full':instance.get_order_status_display(),
                         }
                     )
+                    mail_item.delay(user, instance, subj='demande', tmp='registration/order_confirm_email.html')
+
                 else:
                     if instance.company_approval_status == 'APN':
                         req_not_action = 'request updated'
@@ -284,6 +286,8 @@ class OrderSerializer(serializers.ModelSerializer):
                             'order_status_full':instance.get_order_status_display(),
                         }
                     )
+                    mail_item.delay(user, instance, subj='demande', tmp='registration/order_confirm_email.html')
+
         if 'order_status' in validated_data:
             if not validated_data['order_status'] in instance.order_status:
                 instance.order_status = validated_data['order_status']
@@ -305,6 +309,8 @@ class OrderSerializer(serializers.ModelSerializer):
                             'order_status_full':order_status_full,
                         }
                     )
+                    mail_item.delay(user, instance, subj='demande', tmp='registration/order_confirm_email.html')
+
                 if 'optiz_status' in validated_data:
                     instance.optiz_status = validated_data['optiz_status']
                     instance.optiz_status_change_by = user

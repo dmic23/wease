@@ -24,11 +24,14 @@ DATABASES = {
 
 UPLOAD_FILE_PATTERN = "uploads/%s_%s"
 
+S3_URL = 'https://weaseprod.s3.amazonaws.com/'
+
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 
 # URL prefix for static files. #header .logo img{margin-left:-30px;}
+#STATIC_ROOT = 'static/build/development/'
 
 STATIC_URL = '/static/build/development/'
 

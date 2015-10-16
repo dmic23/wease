@@ -2,7 +2,10 @@
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordResetForm
+from django.http import HttpResponse
 from django.utils import timezone
+from io import BytesIO
+from ipware.ip import get_ip
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.response import Response
 # from authentication.permissions import IsAccountOwner
@@ -10,7 +13,8 @@ from authentication.models import Account, Company, Address
 from authentication.serializers import AccountSerializer, CompanySerializer, AddressSerializer, UserCompanySerializer
 from eventlog.models import log
 from messaging.tasks import user_email, registration_email
-from ipware.ip import get_ip
+from orders.models import ReqItem, ReqFile
+#from wease.printing import MyPrint 
 
 
 class AccountViewSet(viewsets.ModelViewSet):
@@ -174,3 +178,22 @@ class LogoutView(views.APIView):
         )
         logout(request)
         return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+
+# def print_users(request):
+#     print "request ***** ------ %s" %request
+#     # Create the HttpResponse object with the appropriate PDF headers.
+#     pdf_name = "My_Users.pdf"
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename=%s' %pdf_name
+ 
+#     buffer = BytesIO()
+ 
+#     report = MyPrint(buffer, 'Letter')
+#     pdf = report.print_users()
+#     new_pdf = ContentFile(pdf)
+#     req_item = ReqItem.objects.get(id=4)
+#     pdf_order = ReqFile.objects.create(req_item=req_item)
+#     pdf_order.req_file.save(pdf_name,new_pdf)
+#     response.write(pdf)
+#     return response
