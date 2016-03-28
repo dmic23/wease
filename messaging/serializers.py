@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.utils import timezone
 from datetime import date
 from rest_framework import serializers
@@ -50,7 +51,6 @@ class MailReplySerializer(serializers.ModelSerializer):
                 'trash', 'mail_to', 'reply_created_by', 'reply_created', 'reply_files',)
 
     def create(self, validated_data):
-        print "val data === %s" % validated_data
 
         return validated_data['reply_mail']
 
@@ -71,22 +71,14 @@ class MailSerializer(serializers.ModelSerializer):
         return validated_data['mail']
 
     def update(self, instance, validated_data):
-        print "SELF == %s " % self
-        print "instance === %s" % instance
-        print "validated Data === %s" % validated_data
         mail_to_all = validated_data.pop('mailTo')
-        print "UPD MTA --- %s" % mail_to_all
         for mtu in instance.mail_to.all():
-            print "UPD MTU --- %s" % mtu
             if not mtu.id in mail_to_all:
-                print "remove mtu --- %s" % mtu
                 instance.mail_to.remove(mtu)
         for mt in mail_to_all:
-            print "MT --- %s" % mt
             if not instance.mail_to.all().filter(id=mt).exists():
                 mail_to_user = Account.objects.get(id=mt)
                 instance.mail_to.add(mail_to_user)
-        print "INST MT -- %s" %instance.mail_to.all()
         instance.subject = validated_data.get('subject', instance.subject)
         instance.body = validated_data.get('body', instance.body)
         instance.mail_draft = validated_data.get('mail_draft', instance.mail_draft)
@@ -108,8 +100,6 @@ class ChatMessageSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         chat_msg = ChatMessage.objects.create(**validated_data)
-        print "SELF SER CHAT M== %s" %self
-        print "VALD DATA CHAT ms === %s" %validated_data
         return chat_msg
 
     def update(self, instance, validated_data):

@@ -13,8 +13,6 @@
         activate();
 
         function activate(){
-            vm.isAuthenticated = Authentication.isAuthenticated();
-            console.log(vm.isAuthenticated);
             $scope.au = Authentication.getAuthenticatedAccount();
             getAllApv();
             getAllMail();
@@ -128,7 +126,6 @@
                     console.log('not channel', message);
                     getNotifications();
                     if (['WRQ', 'PEN', 'OFR', 'VAL', 'REF', 'APV', 'COM'].indexOf(message.data.extra.order_status)!=-1){
-                        console.log('Getting Approvals',message.data.extra.order_status);
                         getAllApv();
                     }
                 });

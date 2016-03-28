@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.utils import timezone
 from datetime import date
 from swampdragon.serializers.model_serializer import ModelSerializer
@@ -38,12 +39,9 @@ class ChatSerializer(ModelSerializer):
     users = UserSerializer
 
     def serialize_chat_user(self, obj):
-        print "cm dr self == %s" %self
-        print "cm dr obj == %s" %obj
         chat_usr = []
         for usr in obj.users.all():
             chat_usr.append(usr.id)
-        print "chat usr --- %s" %chat_usr
         return chat_usr
 
     class Meta:

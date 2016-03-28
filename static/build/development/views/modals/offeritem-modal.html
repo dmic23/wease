@@ -11,16 +11,6 @@
     <form role="form" class="well">
         <div class="row">
 
-
-<!--             <div class="form-group col-md-6">
-                <label for="item_name">Offer Item</label>
-                <input type="text" class="form-control" id="item_name" ng-model="vm.req_item[$index].item_name" ng-init="vm.req_item[$index].item_name=req.item_subfam" ng-model-options="{updateOn: 'vm.addItem()'}">
-            </div>          ng-init="vm.offer.offer_item[$index].item_name=req.item_subfam"
-            <div class="form-group col-md-7">
-                <label for="item_details">Description</label>
-                <input type="text" class="form-control" id="item_details" placeholder="Description for offer item" ng-model="vm.req_item[$index].item_details" ng-model-options="{updateOn: 'vm.addItem()'}">
-            </div>  -->
-
             <div class="form-group col-md-6">
                 <label for="item_name">Offer Item</label>
                 <input type="text" class="form-control" id="item_name" ng-model="vm.offer.offer_item[$index].item_name" ng-init="vm.offer.offer_item[$index].item_name=req.item_subfam" ng-model-options="{updateOn: 'vm.addItem()'}">
@@ -110,28 +100,6 @@
         </div>
     </form>         
 </div>
-<!-- <div class="modal-body">
-    <div class="row">
-        <div class="col-md-6">
-            <h3>{{ req.item_fam }}</h3>
-            <h4>{{ req.item_subfam }}</h4>
-        </div>
-    </div>
-    <div class="row b-t">
-        <div ng-repeat="item in req.req_product" class="col-md-4">
-            <h5><strong>{{ item.prod_title }}</strong></h5>
-            <p>{{ item.prod_details }}</p>
-        </div>
-    </div>
-    <div class="row b-t" ng-show="req.req_item_file[0]">
-        <div class="col-md-12">
-            <h5 custom-font>Attached <strong>Files</strong></h5>
-            <div ng-repeat="file in req.req_item_file" class="col-md-12">
-                <p><a href="static/{{ file.req_file }}" target="_blank">{{ file.req_file }}</a></p>
-            </div>
-        </div>
-    </div>    
-</div> -->
 <div class="modal-body">
     <div class="row">
         <div class="col-md-6 pl-20 pr-20">

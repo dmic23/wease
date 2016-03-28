@@ -16,20 +16,36 @@
             logout: logout,
             register: register,
             setAuthenticatedAccount: setAuthenticatedAccount,
-            unauthenticate: unauthenticate
+            unauthenticate: unauthenticate,
+            deactivate: deactivate,
         };
 
         return Authentication;
 
+        function generalCallbackSuccess(response){
+            console.log(response.data);
+            console.log(response);
+            return response.data;
+        }
+
+        function generalCallbackError(response){
+            console.log(response);
+            console.log(response.data);
+            return $q.reject('Error '+response.data.message+'');
+        }
+
         function getAuthenticatedAccount() {
-            if (!$cookies.authenticatedAccount) {
-                return;
+            console.log($cookies.authenticatedAccount);
+            var authUserCookies = JSON.parse($cookies.authenticatedAccount);
+            console.log(authUserCookies);
+            if(authUserCookies.is_active){
+                return authUserCookies;
+            } else {
+                logout();
             }
-            return JSON.parse($cookies.authenticatedAccount);
         }
 
         function isAuthenticated() {
-            console.log(!!$cookies.authenticatedAccount);
             return !!$cookies.authenticatedAccount;
         }
 
@@ -37,38 +53,26 @@
             return $http.post('/api/v1/auth/login/', {
                 email: email, 
                 password: password
-            }).then(loginSuccessFn).catch(loginErrorFn);
+            }).then(loginSuccessFn).catch(generalCallbackError);
         }
 
-        function loginSuccessFn(data, status, headers, config) {
+        function loginSuccessFn(data) {
             Authentication.setAuthenticatedAccount(data.data);
             $state.go('app.dashboard');
-        }
-
-        function loginErrorFn(response) {
-            console.log(response.data.message);
-            console.log(response.status);
-            return $q.reject(response.data.message);
         }
 
         function logout() {
             return $http.post('/api/v1/auth/logout/')
                 .then(logoutSuccessFn)
-                .catch(logoutErrorFn);
+                .catch(generalCallbackError);
         }
 
-        function logoutSuccessFn(data, status, headers, config) {
+        function logoutSuccessFn(data) {
             Authentication.unauthenticate();
             $state.go('core.login');
         }
 
-        function logoutErrorFn(response) {
-            return $q.reject(response.status);
-        }
-
         function register(company, newUser) {
-            console.log(company);
-            console.log(newUser);
             return $http.post('/api/v1/accounts/', {
                 company: company, 
                 username: newUser.username,
@@ -80,25 +84,33 @@
                 last_name: newUser.last_name,
                 password: newUser.password,
                 confirm_password: newUser.confirm_password
-            }).then(registerSuccessFn).catch(registerErrorFn);
+            })
+            .then(generalCallbackSuccess).catch(registerError);
         }
 
-        function registerSuccessFn(response) {
-            return response.data;
+        function registerError(response){
+            if(_.has(response.data, 'username')){
+                return $q.reject('Username must be unique');
+            } 
+            else if(_.has(response.data, 'email')){
+                return $q.reject('Email must be unique');
+            } else {
+                return $q.reject('Error '+response.data.message+'');
+            }
         }
 
-        function registerErrorFn(response) {
-            console.log(response.data.message);
-            console.log(response);
-            return $q.reject(response.data.message);
-        }
-
-        function setAuthenticatedAccount(account) {
-            $cookies.authenticatedAccount = JSON.stringify(account);
+        function setAuthenticatedAccount(acct) {
+            $cookies.authenticatedAccount = JSON.stringify(acct);
         }
 
         function unauthenticate() {
             delete $cookies.authenticatedAccount;
+        }
+
+        function deactivate(acct){
+            return $http.put('/api/v1/accounts/'+acct.id+'/', acct)
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError)
         }
   }
 })();

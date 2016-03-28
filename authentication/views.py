@@ -2,19 +2,20 @@
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordResetForm
+from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.utils import timezone
 from io import BytesIO
 from ipware.ip import get_ip
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 # from authentication.permissions import IsAccountOwner
 from authentication.models import Account, Company, Address
 from authentication.serializers import AccountSerializer, CompanySerializer, AddressSerializer, UserCompanySerializer
 from eventlog.models import log
 from messaging.tasks import user_email, registration_email
 from orders.models import ReqItem, ReqFile
-#from wease.printing import MyPrint 
 
 
 class AccountViewSet(viewsets.ModelViewSet):
@@ -30,43 +31,27 @@ class AccountViewSet(viewsets.ModelViewSet):
             return (permissions.AllowAny(),)
         return (permissions.IsAuthenticated(),)
 
+    def list(self, request):
+        queryset = self.queryset.filter(is_active=True)
+        serializer = AccountSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, username=None):
+        queryset = self.queryset.get(username=username, is_active=True)
+        serializer = AccountSerializer(queryset)
+        return Response(serializer.data)
+
     def perform_create(self, serializer):
         if serializer.is_valid():
             user = self.request.user
             user_company = Company.objects.get(id=self.request.data['company'])
-            acct = Account.objects.create_user(**serializer.validated_data)
-            acct.user_company = user_company
-            acct.user_created_by = user
-            acct.access_level = serializer.data['access_level']
-            acct.position = serializer.data['position']
-            acct.auth_amount = serializer.data['auth_amount']
-            acct.save()
-            log(
-                user=user,
-                company=user_company,
-                not_action='user created',
-                obj=acct,
-                notification=True,
-                extra={
-                    'account_id':acct.id,
-                    'account_username':acct.username,
-                    'account_first_name':acct.first_name,
-                    'account_last_name':acct.last_name,
-                }
-            )
-            registration_email.delay(acct.email, 'weasereg@gmail.com')
-            for uc in user_company.wease_company.all():
-                if uc.id != acct.id and uc.new_user_email:
-                    user_email.delay(uc, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
-            for optiz in user_company.company_assigned_to.all():
-                if optiz.new_user_email:
-                    user_email.delay(optiz, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
+            serializer.save(user=self.request.user, user_company=Company.objects.get(id=self.request.data['company']), **self.request.data)
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
-
-        return Response({
-            'status': 'Bad request',
-            'message': 'Account could not be created with received data.'
-        }, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({
+                'status': 'Bad request',
+                'message': 'Account could not be created with received data.'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_update(self, serializer):
         if serializer.is_valid():
@@ -87,12 +72,6 @@ class CompanyViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             user = self.request.user
             serializer.save(user=user, **self.request.data)
-
-        #     return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
-        # return Response({
-        #     'status': 'Bad request',
-        #     'message': 'Company could not be created with received data.'
-        # }, status=status.HTTP_400_BAD_REQUEST)
 
     def perform_update(self, serializer):
         if serializer.is_valid():
@@ -119,6 +98,7 @@ class OptizViewSet(viewsets.ModelViewSet):
 
 
 class LoginView(views.APIView):
+
     def post(self, request, format=None):
         data = json.loads(request.body)
 
@@ -158,6 +138,7 @@ class LoginView(views.APIView):
             }, status=status.HTTP_401_UNAUTHORIZED)
 
 class LogoutView(views.APIView):
+
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
@@ -179,21 +160,3 @@ class LogoutView(views.APIView):
         logout(request)
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-
-# def print_users(request):
-#     print "request ***** ------ %s" %request
-#     # Create the HttpResponse object with the appropriate PDF headers.
-#     pdf_name = "My_Users.pdf"
-#     response = HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename=%s' %pdf_name
- 
-#     buffer = BytesIO()
- 
-#     report = MyPrint(buffer, 'Letter')
-#     pdf = report.print_users()
-#     new_pdf = ContentFile(pdf)
-#     req_item = ReqItem.objects.get(id=4)
-#     pdf_order = ReqFile.objects.create(req_item=req_item)
-#     pdf_order.req_file.save(pdf_name,new_pdf)
-#     response.write(pdf)
-#     return response

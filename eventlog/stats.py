@@ -1,14 +1,14 @@
 from datetime import datetime, timedelta
 
-from django.contrib.auth.models import User
+from authentication.models import Account
 
 
 def used_active(days):
-    used = User.objects.filter(
+    used = Account.objects.filter(
         log__timestamp__gt=datetime.now() - timedelta(days=days)
     ).distinct().count()
 
-    active = User.objects.filter(
+    active = Account.objects.filter(
         log__timestamp__gt=datetime.now() - timedelta(days=days)
     ).exclude(
         date_joined__gt=datetime.now() - timedelta(days=days)

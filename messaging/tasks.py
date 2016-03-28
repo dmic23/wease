@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
 from django.contrib.auth.forms import PasswordResetForm
 from django.core.files.base import ContentFile
 from django.core.mail import EmailMultiAlternatives
@@ -7,15 +8,14 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from celery import Celery
 from io import BytesIO
+from orders.models import Order
 from wease.printing import MyPrint 
 
 
-
-app = Celery('tasks', broker='redis://localhost:6379/0')
+app = Celery('tasks', broker=settings.BROKER_URL)
 
 @app.task
 def user_email(user, obj, subj, tmp):
-    print "Here Tasks!"
     from_email = 'weasereg@gmail.com'
     to = [user.email]
     subject = subj
@@ -25,11 +25,11 @@ def user_email(user, obj, subj, tmp):
 
     msg = EmailMultiAlternatives(subject, text_content, from_email, to)
     msg.attach_alternative(html_content, 'text/html')
-    print "OBJECT  ---- %s" %obj
-    if obj.order_number:
+    obj_type = type(obj)
+    if type(obj) is Order:
         pdf_name = ''.join([str(obj.order_number),"/v",str(obj.order_version),".pdf"])
         pdf = create_pdf(obj, pdf_name)
-    msg.attach(pdf_name, pdf, 'application/pdf')
+        msg.attach(pdf_name, pdf, 'application/pdf')
     msg.send()
 
 
@@ -52,15 +52,11 @@ def create_pdf(obj, pdf_name):
     report = MyPrint(buffer, 'A4')
     pdf = report.build_pdf(obj)
     new_pdf = ContentFile(pdf)
-    # req_item = ReqItem.objects.get(id=4)
-    # pdf_order = ReqFile.objects.create(req_item=req_item)
-    # pdf_order.req_file.save(pdf_name,new_pdf)
     response.write(pdf)
     return pdf
 
 @app.task
 def mail_item(user, obj, subj, tmp):
-    #user_email.delay(user, order, subj='offer', tmp='registration/order_confirm_email.html')
     for uc in obj.order_company.wease_company.all():
         if obj.order_status in ['WRQ', 'PEN']:
             if uc.request_email:

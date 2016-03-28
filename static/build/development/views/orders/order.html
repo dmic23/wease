@@ -110,8 +110,6 @@
             <p class="text-uppercase text-strong mb-10 custom-font" >
               Delivery Address <a class="btn btn-rounded-20 btn-default b-0 btn-sm ml-10" style="width:30px;" tooltip="add or change Delivery Address" ng-click="open('lg')" ng-show="['WRQ','APN'].indexOf(vm.order.order_status)!=-1"><i class="fa fa-pencil"></i></a>
             </p>
-          <!--   <button type="button" class="btn btn-rounded-20 btn-default b-0 btn-sm ml-10" style="width:30px;" tooltip="add or change Delivery Address" ng-click="open('lg')"><i class="fa fa-pencil"></i></button>
- -->            <!-- col -->
             <div class="col-md-12">
               <p class="text-lightred text-md" ng-show="!vm.order.delivery_address">Add a Delivery Address</p>
               <ul class="list-unstyled text-default lt mb-20" ng-show="vm.order.delivery_address">
@@ -370,7 +368,6 @@
                           <td>{{ offer.offer_created | date:"mediumDate" }}</td>
                           <td>{{ offer.offer_item.length }}</td>
                           <td ng-class="stati[offer.offer_approval_status]">{{ offer.offer_approval_display }}</td>
-                          <!-- <td class="text-lightred" ng-show="offer.offer_version !== vm.order.offer_version">Refusé</td>  ng-show="offer.offer_version === vm.order.offer_version" -->
                           <td ng-show="offer.offer_approval_by"><a ui-sref="app.pages.profile({ username: offer.offer_approval_by })">{{ offer.offer_approval_by_name }}</a></td>
                           <td ng-show="offer.offer_approval_by">{{ offer.offer_approval | date:"mediumDate" }}</td>
                           <td colspan="2" ng-show="!offer.offer_approval_by"></td>
@@ -429,31 +426,7 @@
       </tabset>
 
     </div>
-        <!-- row -->
-<!--     <div class="row" ng-show="vm.order.order_offer">
-      <div class="col-md-3 col-md-offset-9 price-total">
-
-        <section class="tile tile-simple bg-tr-black lter">
-
-          <div class="tile-body">
-
-            <ul class="list-unstyled">
-                <li><strong class="inline-block w-sm mb-5">Subtotal:</strong> {{vm.order.order_total | currency:"€ "}}</li>
-                <li><strong class="inline-block w-sm">Grand Total:</strong> <h3 class="inline-block text-success">{{vm.order.order_total  | currency:"€ "}}</h3></li>
-            </ul>
-
-          </div>
-
-        </section>
-
-      </div>
-    </div> -->
-    <!-- /row -->
 
   </div>
   <!-- /page content -->
-
-
-
-
 </div>

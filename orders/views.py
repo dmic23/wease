@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import date
 from operator import itemgetter, attrgetter
 from django.utils import timezone
@@ -100,7 +101,6 @@ class ReqItemViewSet(viewsets.ModelViewSet):
 
             order.save()
             serializer.save(order=order, user=user, **self.request.data)
-            # return super(ReqItemViewSet, self).perform_create(serializer)
 
     def perform_update(self, serializer):
         if serializer.is_valid(raise_exception=True):
@@ -203,7 +203,3 @@ class DetailViewSet(viewsets.ViewSet):
         queryset = self.queryset.filter(good=good_id)
         serializer = DetailSerializer(queryset, many=True)
         return Response(serializer.data)
-
-
-
-

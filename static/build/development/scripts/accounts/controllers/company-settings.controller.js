@@ -119,7 +119,9 @@
         function registerSuccess(data){
             console.log(data);
             vm.newUser = {};
+            vm.error = ''
             activate();
+            toastr.success('New user has been added to '+vm.company.name+'');
         }
 
         function registerError(errorMsg){

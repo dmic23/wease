@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import update_session_auth_hash
 from django.forms import widgets
-from rest_framework import serializers
+from rest_framework import serializers, status
+from rest_framework.response import Response
+from rest_framework.validators import UniqueValidator
 from authentication.models import Account, Company, Address
 from eventlog.models import log
-from messaging.tasks import user_email
+from messaging.tasks import user_email, registration_email
 #from authentication.views import user_email
 # from messaging.tasks import user_email
 # from django.template.loader import render_to_string, get_template
@@ -13,6 +15,7 @@ from messaging.tasks import user_email
 
 
 class UserCompanySerializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField()
     user_pic = serializers.CharField(read_only=True)
     user_name_full = serializers.CharField(source='get_full_name', required=False)
     user_company_full = serializers.CharField(source='user_company', required=False)
@@ -21,7 +24,7 @@ class UserCompanySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ('id', 'email', 'username', 'user_name_full', 'first_name', 'last_name', 'optiz', 'lang', 
+        fields = ('id', 'is_active', 'email', 'username', 'user_name_full', 'first_name', 'last_name', 'optiz', 'lang', 
                 'user_company', 'user_company_full', 'position', 'access_level', 'auth_amount', 'street_addr1',
                 'street_addr2', 'city', 'post_code', 'country', 'phone_main', 'phone_mobile', 'user_pic',)
 
@@ -163,11 +166,12 @@ class CompanySerializer(serializers.ModelSerializer):
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField()
     user_company_full = serializers.CharField(source='user_company.get_name', read_only=True, required=False)
     user_company = serializers.CharField(source='user_company.id',required=False)
-    username = serializers.CharField(required=False)
+    username = serializers.CharField(required=False, validators=[UniqueValidator(queryset=Account.objects.all(), message='Username is in use')])
     user_name_full = serializers.CharField(source='get_full_name', required=False)
-    email = serializers.CharField(required=False)
+    email = serializers.CharField(required=False, validators=[UniqueValidator(queryset=Account.objects.all(), message='Email is in use')])
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
     user_created_by = serializers.CharField(read_only=True)
@@ -177,22 +181,53 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('id', 'email', 'username', 'user_name_full', 'user_created', 'user_created_by', 'user_updated', 'user_updated_by',
-                  'first_name', 'last_name', 'password','confirm_password', 'optiz', 'lang', 'user_company', 'user_company_full',
+                  'first_name', 'last_name', 'password','confirm_password', 'optiz', 'is_active','lang', 'user_company', 'user_company_full',
                   'position', 'access_level', 'auth_amount', 'street_addr1', 'street_addr2', 'city', 'post_code', 'country',
                   'phone_main', 'phone_mobile', 'user_pic', 'request_email', 'refused_email', 'offer_email', 'order_email',
                   'approval_email', 'validated_email', 'canceled_email', 'new_user_email', 'info_change_email', 'tagline',)
 
         read_only_fields = ('user_created', 'user_company', 'user_updated',)
 
+
     def create(self, validated_data):
-        return Account.objects.create(**validated_data)
+            user = validated_data.pop('user')
+            user_company = validated_data.pop('user_company')        
+            acct = Account.objects.create_user(**validated_data)
+            acct.user_company = user_company
+            acct.user_created_by = user
+            acct.access_level = validated_data['access_level']
+            acct.position = validated_data['position']
+            acct.auth_amount = validated_data['auth_amount']
+            acct.save()
+            log(
+                user=user,
+                company=user_company,
+                not_action='user created',
+                obj=acct,
+                notification=True,
+                extra={
+                    'account_id':acct.id,
+                    'account_username':acct.username,
+                    'account_first_name':acct.first_name,
+                    'account_last_name':acct.last_name,
+                }
+            )
+
+            registration_email.delay(acct.email, 'weasereg@gmail.com')
+            for uc in user_company.wease_company.all():
+                if uc.id != acct.id and uc.new_user_email:
+                    user_email.delay(uc, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
+            for optiz in user_company.company_assigned_to.all():
+                if optiz.new_user_email:
+                    user_email.delay(optiz, acct, subj='New WeASe member added', tmp='registration/user_added_email.html')
+            return acct
+        
+        #return Account.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         user = validated_data.pop('user')
-        print"self req -- %s" % self
-        print"VALDATA -- %s" % validated_data
         req = self.context.get('request')
-        print "REQ??? ---- %s" %req
+        instance.is_active = validated_data.get('is_active', instance.is_active)
         instance.username = validated_data.get('username', instance.username)
         instance.email = validated_data.get('email', instance.email)
         instance.first_name = validated_data.get('first_name', instance.first_name)
@@ -243,7 +278,5 @@ class AccountSerializer(serializers.ModelSerializer):
             }
         )
         if instance.info_change_email:
-        #     from authentication.views import user_email
-
             user_email.delay(instance, obj=None, subj='WeASe profile updated', tmp='registration/user_update.html')
         return instance

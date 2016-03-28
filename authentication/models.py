@@ -162,15 +162,6 @@ class Address(models.Model):
         if self.addr_company:
             return self.addr_company.name
         else:
-            return self.addr_user.username
-
-# class Activity(models.Model):
-#     active_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='active_user', unique=False)    
-#     user_login_date = models.DateTimeField(auto_now_add=False, auto_now=False, null=True, blank=True)
-#     user_ip = models.CharField(max_length=45, null=True, blank=True)
-
-#     def __unicode__(self):
-#         return smart_unicode("User: %s %s, Company: %s, Date: %s" % (self.active_user.first_name, self.active_user.last_name, self.active_user.user_company, self.user_login_date))
-    
+            return self.addr_user.username    
     
 

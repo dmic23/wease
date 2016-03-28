@@ -21,73 +21,7 @@
         </form>
 
     </tab>
-
-<!--     <tab active="steps.step2" disabled="step1.$invalid">
-
-        <tab-heading>
-        Delivery Address
-        <span class="badge badge-default pull-right wizard-step">2</span>
-        </tab-heading>
-
-        <form name="step2" role="form" novalidate>
-
-            <div ng-controller="PillsDemoCtrl">
-            <div class="clearfix"></div>
-
-                <h4 class="custom-font"><strong>Address </strong> for Delivery</h4>
-                <tabset class="pills" type="pills" justified="true">
-
-                    <tab ng-repeat="addr in comp.address_company" heading="{{addr.addr_location}}" active="addr.active">
-                        <div class="row">
-                            <label ng-click="toggle = !toggle" type="checkbox" ng-model="vm.req.delivery_address" btn-radio="{{addr.id}}" class="btn btn-ef btn-ef-1 btn-ef-1-slategray btn-ef-1a mb-10" activate-button uncheckable><i class="fa fa-truck"></i><span ng-show="vm.req.delivery_address">  Selected </span><span ng-show="!vm.req.delivery_address">  Select this address </span></label>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-8 mb-0">
-                                <label for="address1">Address 1: </label>
-                                <p class="well">{{ addr.street_addr1 }}</p>
-                            </div>
-                            <div class="form-group col-md-4 mb-0">
-                                <label for="address2">Address 2: </label>
-                                <p class="well">{{ addr.street_addr2 }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="city">City: </label>
-                                <p class="well">{{ addr.city }}</p>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="country">Country: </label>
-                                <p class="well">{{ addr.country}}</p>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="post_code">Post Code: </label>
-                                <p class="well">{{ addr.post_code }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-8">
-                                <label for="zip">Address Notes: </label>
-                                <p class="well">{{ addr.addr_notes }}</p>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="phone">Phone: </label>
-                                <p class="well">{{ addr.phone_main }}</p>                        
-                            </div>
-                        </div>
-                    </tab>
-
-                </tabset>
-            </div>
-            <button type="submit" class="btn btn-default" ng-click="steps.step1=true">Previous</button>
-            <button type="submit" ng-disabled="step2.$invalid" class="btn btn-greensea pull-right" ng-click="steps.step3=true">Next</button>
-        </form>
-    </tab> -->
-
     <tab active="steps.step2" disabled="step3.$invalid">
-
-
-
         <tab-heading>
         Additional Information
         <span class="badge badge-default pull-right wizard-step">2</span>
@@ -101,67 +35,11 @@
                     <textarea class="form-control" rows="4" name="item_details" id="message" placeholder="Additional details for your request" ng-model="vm.req.item_details"></textarea>
                 </div>
             </div>
-
-
-<!--         <tab-heading>
-        Addl. Information
-        <span class="badge badge-default pull-right wizard-step">2</span>
-        </tab-heading>
-
-        <form name="step3" role="form" class="form-validation" novalidate>
-
-            <div class="row">
-                <div class="form-group col-md-4">
-                    <label for="ref_num">Reference Number: </label>
-                    <input type="text" name="ref_num" id="ref_num" class="form-control" ng-model="vm.req.order_reference"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="desc">Request Notes: </label>
-                    <textarea class="form-control" rows="4" name="description" id="message" placeholder="Add a decription for your request" ng-model="vm.req.order_description"></textarea>
-                </div>
-            </div> -->
-
             <button type="submit" class="btn btn-default" ng-click="steps.step1=true">Previous</button>
             <button type="submit" ng-disabled="step2.$invalid" class="btn btn-greensea pull-right" ng-click="steps.step3=true">Next</button>
 
         </form>
     </tab>
-
-<!--     <tab active="steps.step4" disabled="step3.$invalid">
-
-        <tab-heading>
-            Request Files & Confirm
-            <span class="badge badge-default pull-right wizard-step">4</span>
-        </tab-heading>
-
-        <form name="step4" role="form" novalidate>
-
-            <h4 class="custom-font"><strong>Request</strong> Information</h4>
-            <div class="row">
-
-                <div class="form-group col-md-4 mb-0">
-                    <label for="pr-subject">Reference Number: </label>
-                    <p>{{vm.req.order_reference}}</p>
-                    </div>
-                <div class="form-group col-md-6 mb-0">
-                    <label for="pr-name">Order Notes: </label>
-                    <p>{{vm.req.order_description}}</p>
-                </div>
-            </div>
-
-            <h4 class="custom-font"><strong>Request</strong> Details</h4>
-
-            <div class="row">
-
-                <div class="form-group col-md-6" ng-repeat="(i, r) in vm.req.req_product">
-                    <label for="input{{r.id}}">{{r.prod_title}}: </label>
-                    <p>{{r.prod_details}}</p>
-                </div>
-            </div> -->
-
-
     <tab active="steps.step3" disabled="step2.$invalid">
 
         <tab-heading>
@@ -294,10 +172,6 @@
                                                 <div class="progress progress-sm progress-striped active bg-tr-black lt" style="">
                                                     <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                                                 </div>
-                                                
-<!--                                                 <button class="btn btn-success btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                                                <i class="fa fa-upload"></i> <span>Upload all</span>
-                                                </button> -->
                                                 <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
                                                 <i class="fa fa-ban"></i> <span>Cancel all</span>
                                                 </button>
@@ -313,141 +187,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-<!--             <h4 class="custom-font"><strong>Request</strong> Files</h4>
-
-            <div class="row">
-            
-                <div class="form-group col-md-6" ng-repeat="file in vm.req.req_item_file">
-                    <label for="input{{r.id}}">File Name: </label>
-                    <p>{{file.req_file}}</p><a href="javascript:;" class="btn btn-xs btn-lightred"><i class="fa fa-times"></i> Delete</a>
-                </div>
-            </div> -->
-
-<!--             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a href="javascript:void(0)" ng-click="isCollapsed = !isCollapsed">
-                        Add files to your request item
-                        </a>
-                    </h4>
-                </div>
-                <div collapse="isCollapsed">
-                    <div class="panel-body">
-
-                        <h4 class="custom-font"><strong>Add </strong> Files</h4>
-
-                        <div class="row">
-
-                            <div class="page page-full page-upload" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
-                            
-                                <div class="tbox tbox-sm">
-
-                                    <div class="tcol w-lg bg-tr-white lt">
-
-                                        <div class="p-15 bg-white b-r">
-                                            <h4 class="custom-font text-default m-0">Select</strong> files</h4>
-                                        </div>
-
-                                        <div class="p-15">
-
-                                            <div class="form-group">
-                                                <input ui-jq="filestyle" type="file" class="filestyle" ui-options="{
-                                                buttonText: 'Select files',
-                                                iconName: 'fa fa-inbox'
-                                                }" nv-file-select uploader="uploader" multiple>
-                                            </div>   
-
-                                            <hr class="b-0 b-b"/>                                     
-                                            <div class="well text-center p-30 b-dashed b-2x" nv-file-over="" uploader="uploader">
-                                                Drop files here
-                                            </div>
-                                       </div>
-                                    </div>
-
-                                    <div class="tcol">
-                                        <div class="p-15 bg-white">
-                                            <span class="pull-right">Queue length: <b class="badge bg-lightred">{{ uploader.queue.length }}</b></span>
-                                            <h4 class="custom-font text-default m-0">Upload queue</h4>
-                                        </div>
-
-                                        <div class="p-15">
-
-                                            <table class="table b-a b-solid bg-white">
-                                                <thead>
-                                                    <tr>
-                                                        <th width="50%">Name</th>
-                                                        <th ng-show="uploader.isHTML5">Size</th>
-                                                        <th ng-show="uploader.isHTML5">Progress</th>
-                                                        <th>Status</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="(i,item) in uploader.queue track by $index" class="text-sm">
-                                                        <td><strong>{{ item.file.name }}</strong></td>
-                                                        
-                                                        <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                                                        <td ng-show="uploader.isHTML5">
-                                                            <div class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
-                                                            <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <span ng-show="item.isSuccess" class="text-success"><i class="fa fa-check"></i></span>
-                                                            <span ng-show="item.isCancel" class="text-warning"><i class="fa fa-ban"></i></span>
-                                                            <span ng-show="item.isError" class="text-danger"><i class="fa fa-times"></i></span>
-                                                        </td>
-                                                        <td nowrap> -->
-<!--                                                             <button type="button" class="btn btn-default btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                                            <span class="fa fa-upload"></span> Upload
-                                                            </button> -->
-<!--                                                             <button type="button" class="btn btn-default btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                                                            <span class="fa fa-ban"></span> Cancel
-                                                            </button>
-                                                            <button type="button" class="btn btn-default btn-xs" ng-click="item.remove()">
-                                                            <span class="fa fa-trash"></span> Remove
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                            <div>
-                                                <p>Queue progress:</p>
-                                                <div class="progress progress-sm progress-striped active bg-tr-black lt" style="">
-                                                    <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                                                </div> -->
-                                                
-<!--                                                 <button class="btn btn-success btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                                                <i class="fa fa-upload"></i> <span>Upload all</span>
-                                                </button> ng-change="vm.isDraft()"-->
-<!--                                                 <button class="btn btn-warning btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                                                <i class="fa fa-ban"></i> <span>Cancel all</span>
-                                                </button>
-                                                <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                                                <i class="fa fa-trash"></i> <span>Remove all</span>
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-<!--             <div class="row">
-                <button ng-click="toggle = !toggle" type="checkbox" ng-model="vm.req.order_draft" ng-init="vm.req.order_draft=vm.req.order_draft"  class="btn btn-ef btn-ef-1 btn-ef-1-slategray btn-ef-1a mb-40 mr-40 pull-right" btn-checkbox><span ng-show="vm.req.order_draft"><i class="after fa fa-star"></i>  Draft </span><span ng-show="!vm.req.order_draft"><i class="fa fa-star-o"></i>  Save request as draft </span></button>
-        
-            </div>   -->                  
+            </div>               
             <button type="submit" class="btn btn-default" ng-click="steps.step3=true">Previous</button>
             <button ng-disabled="step4.$invalid" class="btn btn-success pull-right" ng-click="vm.updateReq()">Add Request Item</button>
-
         </form>
-
     </tab>
 </tabset>

@@ -10,7 +10,6 @@
     function Account($http, $q) {
 
         var Account = {
-            destroy: destroy,
             getAll: getAll,
             get: get,
             update: update
@@ -29,19 +28,19 @@
         }
 
         function destroy(username) {
-            return $http.delete('/api/v1/accounts/' + username + '/')
+            return $http.delete('/api/v1/accounts/'+username+'/')
                 .then(generalCallbackSuccess)
                 .catch(generalCallbackError);
         }
 
         function get(username) {
-            return $http.get('/api/v1/accounts/' + username + '/')
+            return $http.get('/api/v1/accounts/'+username+'/')
                 .then(generalCallbackSuccess)
                 .catch(generalCallbackError);
         }
 
-        function update(username, account) {
-            return $http.put('/api/v1/accounts/' + username + '/', account)
+        function update(account) {
+            return $http.put('/api/v1/accounts/'+account.username+'/', account)
                 .then(generalCallbackSuccess)
                 .catch(generalCallbackError);
         }    

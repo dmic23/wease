@@ -94,7 +94,6 @@ class OfferSerializer(serializers.ModelSerializer):
             }
         )
         mail_item.delay(user, order, subj='offer', tmp='registration/order_confirm_email.html')
-        # user_email.delay(user, order, subj='offer', tmp='registration/order_confirm_email.html')
 
         return offer
 

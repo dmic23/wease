@@ -18,7 +18,7 @@ from authentication.models import Account
 pdfmetrics.registerFont(TTFont('Lato', settings.STATIC_ROOT + '/fonts/Lato/Lato-Regular.ttf'))
 pdfmetrics.registerFont(TTFont('Lato-bold', settings.STATIC_ROOT + '/fonts/Lato/Lato-Bold.ttf'))
 pdfmetrics.registerFont(TTFont('Lato-light', settings.STATIC_ROOT + '/fonts/Lato/Lato-Light.ttf'))
-pdfmetrics.registerFont(TTFont('Lato-lightitalic', settings.STATIC_ROOT + '/fonts/Lato/Lato-Lightitalic.ttf'))
+pdfmetrics.registerFont(TTFont('Lato-lightitalic', settings.STATIC_ROOT + '/fonts/Lato/Lato-LightItalic.ttf'))
 # pdfmetrics.registerFont(TTFont('Arial', settings.STATIC_ROOT + 'fonts/arial.ttf'))
 # pdfmetrics.registerFont(TTFont('Arial-Bold', settings.STATIC_ROOT + 'fonts/arialbd.ttf'))
 
@@ -79,7 +79,7 @@ class MyPrint:
         #elements.append(Paragraph('<img src="'+logo+'" height="5"/>', styles['RightAlign']))
         elements.append(Paragraph(obj.order_company.name, styles['LeftAlign']))
         elements.append(Paragraph(obj.order_company.company_address.street_addr1, styles['LeftAlign']))
-        elements.append(Paragraph(obj.order_company.company_address.street_addr2, styles['LeftAlign']))
+        #elements.append(Paragraph(obj.order_company.company_address.street_addr2, styles['LeftAlign']))
         elements.append(Paragraph(obj.order_company.company_address.city+", "+obj.order_company.company_address.country+" "+obj.order_company.company_address.post_code, styles['LeftAlign']))
         elements.append(Paragraph(obj.order_company.company_address.phone_main, styles['LeftAlign']))
         elements.append(Spacer(1,0.2*inch))

@@ -12,9 +12,6 @@
     function AccountController($scope, $state, $stateParams, $cookies, Authentication, Account, Company, FileUploader, toastr) {
         var vm = this;
 
-        vm.destroy = destroy;
-        vm.update = update;
-
         vm.username = $stateParams.username;
 
         activate();
@@ -33,7 +30,7 @@
                 .then(accountSuccessFn)
                 .catch(accountErrorFn);
 
-            function accountSuccessFn(data) {
+            function accountSuccessFn(data){
                 vm.account = data;  
                 console.log(vm.account); 
                 getCompany();
@@ -42,8 +39,9 @@
                 }else{
                     vm.isUser = false;
                 }
-                if(vm.authAcct.access_level >=8){
+                if($scope.admin){
                     vm.isAdmin = true;
+                    vm.confirm = {};
                 }else{
                     vm.isAdmin = false;
                 }
@@ -80,42 +78,47 @@
         }
 
         // GET company details success/error callbacks
-        function companySuccessFn(data, status, headers, config) {
+        function companySuccessFn(data) {
             console.log(data);
             vm.company = data;
         }
 
-        function companyErrorFn(data, status, headers, config) {
+        function companyErrorFn(data) {
             console.log(data);
             $state.go('app.dashboard');
             toastr.error('That company does not exist.');
         }
 
-        // Destroy Account with success/error callbacks
-        function destroy() {
-            Account.destroy(vm.account.username)
-                .then(destroySuccessFn)
-                .catch(destroyErrorFn);
+        vm.deactivate = function(acct) {
+            if(vm.isAdmin){
+                acct['is_active'] = false;
+                Account.update(acct)
+                    .then(deactivateSuccess)
+                    .catch(updateError);
+            }
         }
 
-        function destroySuccessFn(data, status, headers, config) {
-            Authentication.unauthenticate();
+        function deactivateSuccess(data) {
+            //Authentication.unauthenticate();
+            console.log(data);
             $state.go('app.dashboard');
-            toastr.warning('Your account has been deleted.');
-        }
-
-        function destroyErrorFn(errorMsg) {
-            toastr.error(errorMsg);
+            toastr.warning('Account has been deactivated.');
+            if(vm.account.id === vm.authAcct.id){
+                vm.account = data;
+                Authentication.setAuthenticatedAccount(data);
+                $scope.$emit('update_user_info', data);
+            }
         }
 
         // Update Account with success/error callbacks
-        function update() {
-            Account.update(vm.username, vm.account)
-                .then(updateSuccessFn)
-                .catch(updateErrorFn);
+        vm.update = function(acct) {
+            console.log(acct);
+            Account.update(acct)
+                .then(updateSuccess)
+                .catch(updateError);
         }
 
-        function updateSuccessFn(data, status, headers, config) {
+        function updateSuccess(data) {
             console.log(data);
             if(vm.account.id === vm.authAcct.id){
                 vm.account = data;
@@ -130,7 +133,7 @@
             }
         }
 
-        function updateErrorFn(data, status, headers, config) {
+        function updateError(data) {
             toastr.error('There was an issue to update your account '+errorMsg+'. Please contact Optiz.');
         }
 

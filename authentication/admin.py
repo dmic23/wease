@@ -6,12 +6,6 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from authentication.models import Account, Company, Address
 
-# class AccountAdmin(admin.ModelAdmin):
-#   class Meta:
-#       model = Account
-
-# admin.site.register(Account, AccountAdmin)
-
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -69,9 +63,9 @@ class AccountAdmin(UserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'first_name', 'last_name', 'user_company')
+    list_display = ('email', 'first_name', 'last_name', 'user_company', 'is_active',)
     list_filter = ('optiz', 'user_company',)
-    readonly_fields = ('user_created', 'user_updated')
+    readonly_fields = ('user_created', 'user_updated',)
     fieldsets = (
         ('Authorization and Login info', {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('username', 'first_name', 'last_name', 'tagline', 'lang', 'user_company', 'position',

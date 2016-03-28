@@ -13,15 +13,10 @@ class MailRouter(ModelRouter):
     model = Mail
 
     def get_object(self, **kwargs):
-        print "self obj -- %s" % self
-        print "kwargs obj === %s" % kwargs
         return self.model.objects.get(pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        print "self -- %s" % self
-        print "kwargs === %s" % kwargs
         return self.model.objects.all()
-        # return self.model.objects.filter(Q(mail_to=self.request.user) | Q(mail_created_by=self.request.user)).exclude(Q(mail_draft=True), ~Q(mail_created_by=self.request.user)).distinct()
 
 class MailReplyRouter(ModelRouter):
     route_name = 'mail-reply'
@@ -29,14 +24,9 @@ class MailReplyRouter(ModelRouter):
     model = MailReply
 
     def get_object(self, **kwargs):
-        print "self obj reply -- %s" % self
-        print "kwargs obj reply === %s" % kwargs
         return self.model.objects.get(pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        print "self reply -- %s" % self
-        print "kwargs reply === %s" % kwargs
-        # return self.model.objects.filter(orig_mail__id=kwargs['list_id'])
         return self.model.objects.all()
 
 class NotificationRouter(ModelRouter):
@@ -45,13 +35,9 @@ class NotificationRouter(ModelRouter):
     model = Log
 
     def get_object(self, **kwargs):
-        print "self obj reply -- %s" % self
-        print "kwargs obj reply === %s" % kwargs
         return self.model.objects.get(pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        print "self reply -- %s" % self
-        print "kwargs reply === %s" % kwargs
         return self.model.objects.all()
 
 class ChatRouter(ModelRouter):
@@ -61,29 +47,20 @@ class ChatRouter(ModelRouter):
     model = Chat
 
     def get_object(self, **kwargs):
-        print "self obj -- %s" % self
-        print "kwargs obj === %s" % kwargs
         return self.model.objects.get(pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        print "self -- %s" % self
-        print "kwargs === %s" % kwargs
         return self.model.objects.all()
 
 class ChatMessageRouter(ModelRouter):
     route_name = 'chat-message'
     serializer_class = ChatMessageSerializer
-    # include_related = [ChatSerializer, ChatSerializer]
     model = ChatMessage
 
     def get_object(self, **kwargs):
-        print "self obj -- %s" % self
-        print "kwargs obj === %s" % kwargs
         return self.model.objects.get(pk=kwargs['id'])
 
     def get_query_set(self, **kwargs):
-        print "self -- %s" % self
-        print "kwargs === %s" % kwargs
         return self.model.objects.all()
 
 route_handler.register(MailRouter)
